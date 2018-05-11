@@ -10,7 +10,10 @@ classdef Observer
             if(strcmp(e.fxId, 'PLOT_FUNCTIONS_CB') && strcmp(e.action, 'ON_CLICK'))
                 obj.togglePlotFunctions(controller);
             else
-               disp('No callback registered.');
+               disp(['No callback registered.'...
+                    ' (controller: ' char(e.controller)...
+                    ' fxId: ' char(e.fxId)...
+                    ' action: ' char(e.action) ')']);
             end
         end
     end
