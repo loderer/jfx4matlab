@@ -4,4 +4,10 @@ function startup()
    javaaddpathstatic(['C:\Users\rudi\Documents\GitHub\BaJavaFx\out\production\JavaFxSample']);
    
    jfxMain = javaObject('sample.Main');
-   jfxMain.startGui('')
+   jfxMain.startGui('');
+      
+   observer = Observer; 
+   
+   observable_h = handle(jfxMain.getObservable(),'CallbackProperties');
+   set(observable_h, 'UiEventCallback', @(h,e)observer.notify(e));
+   
