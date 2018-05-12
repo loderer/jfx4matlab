@@ -7,8 +7,13 @@ function startup()
    jfxMain = javaObject('sample.Main');
    jfxMain.startGui('');
    
+   % JFxThread
+   jfxThread = jfxMain.getJfxThread(); 
+   
    % Callbacks registrieren
-   observer = Observer; 
+   observer = Observer(jfxThread);
    observable_h = handle(jfxMain.getObservable(),'CallbackProperties');
    set(observable_h, 'UiEventCallback', @(h,e)observer.notify(e));
+   
+   disp(''); 
    
