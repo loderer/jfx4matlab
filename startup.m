@@ -4,7 +4,7 @@ function startup()
    javaaddpathstatic(['C:\Users\rudi\Documents\GitHub\BaJavaFx\out\production\JavaFxSample']);
    
     % GUI starten
-   jfxMain = javaObject('sample.Main');
+   jfxMain = javaObject('sample_app.Main');
    jfxMain.startGui('');
    
    % JFxThread
@@ -16,4 +16,3 @@ function startup()
    set(observable_h, 'UiEventCallback', @(h,e)observer.notify(e));
    
    disp(''); 
-   
