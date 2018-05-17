@@ -12,7 +12,7 @@ function startup()
    uiHandle = jfxMain.showScene('sample/sample.fxml');
    
    % Callbacks registrieren
-   controller = Controller(uiHandle); 
-   applicationController.registerController(controller);
+   sampleController = SampleController(uiHandle); 
+   applicationController.registerController(sampleController);
    
    disp(''); 

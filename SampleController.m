@@ -1,21 +1,13 @@
-classdef Controller
-    %Controller An instance of this class observes the gui.
+classdef SampleController < Controller
+    %SampleController An instance of this class observes the gui.
     %   This class maps every event to an appropriate callback.
     
     properties
-        uiHandle;
-        observable_h; 
     end
     
     methods
-        function obj = Controller(uiHandle) 
-            obj.uiHandle = uiHandle;
-            obj.observable_h = handle(uiHandle.getObservable(),'CallbackProperties');
-            set(obj.observable_h, 'UiEventCallback', @(h,e)obj.notify(e));
-        end
-        
-        function unregister(obj) 
-            set(obj.observable_h, 'UiEventCallback', '');
+        function obj = SampleController(uiHandle) 
+            obj = obj@Controller(uiHandle);
         end
         
         function notify(obj, e) 
