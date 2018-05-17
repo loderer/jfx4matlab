@@ -5,9 +5,14 @@ function startup()
    
     % GUI starten
    jfxMain = javaObject('sample_app.Main');
-   uiHandle = jfxMain.startGuiThread('');
+   primaryStageObservable = jfxMain.startGuiThread('');
+   
+   applicationController = ApplicationController(primaryStageObservable);
+   
+   uiHandle = jfxMain.showScene('sample/sample.fxml');
    
    % Callbacks registrieren
-   observer = Observer(uiHandle);
+   controller = Controller(uiHandle); 
+   applicationController.registerController(controller);
    
    disp(''); 
