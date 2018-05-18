@@ -1,4 +1,4 @@
-classdef (Abstract) Controller 
+classdef (Abstract) Controller < handle
     %UNTITLED Summary of this class goes here
     %   Detailed explanation goes here
     

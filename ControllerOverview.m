@@ -1,27 +1,30 @@
-classdef SampleController < Controller
-    %SampleController An instance of this class observes the gui.
+classdef ControllerOverview < Controller
+    %ControllerOverview An instance of this class observes the gui.
     %   This class maps every event to an appropriate callback.
     
     properties
+        jfxMain; 
     end
     
     methods
-        function obj = SampleController(uiHandle) 
+        function obj = ControllerOverview(uiHandle, jfxMain) 
             obj = obj@Controller(uiHandle);
+            obj.jfxMain = jfxMain; 
         end
         
         function notify(obj, e) 
-            if(strcmp(e.fxId, 'fxId')...
-                    && strcmp(e.action, 'action'))
-                % TODO
-            elseif(strcmp(e.fxId, 'button')...
+            if(strcmp(e.fxId, 'btn_newEntry')...
                     && strcmp(e.action, 'ACTION'))
-                obj.uiHandle.applyTask('label', 'setTextFill', javafx.scene.paint.Color.BLUE);
+                obj.btnNewEntryPressed();
             else
                disp(['No callback registered.'...
                     ' fxId: ' char(e.fxId)...
                     ' action: ' char(e.action) ')']);
             end
+        end
+        
+        function btnNewEntryPressed(obj) 
+            obj.jfxMain.showScene('sample/detail.fxml');
         end
     end
 end

@@ -9,10 +9,11 @@ function startup()
    
    applicationController = ApplicationController(primaryStageObservable);
    
-   uiHandle = jfxMain.showScene('sample/sample.fxml');
+   uiHandleOverview = jfxMain.showScene('sample/overview.fxml');
    
    % Callbacks registrieren
-   sampleController = SampleController(uiHandle); 
-   applicationController.registerController(sampleController);
+   controllerOverview = ControllerOverview(uiHandleOverview, jfxMain); 
+   applicationController.registerController(controllerOverview);
+   
    
    disp(''); 
