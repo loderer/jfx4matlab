@@ -30,9 +30,16 @@ classdef ApplicationController < handle
             obj.controllers{pos} = controller;
         end
         
+        function unregisterController(obj, controller)
+            %TODO: ersetze controllers durch geeignete Datenstruktur,
+            % sodass einzelne Controller einfach entfernt werden können. 
+            obj; 
+            controller; 
+        end
+        
         function unregisterAll(obj) 
             for n = 1:size(obj.controllers, 1)
-               obj.controllers{n}.unregister(); 
+               obj.controllers{n}.unregisterListener(); 
             end
             
             set(obj.primaryStageObservable_h, 'UiEventCallback', '');

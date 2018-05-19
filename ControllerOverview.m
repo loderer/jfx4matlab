@@ -7,19 +7,18 @@ classdef ControllerOverview < Controller
     end
     
     methods
-        function obj = ControllerOverview(uiHandle, jfxMain) 
-            obj = obj@Controller(uiHandle);
+        function obj = ControllerOverview(applicationController,... 
+                uiHandle, jfxMain) 
+            obj = obj@Controller(applicationController, uiHandle);
             obj.jfxMain = jfxMain; 
         end
         
-        function notify(obj, e) 
+        function eventConsumed = notify(obj, e) 
+            eventConsumed = 0; 
             if(strcmp(e.fxId, 'btn_newEntry')...
                     && strcmp(e.action, 'ACTION'))
                 obj.btnNewEntryPressed();
-            else
-               disp(['No callback registered.'...
-                    ' fxId: ' char(e.fxId)...
-                    ' action: ' char(e.action) ')']);
+                eventConsumed = 1; 
             end
         end
         

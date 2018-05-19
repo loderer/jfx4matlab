@@ -3,24 +3,42 @@ classdef (Abstract) Controller < handle
     %   Detailed explanation goes here
     
     properties
+        applicationController; 
         uiHandle;
         observable_h; 
     end
     
     methods
-        function obj = Controller(uiHandle) 
+        function obj = Controller(applicationController, uiHandle) 
+            obj.applicationController = applicationController; 
             obj.uiHandle = uiHandle;
+            applicationController.registerController(obj);
             obj.observable_h = handle(uiHandle.getObservable(),'CallbackProperties');
-            set(obj.observable_h, 'UiEventCallback', @(h,e)obj.notify(e));
+            set(obj.observable_h, 'UiEventCallback', @(h,e)obj.notifyThis(e));
         end
         
-        function unregister(obj) 
+        function notifyThis(obj, e) 
+            if(strcmp(e.fxId, 'root')...
+                    && strcmp(e.action, 'CLOSE'))
+                obj.unregisterListener();
+                obj.applicationController.unregisterController(obj);
+            elseif(obj.notify(e))
+                % Do nothing. Event was handled by sub-class.
+            else
+               disp(['No callback registered.'...
+                    ' fxId: ' char(e.fxId)...
+                    ' action: ' char(e.action) ')']);
+            end
+            
+        end
+        
+        function unregisterListener(obj) 
             set(obj.observable_h, 'UiEventCallback', '');
         end
     end
     
     methods (Abstract)
-        notify(obj, e)
+        eventConsumed = notify(obj, e)
     end
 end
 

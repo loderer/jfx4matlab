@@ -12,8 +12,7 @@ function startup()
    uiHandleOverview = jfxMain.showScene('sample/overview.fxml');
    
    % Callbacks registrieren
-   controllerOverview = ControllerOverview(uiHandleOverview, jfxMain); 
-   applicationController.registerController(controllerOverview);
-   
+   ControllerOverview(applicationController,...
+        uiHandleOverview, jfxMain); 
    
    disp(''); 
