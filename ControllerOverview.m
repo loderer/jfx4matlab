@@ -23,7 +23,8 @@ classdef ControllerOverview < Controller
         end
         
         function btnNewEntryPressed(obj) 
-            obj.jfxMain.showScene('sample/detail.fxml');
+            ControllerDetail(obj.applicationController,...
+                obj.jfxMain.showScene('sample/detail.fxml'));
         end
     end
 end
