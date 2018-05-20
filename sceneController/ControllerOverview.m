@@ -1,4 +1,4 @@
-classdef ControllerOverview < Controller
+classdef ControllerOverview < SceneController
     %ControllerOverview An instance of this class observes the gui.
     %   This class maps every event to an appropriate callback.
     
@@ -7,9 +7,9 @@ classdef ControllerOverview < Controller
     end
     
     methods
-        function obj = ControllerOverview(applicationController,... 
-                uiHandle, jfxMain) 
-            obj = obj@Controller(applicationController, uiHandle);
+        function obj = ControllerOverview(stageController,... 
+                sceneHandle, jfxMain) 
+            obj = obj@SceneController(stageController, sceneHandle);
             obj.jfxMain = jfxMain; 
         end
         
@@ -23,8 +23,9 @@ classdef ControllerOverview < Controller
         end
         
         function btnNewEntryPressed(obj) 
-            ControllerDetail(obj.applicationController,...
-                obj.jfxMain.showScene('sample/detail.fxml'));
+            detailStageHandle = obj.jfxMain.newStage('Detail'); 
+            SceneController(obj.stageController,...
+                obj.jfxMain.showScene(detailStageHandle.getStage(), 'sample/detail.fxml'));
         end
     end
 end
