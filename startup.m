@@ -16,3 +16,18 @@ function startup()
         sceneHandleOverview, jfxMain); 
    
    disp(''); 
+   
+% app = JFXApp('sample_app.Main');
+% stageController = JFXStageController('myWindowTitle');
+% app.setPrimaryStageController(stageController);
+% sceneController = JFXSceneController('sample/overview.fxml');
+% stageController.showScene(sceneController);
+
+% secondStageController = JFXStageController('secondWindowsTitle', stageController);
+% secondSceneController = JFXSceneController('sample/detail.fxml');
+% secondStageController.showScene(secondSceneController);
+
+% onAction = @(event) {
+%   display('HelloWorld');
+% }
+% secondSceneControlle.addNotify('btn_newEntry', 'ACTION', onAction);

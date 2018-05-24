@@ -23,9 +23,11 @@ classdef ControllerOverview < SceneController
         end
         
         function btnNewEntryPressed(obj) 
-            detailStageHandle = obj.jfxMain.newStage('Detail'); 
+            detailStageHandle = obj.jfxMain.newStage('Detail');  
+            sceneHandle = obj.jfxMain.showScene(detailStageHandle.getStage(), 'sample/detail.fxml');
+            
             SceneController(obj.stageController,...
-                obj.jfxMain.showScene(detailStageHandle.getStage(), 'sample/detail.fxml'));
+                sceneHandle);
         end
     end
 end
