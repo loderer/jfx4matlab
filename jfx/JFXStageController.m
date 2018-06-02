@@ -35,9 +35,10 @@ classdef JFXStageController < handle
             jfxApp = obj.jfxApp; 
         end
         
-        function showScene(obj, sceneController) 
+        function showScene(obj, sceneController, width, height) 
             obj.sceneController = sceneController;
-            sceneHandle = obj.jfxApp.showScene(obj.stage, sceneController.getPathToFxml());
+            sceneHandle = obj.jfxApp.showScene(...
+                obj.stage, sceneController.getPathToFxml(), width, height);
             sceneController.init(obj, sceneHandle);
         end
         

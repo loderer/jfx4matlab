@@ -30,8 +30,10 @@ classdef JFXApp < handle
             end
         end
         
-        function sceneHandle = showScene(obj, stage, pathToFxml) 
-            sceneHandle = obj.jfxMain.showScene(stage, pathToFxml);
+        function sceneHandle = showScene(...
+                obj, stage, pathToFxml, width, height) 
+            sceneHandle = obj.jfxMain.showScene(...
+                stage, pathToFxml, width, height);
         end
     end
     

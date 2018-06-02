@@ -19,6 +19,12 @@ classdef JFXSceneController < handle
             obj.jfxThread = sceneHandle.getJfxThread(); 
             obj.sceneObservable_h = handle(sceneHandle.getObservable(),'CallbackProperties');
             set(obj.sceneObservable_h, 'UiEventCallback', @(h,e)obj.onSceneActionBase(e));
+            obj.initScene();
+        end
+        
+        % Dient im Telefonbuch-Beispiel dem vorbefüllen der Tabelle. 
+        % Kann grundsätzlich zum initialisieren der GUI genutzt werden. 
+        function initScene(~) 
         end
         
         function onSceneActionBase(obj, e) 
@@ -72,6 +78,30 @@ classdef JFXSceneController < handle
         
         function jfxApp = getJfxApp(obj) 
             jfxApp = obj.stageController.getJfxApp();
+        end
+        
+        function pushBackTask(varargin)
+            if(nargin == 3) 
+                varargin{1}.jfxThread.pushBackTask(varargin{2}, varargin{3});  
+            elseif(nargin == 4) 
+                varargin{1}.jfxThread.pushBackTask(varargin{2}, varargin{3}, varargin{4});
+            else
+                disp('pushBackTask should always have 3 or 4 input arguments.');
+            end
+        end
+        
+        function applyTasks(obj) 
+            obj.jfxThread.applyTasks();
+        end
+        
+        function ret = applyTask(varargin) 
+            if(nargin == 3) 
+                ret = varargin{1}.jfxThread.applyTask(varargin{2}, varargin{3});
+            elseif(nargin == 4)
+                ret = varargin{1}.jfxThread.applyTask(varargin{2}, varargin{3}, varargin{4});
+            else
+                disp('applyTask should always have 3 or 4 input arguments.');
+            end
         end
     end
     

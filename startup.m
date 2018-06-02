@@ -1,9 +1,14 @@
 function startup()
     % Benötigte Klassen zum statischen Klassenpfad hinzufügen
-   javaaddpathstatic(['C:\Program Files\MATLAB\R2015b\sys\java\jre\win64\jre\lib\jfxrt.jar']);
-   javaaddpathstatic(['C:\Users\rudi\Documents\GitHub\BaJavaFx\out\production\JavaFxSample']);
+    addpath('C:\Users\rudi\Documents\GitHub\jsonlab');
+    addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\extLib');
+    addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\jfx');
+    addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\model');
+    addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\sceneController');
+    javaaddpathstatic(['C:\Program Files\MATLAB\R2015b\sys\java\jre\win64\jre\lib\jfxrt.jar']);
+    javaaddpathstatic(['C:\Users\rudi\Documents\GitHub\BaJavaFx\out\artifacts\JavaFxSample_jar\JavaFxSample.jar']);
    
     app = JFXApp('sample_app.Main');
-    overviewStageController = JFXStageController('myWindowTitle', app);
+    overviewStageController = JFXStageController('Phone book', app);
     overviewSceneController = OverviewController('sample/overview.fxml');
-    overviewStageController.showScene(overviewSceneController);
+    overviewStageController.showScene(overviewSceneController, 510, 500);
