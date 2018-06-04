@@ -3,17 +3,27 @@ classdef Person < handle
     %   Detailed explanation goes here
     
     properties
+        id; 
         name; 
         surname;
     end
     
     methods
-        function obj = Person(name, surname) 
+        function obj = Person(id, name, surname) 
+            obj.id = id; 
             obj.name = name; 
             obj.surname = surname;
         end
         
-        function name = getName(~)
+        function id = getId(obj) 
+            id = obj.id; 
+        end
+        
+        function setId(obj, id) 
+            obj.id = id;  
+        end
+           
+        function name = getName(obj)
             name = obj.name; 
         end
         

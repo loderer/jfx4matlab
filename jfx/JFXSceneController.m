@@ -103,6 +103,10 @@ classdef JFXSceneController < handle
                 disp('applyTask should always have 3 or 4 input arguments.');
             end
         end
+        
+        function close(obj) 
+            obj.jfxThread.closeStage();  
+        end
     end
     
 end
