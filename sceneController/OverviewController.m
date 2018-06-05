@@ -44,6 +44,10 @@ classdef OverviewController < JFXSceneController
                         && strcmp(e.action, 'ACTION'))
                 obj.btn_editEntryPressed();
                 eventConsumed = 1; 
+            elseif(strcmp(e.fxId, 'btn_save')...
+                    && strcmp(e.action, 'ACTION'))
+                obj.btn_savePressed();
+                eventConsumed = 1;
             end
         end
         
@@ -65,6 +69,10 @@ classdef OverviewController < JFXSceneController
             else
                 disp('Select item!!!');
             end
+        end
+        
+        function btn_savePressed(obj) 
+            obj.model.writeJson();
         end
         
         function update(obj, oldItem, newItem) 

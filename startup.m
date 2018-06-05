@@ -8,9 +8,7 @@ function startup()
     javaaddpathstatic(['C:\Program Files\MATLAB\R2015b\sys\java\jre\win64\jre\lib\jfxrt.jar']);
     javaaddpathstatic(['C:\Users\rudi\Documents\GitHub\BaJavaFx\out\artifacts\JavaFxSample_jar\JavaFxSample.jar']);
    
-    model = Model(); 
-    model.addPerson(Person(-1, 'Rudi', 'Loderer')); 
-    model.addPerson(Person(-1, 'Anna-Maria', 'Schlatterer')); 
+    model = Model();
     
     app = JFXApp('sample_app.Main');
     overviewStageController = JFXStageController('Phone book', app);

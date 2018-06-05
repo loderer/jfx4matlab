@@ -11,6 +11,7 @@ classdef Model < handle
         function obj = Model()
             obj.id = 0; 
             obj.person = []; 
+            obj.readJson();
         end
         
         function addPerson(obj, person) 
@@ -27,6 +28,22 @@ classdef Model < handle
                 end
             end
             obj.person{i} = person;
+        end
+        
+        function writeJson(obj) 
+            jsonStr = savejson('', obj);
+            fid = fopen('C:\Users\rudi\Documents\GitHub\BaMatlab\persistentModel.json', 'w');
+            if fid == -1, error('Cannot create JSON file'); end
+            fwrite(fid, jsonStr, 'char');
+            fclose(fid);
+        end
+        
+        function readJson(obj)
+            if(exist('C:\Users\rudi\Documents\GitHub\BaMatlab\persistentModel.json', 'file') == 2)
+                persistentModel = loadjson('C:\Users\rudi\Documents\GitHub\BaMatlab\persistentModel.json');
+                obj.id = persistentModel.id; 
+                obj.person = persistentModel.person;
+            end
         end
     end
     
