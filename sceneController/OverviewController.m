@@ -4,6 +4,11 @@ classdef OverviewController < JFXSceneController
     
     properties
         model; 
+        
+        % ui elements
+        tableColumnName;
+        tableColumnSurname; 
+        table;
     end
     
     methods
@@ -13,16 +18,18 @@ classdef OverviewController < JFXSceneController
         end
         
         function initScene(obj)
-            array = javaArray('java.lang.String', size(obj.model.person, 2));
-            for n = 1:size(obj.model.person, 2)
-                array(n) = java.lang.String(savejson('', obj.model.person{1, n}));
-            end
-            data = javaMethod('observableArrayList', 'javafx.collections.FXCollections',...
-                array);
+            % fetch ui elements
+            obj.tableColumnName = obj.getUiElement('tableColumnName');
+            obj.tableColumnSurname = obj.getUiElement('tableColumnSurname');
+            obj.table = obj.getUiElement('table');
             
-            obj.pushBackTask('tableColumnName', 'setCellValueFactory', sample_app.JsonCellValueFactory('name')); 
-            obj.pushBackTask('tableColumnSurname', 'setCellValueFactory', sample_app.JsonCellValueFactory('surname')); 
-            obj.pushBackTask('table', 'setItems', data);
+            % Fill table.
+            obj.pushBackTask(obj.tableColumnName, 'setCellValueFactory', sample_app.JsonCellValueFactory('name')); 
+            obj.pushBackTask(obj.tableColumnSurname, 'setCellValueFactory', sample_app.JsonCellValueFactory('surname')); 
+            data = obj.applyTask(obj.table, 'getItems');
+            for n = 1:size(obj.model.person, 2)
+                data.add(java.lang.String(savejson('', obj.model.person{1, n})));
+            end
             
             obj.applyTasks();
         end
@@ -47,7 +54,7 @@ classdef OverviewController < JFXSceneController
         end
         
         function btn_editEntryPressed(obj)
-            selectionModel = obj.applyTask('table', 'getSelectionModel'); 
+            selectionModel = obj.applyTask(obj.table, 'getSelectionModel'); 
             selectedItem = selectionModel.getSelectedItem();
             if(~isempty(selectedItem))
                 person = loadjson(selectedItem); 
@@ -61,7 +68,7 @@ classdef OverviewController < JFXSceneController
         end
         
         function update(obj, oldItem, newItem) 
-            data = obj.applyTask('table', 'getItems');
+            data = obj.applyTask(obj.table, 'getItems');
             if(oldItem.id ~= -1) 
                 data.remove(java.lang.String(savejson('', oldItem)));
             end

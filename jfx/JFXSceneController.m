@@ -104,6 +104,10 @@ classdef JFXSceneController < handle
             end
         end
         
+        function ret = getUiElement(obj, fxId) 
+            ret = obj.jfxThread.getUiElement(fxId);
+        end
+        
         function close(obj) 
             obj.jfxThread.closeStage();  
         end

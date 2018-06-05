@@ -6,6 +6,10 @@ classdef DetailController < JFXSceneController
         model;
         person; 
         overviewController; 
+        
+        % ui elements
+        tf_name;
+        tf_surname;
     end
     
     methods
@@ -21,8 +25,12 @@ classdef DetailController < JFXSceneController
         end
         
         function initScene(obj)
-            obj.pushBackTask('tf_name', 'setText', obj.person{1}.name);
-            obj.pushBackTask('tf_surname', 'setText', obj.person{1}.surname);
+            % fetch ui elements
+            obj.tf_name = obj.getUiElement('tf_name');
+            obj.tf_surname = obj.getUiElement('tf_surname');
+            
+            obj.pushBackTask(obj.tf_name, 'setText', obj.person{1}.name);
+            obj.pushBackTask(obj.tf_surname, 'setText', obj.person{1}.surname);
             obj.applyTasks();
         end
         
@@ -37,8 +45,8 @@ classdef DetailController < JFXSceneController
         
         function btnSavePressed(obj)
             newItem = Person(obj.person{1}.id,...
-                obj.applyTask('tf_name', 'getText'),...
-                obj.applyTask('tf_surname', 'getText'));
+                obj.applyTask(obj.tf_name, 'getText'),...
+                obj.applyTask(obj.tf_surname, 'getText'));
             
             if(obj.person{1}.id == -1) 
                 obj.model{1}.addPerson(newItem);
