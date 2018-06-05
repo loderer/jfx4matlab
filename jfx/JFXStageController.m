@@ -36,10 +36,13 @@ classdef JFXStageController < handle
         end
         
         function showScene(obj, sceneController, width, height) 
-            obj.sceneController = sceneController;
-            sceneHandle = obj.jfxApp.showScene(...
-                obj.stage, sceneController.getPathToFxml(), width, height);
-            sceneController.init(obj, sceneHandle);
+            if(obj.sceneController == -1 ...
+                || obj.sceneController.isCloseable())
+                obj.sceneController = sceneController;
+                sceneHandle = obj.jfxApp.showScene(...
+                    obj.stage, sceneController.getPathToFxml(), width, height);
+                sceneController.init(obj, sceneHandle);
+            end
         end
         
         function closeStage(obj) 

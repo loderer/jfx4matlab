@@ -50,8 +50,7 @@ classdef JFXSceneController < handle
         function onStageActionBase(obj, e) 
             if(strcmp(e.fxId, 'root')...
                     && strcmp(e.action, 'CLOSE'))
-                obj.closeScene(); 
-                obj.stageController.closeStage(); 
+                obj.close();
             elseif(obj.onStageAction(e))
                 % Do nothing. Event was handled by sub-class.
             else
@@ -109,7 +108,15 @@ classdef JFXSceneController < handle
         end
         
         function close(obj) 
-            obj.jfxThread.closeStage();  
+            if(obj.isCloseable())
+                obj.closeScene(); 
+                obj.stageController.closeStage(); 
+                obj.jfxThread.closeStage();
+            end  
+        end
+        
+        function ret = isCloseable(~)
+            ret = 1;
         end
     end
     
