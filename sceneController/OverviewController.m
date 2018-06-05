@@ -26,10 +26,11 @@ classdef OverviewController < JFXSceneController
             % Fill table.
             obj.pushBackTask(obj.tableColumnName, 'setCellValueFactory', sample_app.JsonCellValueFactory('name')); 
             obj.pushBackTask(obj.tableColumnSurname, 'setCellValueFactory', sample_app.JsonCellValueFactory('surname')); 
-            data = obj.applyTask(obj.table, 'getItems');
+            data = javafx.collections.FXCollections.observableArrayList();
             for n = 1:size(obj.model.person, 2)
                 data.add(java.lang.String(savejson('', obj.model.person{1, n})));
             end
+            obj.pushBackTask(obj.table, 'setItems', data);
             
             obj.applyTasks();
         end
