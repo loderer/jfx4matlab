@@ -44,7 +44,12 @@ classdef DetailController < JFXSceneController
         end
         
         function btnSavePressed(obj)
-            newItem = Person(obj.person{1}.id,...
+            obj.save(); 
+            obj.close();
+        end
+        
+        function save(obj) 
+           newItem = Person(obj.person{1}.id,...
                 obj.applyTask(obj.tf_name, 'getText'),...
                 obj.applyTask(obj.tf_surname, 'getText'));
             
@@ -54,8 +59,22 @@ classdef DetailController < JFXSceneController
                 obj.model{1}.updatePerson(newItem);
             end
             obj.overviewController{1}.update(obj.person{1}, newItem);
-            obj.person{1} = newItem;
-            obj.close();
+            obj.person{1} = newItem; 
         end
-    end
+        
+        function isCloseable = isCloseable(obj)
+            newItem = Person(obj.person{1}.id,...
+                java.lang.String(obj.applyTask(obj.tf_name, 'getText')),...
+                java.lang.String(obj.applyTask(obj.tf_surname, 'getText')));
+            if(~strcmp(newItem.name, obj.person{1}.name)...
+                    || ~strcmp(newItem.surname, obj.person{1}.surname))
+                isCloseable = 0; 
+                dialogStageController = JFXStageController('Unsaved changes!', obj.getJfxApp());
+                dialogSceneController = DialogController('sample/dialog.fxml', obj);
+                dialogStageController.showScene(dialogSceneController, 500, 175);
+            else 
+                isCloseable = 1;
+            end
+        end
+   end
 end
