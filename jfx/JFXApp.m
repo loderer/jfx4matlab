@@ -25,22 +25,25 @@ classdef JFXApp < handle
             %params: obj, title, (opt) parentStageController
             obj = varargin{1};
             title = varargin{2};
-            if(~obj.wasPrimaryStageCreated) 
-                if(nargin == 2)
+            if(nargin == 2)
+                % create non-modal stage
+                if(~obj.wasPrimaryStageCreated) 
                     stageHandle = obj.jfxMain.startGuiThread(title);
+                    obj.wasPrimaryStageCreated = 1; 
                 else
-                    parentStageController = varargin{3};
-                    stageHandle = obj.jfxMain.startGuiThread(title, parentStageController.stage);
-                end
-                 
-                obj.wasPrimaryStageCreated = 1; 
-            else
-                if(nargin == 2)
                     stageHandle = obj.jfxMain.newStage(title);
+                end
+            elseif(nargin == 3)
+                % create modal stage
+                parentStageController = varargin{3};
+                if(~obj.wasPrimaryStageCreated) 
+                    stageHandle = obj.jfxMain.startGuiThread(title, parentStageController.stage);
+                    obj.wasPrimaryStageCreated = 1; 
                 else
-                    parentStageController = varargin{3};
                     stageHandle = obj.jfxMain.newStage(title, parentStageController.stage);
                 end
+            else
+                disp('Incorrect number of arguments!!!');
             end
         end
         
