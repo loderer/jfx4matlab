@@ -21,12 +21,26 @@ classdef JFXApp < handle
             jfxMain = obj.jfxMain;
         end
         
-        function stageHandle = createStage(obj, title) 
+        function stageHandle = createStage(varargin)
+            %params: obj, title, (opt) parentStageController
+            obj = varargin{1};
+            title = varargin{2};
             if(~obj.wasPrimaryStageCreated) 
-                stageHandle = obj.jfxMain.startGuiThread(title); 
+                if(nargin == 2)
+                    stageHandle = obj.jfxMain.startGuiThread(title);
+                else
+                    parentStageController = varargin{3};
+                    stageHandle = obj.jfxMain.startGuiThread(title, parentStageController.stage);
+                end
+                 
                 obj.wasPrimaryStageCreated = 1; 
             else
-                stageHandle = obj.jfxMain.newStage(title);
+                if(nargin == 2)
+                    stageHandle = obj.jfxMain.newStage(title);
+                else
+                    parentStageController = varargin{3};
+                    stageHandle = obj.jfxMain.newStage(title, parentStageController.stage);
+                end
             end
         end
         

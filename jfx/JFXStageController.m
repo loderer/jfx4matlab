@@ -10,9 +10,16 @@ classdef JFXStageController < handle
     end
     
     methods
-        function obj = JFXStageController(stageTitle, jfxApp)
-            obj.jfxApp = jfxApp;
-            stageHandle = jfxApp.createStage(stageTitle); 
+        function obj = JFXStageController(varargin)
+            %param: stageTitle, jfxApp, (opt) parentStageController
+            stageTitle = varargin{1};
+            obj.jfxApp = varargin{2};
+            if(nargin == 2)
+                stageHandle = obj.jfxApp.createStage(stageTitle);
+            else
+                parentStageController = varargin{3};
+                stageHandle = obj.jfxApp.createStage(stageTitle, parentStageController);
+            end 
             obj.stage = stageHandle.getStage(); 
             obj.stageObservable_h = handle(stageHandle.getObservable(),'CallbackProperties');
             set(obj.stageObservable_h, 'UiEventCallback', @(h,e)obj.onStageAction(e)); 
