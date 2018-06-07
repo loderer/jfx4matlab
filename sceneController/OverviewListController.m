@@ -1,42 +1,31 @@
-classdef OverviewController < JFXSceneController
-    %OverviewController An instance of this class observes the gui.
+classdef OverviewListController < JFXSceneController
+    %OverviewListController An instance of this class observes the gui.
     %   This class maps every event to an appropriate callback.
     
     properties
         model; 
         
         % ui elements
-        tc_name;
-        tc_surname; 
-        tc_gender; 
-        tc_age;
-        table;
+        list; 
     end
     
     methods
-        function obj = OverviewController(pathToFxml, model) 
+        function obj = OverviewListController(pathToFxml, model) 
             obj = obj@JFXSceneController(pathToFxml);
             obj.model = model; 
         end
         
         function initScene(obj)
             % fetch ui elements
-            obj.tc_name = obj.getUiElement('tc_name');
-            obj.tc_surname = obj.getUiElement('tc_surname');
-            obj.tc_gender = obj.getUiElement('tc_gender');
-            obj.tc_age = obj.getUiElement('tc_age');
-            obj.table = obj.getUiElement('table');
+            obj.list = obj.getUiElement('list');
             
-            % Fill table.
-            obj.pushBackTask(obj.tc_name, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('name')); 
-            obj.pushBackTask(obj.tc_surname, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('surname')); 
-            obj.pushBackTask(obj.tc_gender, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('gender'));
-            obj.pushBackTask(obj.tc_age, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('age'));
+            % fill list
+            obj.pushBackTask(obj.list, 'setCellFactory', sample_app.JsonListCellValueFactory('surname'));
             data = javafx.collections.FXCollections.observableArrayList();
             for n = 1:size(obj.model.person, 2)
                 data.add(java.lang.String(savejson('', obj.model.person{1, n})));
             end
-            obj.pushBackTask(obj.table, 'setItems', data);
+            obj.pushBackTask(obj.list, 'setItems', data);
             
             obj.applyTasks();
         end
@@ -55,9 +44,9 @@ classdef OverviewController < JFXSceneController
                     && strcmp(e.action, 'ACTION'))
                 obj.btn_savePressed();
                 eventConsumed = 1;
-            elseif(strcmp(e.fxId, 'btn_switchToList')...
+            elseif(strcmp(e.fxId, 'btn_switchToTable')...
                     && strcmp(e.action, 'ACTION'))
-                obj.btn_switchToListPressed(); 
+                obj.btn_switchToTablePressed(); 
                 eventConsumed = 1; 
             end
         end
@@ -69,7 +58,7 @@ classdef OverviewController < JFXSceneController
         end
         
         function btn_editEntryPressed(obj)
-            selectionModel = obj.applyTask(obj.table, 'getSelectionModel'); 
+            selectionModel = obj.applyTask(obj.list, 'getSelectionModel'); 
             selectedItem = selectionModel.getSelectedItem();
             if(~isempty(selectedItem))
                 person = loadjson(selectedItem); 
@@ -86,17 +75,17 @@ classdef OverviewController < JFXSceneController
             obj.model.writeJson();
         end
         
-        function btn_switchToListPressed(obj)
-            overviewListController = OverviewListController('sample/overviewList.fxml', obj.model);
-            obj.stageController.showScene(overviewListController, 510, 500);
+        function btn_switchToTablePressed(obj)
+            overviewController = OverviewController('sample/overview.fxml', obj.model);
+            obj.stageController.showScene(overviewController, 510, 500);
         end
         
         function update(obj, oldItem, newItem) 
-            data = obj.applyTask(obj.table, 'getItems');
+            data = obj.applyTask(obj.list, 'getItems');
             if(oldItem.id ~= -1) 
-                data.remove(java.lang.String(savejson('', oldItem)));
+                obj.applyTask(data, 'remove', java.lang.String(savejson('', oldItem)));
             end
-            data.add(java.lang.String(savejson('', newItem)));
+            obj.applyTask(data, 'add', java.lang.String(savejson('', newItem)));
         end
     end
 end
