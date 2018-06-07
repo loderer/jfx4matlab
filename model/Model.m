@@ -22,7 +22,7 @@ classdef Model < handle
         end
         
         function updatePerson(obj, person) 
-            for i=1:size(obj.person)
+            for i=1:size(obj.person, 2)
                 if(obj.person{i}.id == person.id)
                     break;
                 end
