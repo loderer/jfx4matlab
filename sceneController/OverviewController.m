@@ -6,8 +6,10 @@ classdef OverviewController < JFXSceneController
         model; 
         
         % ui elements
-        tableColumnName;
-        tableColumnSurname; 
+        tc_name;
+        tc_surname; 
+        tc_gender; 
+        tc_age;
         table;
     end
     
@@ -19,13 +21,17 @@ classdef OverviewController < JFXSceneController
         
         function initScene(obj)
             % fetch ui elements
-            obj.tableColumnName = obj.getUiElement('tableColumnName');
-            obj.tableColumnSurname = obj.getUiElement('tableColumnSurname');
+            obj.tc_name = obj.getUiElement('tc_name');
+            obj.tc_surname = obj.getUiElement('tc_surname');
+            obj.tc_gender = obj.getUiElement('tc_gender');
+            obj.tc_age = obj.getUiElement('tc_age');
             obj.table = obj.getUiElement('table');
             
             % Fill table.
-            obj.pushBackTask(obj.tableColumnName, 'setCellValueFactory', sample_app.JsonCellValueFactory('name')); 
-            obj.pushBackTask(obj.tableColumnSurname, 'setCellValueFactory', sample_app.JsonCellValueFactory('surname')); 
+            obj.pushBackTask(obj.tc_name, 'setCellValueFactory', sample_app.JsonCellValueFactory('name')); 
+            obj.pushBackTask(obj.tc_surname, 'setCellValueFactory', sample_app.JsonCellValueFactory('surname')); 
+            obj.pushBackTask(obj.tc_gender, 'setCellValueFactory', sample_app.JsonCellValueFactory('gender'));
+            obj.pushBackTask(obj.tc_age, 'setCellValueFactory', sample_app.JsonCellValueFactory('age'));
             data = javafx.collections.FXCollections.observableArrayList();
             for n = 1:size(obj.model.person, 2)
                 data.add(java.lang.String(savejson('', obj.model.person{1, n})));
@@ -66,7 +72,7 @@ classdef OverviewController < JFXSceneController
             
                 detailStageController = JFXStageController('Detail', obj.getJfxApp());
                 detailSceneController = DetailController('sample/detail.fxml', obj.model, obj, person);
-                detailStageController.showScene(detailSceneController, 500, 250);
+                detailStageController.showScene(detailSceneController, 200, 146);
             else
                 disp('Select item!!!');
             end

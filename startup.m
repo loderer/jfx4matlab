@@ -4,6 +4,7 @@ function startup()
     addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\extLib');
     addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\jfx');
     addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\model');
+    addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\model\person');
     addpath('C:\Users\rudi\Documents\GitHub\BaMatlab\sceneController');
     javaaddpathstatic(['C:\Program Files\MATLAB\R2015b\sys\java\jre\win64\jre\lib\jfxrt.jar']);
     javaaddpathstatic(['C:\Users\rudi\Documents\GitHub\BaJavaFx\out\artifacts\JavaFxSample_jar\JavaFxSample.jar']);

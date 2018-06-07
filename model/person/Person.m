@@ -6,13 +6,17 @@ classdef Person < handle
         id; 
         name; 
         surname;
+        gender; 
+        age;
     end
     
     methods
-        function obj = Person(id, name, surname) 
+        function obj = Person(id, name, surname, gender, age) 
             obj.id = id; 
             obj.name = name; 
             obj.surname = surname;
+            obj.gender = gender; 
+            obj.age = age;
         end
         
         function id = getId(obj) 
@@ -31,12 +35,28 @@ classdef Person < handle
             obj.name = name; 
         end
         
-        function surname = getSurname(~)
+        function surname = getSurname(obj)
             surname = obj.surname; 
         end
         
         function setSurname(obj, surname) 
             obj.surname = surname; 
+        end
+        
+        function gender = getGender(obj)
+            gender = obj.gender; 
+        end
+        
+        function setGender(obj, gender) 
+            obj.gender = gender; 
+        end
+        
+        function age = getAge(obj) 
+            age = obj.age; 
+        end
+        
+        function setAge(obj, age) 
+            obj.age = age;
         end
     end
 end

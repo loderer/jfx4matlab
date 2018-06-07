@@ -10,6 +10,9 @@ classdef DetailController < JFXSceneController
         % ui elements
         tf_name;
         tf_surname;
+        rb_female; 
+        rb_male; 
+        slider_age; 
     end
     
     methods
@@ -20,7 +23,7 @@ classdef DetailController < JFXSceneController
             if(nargin == 4) 
                 obj.person = varargin(1, 4);
             else
-                obj.person = {Person(-1, java.lang.String(''), java.lang.String(''))};
+                obj.person = {Person(-1, java.lang.String(''), java.lang.String(''), Gender.female, 16)};
             end
         end
         
@@ -28,10 +31,24 @@ classdef DetailController < JFXSceneController
             % fetch ui elements
             obj.tf_name = obj.getUiElement('tf_name');
             obj.tf_surname = obj.getUiElement('tf_surname');
+            obj.rb_female = obj.getUiElement('rb_female'); 
+            obj.rb_male = obj.getUiElement('rb_male');
+            obj.slider_age = obj.getUiElement('slider_age'); 
             
-            obj.pushBackTask(obj.tf_name, 'setText', obj.person{1}.name);
-            obj.pushBackTask(obj.tf_surname, 'setText', obj.person{1}.surname);
-            obj.applyTasks();
+            % add label containing actual value to slider
+            thumb = obj.slider_age.lookup('.thumb');
+            label = javafx.scene.control.Label;
+            label.textProperty().bind(obj.slider_age.valueProperty().asString('%.0f'));
+            obj.applyTask(thumb.getChildren(), 'add', label);
+            
+            obj.tf_name.setText(obj.person{1}.name);
+            obj.tf_surname.setText(obj.person{1}.surname);
+            if(strcmp(obj.person{1}.gender, Gender.female))
+               obj.rb_female.setSelected(1); 
+            else
+                obj.rb_male.setSelected(1);
+            end
+            obj.applyTask(obj.slider_age, 'setValue', obj.person{1}.age);
         end
         
         function eventConsumed = onSceneAction(obj, e) 
@@ -49,9 +66,18 @@ classdef DetailController < JFXSceneController
         end
         
         function save(obj) 
+           % determine gender
+           if(obj.rb_female.isSelected())
+               gender = Gender.female;
+           else
+               gender = Gender.male;
+           end
+            
            newItem = Person(obj.person{1}.id,...
-                obj.applyTask(obj.tf_name, 'getText'),...
-                obj.applyTask(obj.tf_surname, 'getText'));
+                char(obj.tf_name.getText()),...
+                char(obj.tf_surname.getText()),...
+                gender,...
+                floor(obj.slider_age.getValue()));
             
             if(obj.person{1}.id == -1) 
                 obj.model{1}.addPerson(newItem);
@@ -63,15 +89,26 @@ classdef DetailController < JFXSceneController
         end
         
         function isCloseable = isCloseable(obj)
+            % determine gender
+            if(obj.rb_female.isSelected())
+               gender = Gender.female; 
+            else
+               gender = Gender.male;
+            end
+            
             newItem = Person(obj.person{1}.id,...
-                java.lang.String(obj.applyTask(obj.tf_name, 'getText')),...
-                java.lang.String(obj.applyTask(obj.tf_surname, 'getText')));
+                char(obj.tf_name.getText()),...
+                char(obj.tf_surname.getText()),...
+                gender,...
+                floor(obj.slider_age.getValue()));
             if(~strcmp(newItem.name, obj.person{1}.name)...
-                    || ~strcmp(newItem.surname, obj.person{1}.surname))
+                    || ~strcmp(newItem.surname, obj.person{1}.surname)...
+                    || ~strcmp(newItem.gender, obj.person{1}.gender)...
+                    || newItem.age ~= obj.person{1}.age)
                 isCloseable = 0; 
                 dialogStageController = JFXStageController('Unsaved changes!', obj.getJfxApp(), obj.stageController);
                 dialogSceneController = DialogController('sample/dialog.fxml', obj);
-                dialogStageController.showScene(dialogSceneController, 500, 175);
+                dialogStageController.showScene(dialogSceneController, 200, 146);
             else 
                 isCloseable = 1;
             end
