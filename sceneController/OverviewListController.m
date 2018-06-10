@@ -48,6 +48,10 @@ classdef OverviewListController < JFXSceneController
                     && strcmp(e.action, 'ACTION'))
                 obj.btn_switchToTablePressed(); 
                 eventConsumed = 1; 
+            elseif(strcmp(e.fxId, 'btn_switchToPlot')...
+                && strcmp(e.action, 'ACTION'))
+                obj.btn_switchToPlotPressed();
+                eventConsumed = 1;
             end
         end
         
@@ -78,6 +82,11 @@ classdef OverviewListController < JFXSceneController
         function btn_switchToTablePressed(obj)
             overviewController = OverviewController('sample/overview.fxml', obj.model);
             obj.stageController.showScene(overviewController, 510, 500);
+        end
+        
+        function btn_switchToPlotPressed(obj)
+            plotController = PlotController('sample/plot.fxml', obj.model);
+            obj.stageController.showScene(plotController, 510, 500);
         end
         
         function update(obj, oldItem, newItem) 
