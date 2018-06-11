@@ -11,7 +11,7 @@ function startup()
    
     model = Model();
     
-    app = JFXApp('sample_app.Main');
+    app = JFXApp('jfx_4_matlab.JFXApplication');
     overviewStageController = JFXStageController('Phone book', app);
-    overviewSceneController = OverviewController('sample/overview.fxml', model);
+    overviewSceneController = OverviewController('sample_app/overview.fxml', model);
     overviewStageController.showScene(overviewSceneController, 510, 500);

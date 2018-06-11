@@ -20,7 +20,7 @@ classdef OverviewListController < JFXSceneController
             obj.list = obj.getUiElement('list');
             
             % fill list
-            obj.pushBackTask(obj.list, 'setCellFactory', sample_app.JsonListCellValueFactory('surname'));
+            obj.pushBackTask(obj.list, 'setCellFactory', jfx_4_matlab.cell_value_factory.JsonListCellValueFactory('surname'));
             data = javafx.collections.FXCollections.observableArrayList();
             for n = 1:size(obj.model.person, 2)
                 data.add(java.lang.String(savejson('', obj.model.person{1, n})));
@@ -57,7 +57,7 @@ classdef OverviewListController < JFXSceneController
         
         function btnNewEntryPressed(obj)
             detailStageController = JFXStageController('Detail', obj.getJfxApp());
-            detailSceneController = DetailController('sample/detail.fxml', obj.model, obj);
+            detailSceneController = DetailController('sample_app/detail.fxml', obj.model, obj);
             detailStageController.showScene(detailSceneController, 500, 250);
         end
         
@@ -68,7 +68,7 @@ classdef OverviewListController < JFXSceneController
                 person = loadjson(selectedItem); 
             
                 detailStageController = JFXStageController('Detail', obj.getJfxApp());
-                detailSceneController = DetailController('sample/detail.fxml', obj.model, obj, person);
+                detailSceneController = DetailController('sample_app/detail.fxml', obj.model, obj, person);
                 detailStageController.showScene(detailSceneController, 200, 146);
             else
                 disp('Select item!!!');
@@ -80,12 +80,12 @@ classdef OverviewListController < JFXSceneController
         end
         
         function btn_switchToTablePressed(obj)
-            overviewController = OverviewController('sample/overview.fxml', obj.model);
+            overviewController = OverviewController('sample_app/overview.fxml', obj.model);
             obj.stageController.showScene(overviewController, 510, 500);
         end
         
         function btn_switchToPlotPressed(obj)
-            plotController = PlotController('sample/plot.fxml', obj.model);
+            plotController = PlotController('sample_app/plot.fxml', obj.model);
             obj.stageController.showScene(plotController, 510, 500);
         end
         

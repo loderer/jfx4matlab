@@ -111,7 +111,7 @@ classdef JFXSceneController < handle
             if(obj.isCloseable())
                 obj.closeScene(); 
                 obj.stageController.closeStage(); 
-                obj.jfxThread.closeStage();
+                obj.applyTask(obj.stageController.stage, 'close');
             end  
         end
         

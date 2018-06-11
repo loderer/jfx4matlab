@@ -28,10 +28,10 @@ classdef OverviewController < JFXSceneController
             obj.table = obj.getUiElement('table');
             
             % Fill table.
-            obj.pushBackTask(obj.tc_name, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('name')); 
-            obj.pushBackTask(obj.tc_surname, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('surname')); 
-            obj.pushBackTask(obj.tc_gender, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('gender'));
-            obj.pushBackTask(obj.tc_age, 'setCellValueFactory', sample_app.JsonTableCellValueFactory('age'));
+            obj.pushBackTask(obj.tc_name, 'setCellValueFactory', jfx_4_matlab.cell_value_factory.JsonTableCellValueFactory('name')); 
+            obj.pushBackTask(obj.tc_surname, 'setCellValueFactory', jfx_4_matlab.cell_value_factory.JsonTableCellValueFactory('surname')); 
+            obj.pushBackTask(obj.tc_gender, 'setCellValueFactory', jfx_4_matlab.cell_value_factory.JsonTableCellValueFactory('gender'));
+            obj.pushBackTask(obj.tc_age, 'setCellValueFactory', jfx_4_matlab.cell_value_factory.JsonTableCellValueFactory('age'));
             data = javafx.collections.FXCollections.observableArrayList();
             for n = 1:size(obj.model.person, 2)
                 data.add(java.lang.String(savejson('', obj.model.person{1, n})));
@@ -68,7 +68,7 @@ classdef OverviewController < JFXSceneController
         
         function btnNewEntryPressed(obj)
             detailStageController = JFXStageController('Detail', obj.getJfxApp());
-            detailSceneController = DetailController('sample/detail.fxml', obj.model, obj);
+            detailSceneController = DetailController('sample_app/detail.fxml', obj.model, obj);
             detailStageController.showScene(detailSceneController, 500, 250);
         end
         
@@ -79,7 +79,7 @@ classdef OverviewController < JFXSceneController
                 person = loadjson(selectedItem); 
             
                 detailStageController = JFXStageController('Detail', obj.getJfxApp());
-                detailSceneController = DetailController('sample/detail.fxml', obj.model, obj, person);
+                detailSceneController = DetailController('sample_app/detail.fxml', obj.model, obj, person);
                 detailStageController.showScene(detailSceneController, 200, 146);
             else
                 disp('Select item!!!');
@@ -91,12 +91,12 @@ classdef OverviewController < JFXSceneController
         end
         
         function btn_switchToListPressed(obj)
-            overviewListController = OverviewListController('sample/overviewList.fxml', obj.model);
+            overviewListController = OverviewListController('sample_app/overviewList.fxml', obj.model);
             obj.stageController.showScene(overviewListController, 510, 500);
         end
         
         function btn_switchToPlotPressed(obj)
-            plotController = PlotController('sample/plot.fxml', obj.model);
+            plotController = PlotController('sample_app/plot.fxml', obj.model);
             obj.stageController.showScene(plotController, 510, 500);
         end
         

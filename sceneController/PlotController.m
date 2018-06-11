@@ -49,12 +49,12 @@ classdef PlotController < JFXSceneController
             eventConsumed = 0; 
             if(strcmp(e.fxId, 'btn_switchToTable')...
                     && strcmp(e.action, 'ACTION'))
-                overviewController = OverviewController('sample/overview.fxml', obj.model);
+                overviewController = OverviewController('sample_app/overview.fxml', obj.model);
                 obj.stageController.showScene(overviewController, 510, 500);
                 eventConsumed = 1; 
             elseif(strcmp(e.fxId, 'btn_switchToList')...
                     && strcmp(e.action, 'ACTION'))
-                overviewListController = OverviewListController('sample/overviewList.fxml', obj.model);
+                overviewListController = OverviewListController('sample_app/overviewList.fxml', obj.model);
                 obj.stageController.showScene(overviewListController, 510, 500);
                 eventConsumed = 1; 
             elseif(strcmp(e.fxId, 'btn_apply')...
