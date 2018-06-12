@@ -58,7 +58,7 @@ classdef OverviewListController < JFXSceneController
         function btnNewEntryPressed(obj)
             detailStageController = JFXStageController('Detail', obj.getJfxApp());
             detailSceneController = DetailController('sample_app/detail.fxml', obj.model, obj);
-            detailStageController.showScene(detailSceneController, 500, 250);
+            detailStageController.showScene(detailSceneController, 400, 400);
         end
         
         function btn_editEntryPressed(obj)
@@ -69,7 +69,7 @@ classdef OverviewListController < JFXSceneController
             
                 detailStageController = JFXStageController('Detail', obj.getJfxApp());
                 detailSceneController = DetailController('sample_app/detail.fxml', obj.model, obj, person);
-                detailStageController.showScene(detailSceneController, 200, 146);
+                detailStageController.showScene(detailSceneController, 400, 400);
             else
                 disp('Select item!!!');
             end
