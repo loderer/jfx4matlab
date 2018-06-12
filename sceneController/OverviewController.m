@@ -92,12 +92,12 @@ classdef OverviewController < JFXSceneController
         
         function btn_switchToListPressed(obj)
             overviewListController = OverviewListController('sample_app/overviewList.fxml', obj.model);
-            obj.stageController.showScene(overviewListController, 510, 500);
+            obj.stageController.showScene(overviewListController, 800, 500);
         end
         
         function btn_switchToPlotPressed(obj)
             plotController = PlotController('sample_app/plot.fxml', obj.model);
-            obj.stageController.showScene(plotController, 510, 500);
+            obj.stageController.showScene(plotController, 800, 500);
         end
         
         function update(obj, oldItem, newItem) 

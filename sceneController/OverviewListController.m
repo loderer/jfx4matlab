@@ -81,12 +81,12 @@ classdef OverviewListController < JFXSceneController
         
         function btn_switchToTablePressed(obj)
             overviewController = OverviewController('sample_app/overview.fxml', obj.model);
-            obj.stageController.showScene(overviewController, 510, 500);
+            obj.stageController.showScene(overviewController, 800, 500);
         end
         
         function btn_switchToPlotPressed(obj)
             plotController = PlotController('sample_app/plot.fxml', obj.model);
-            obj.stageController.showScene(plotController, 510, 500);
+            obj.stageController.showScene(plotController, 800, 500);
         end
         
         function update(obj, oldItem, newItem) 
