@@ -6,12 +6,25 @@ classdef JFXApplicationAdapter < handle
     properties (Access=private)
         jfxApplication; % The JFXApplication object (java).
         wasPrimaryStageCreated; % A flag indicating if the primary stage still has been created. 
+        allStageControllers; % All existing stageController grouped by name. 
     end
     
     methods
-        function obj = JFXApplicationAdapter(pathToJfxApplication)
+        function obj = JFXApplicationAdapter(varargin)
+            % params:
+            % pathToJfxApplication: The path to the java class
+            % JFXApplication. 
+            % (optional) enableTestMode: Enable test mode?
+            pathToJfxApplication = varargin{1}; 
             obj.jfxApplication = javaObject(pathToJfxApplication);
+            if(nargin > 1) 
+                enableTestMode = varargin{2};
+                if(enableTestMode) 
+                    obj.jfxApplication.enableTestMode(); 
+                end
+            end
             obj.wasPrimaryStageCreated = 0; 
+            obj.allStageControllers = Map;
         end
         
         function jfxApplication = getJfxApplication(obj) 
@@ -51,7 +64,7 @@ classdef JFXApplicationAdapter < handle
         end
         
         function sceneHandle = showScene(...
-                obj, stage, pathToFxml, width, height) 
+                obj, stage, pathToFxml) 
             % Propagates the specified scene on the stage. 
             % params: 
             % obj
@@ -60,9 +73,46 @@ classdef JFXApplicationAdapter < handle
             % width: Width of the scene. 
             % height: Height of the scene. 
             sceneHandle = obj.jfxApplication.showScene(...
-                stage, pathToFxml, width, height);
+                stage, pathToFxml);
+        end
+        
+        function addStageController(obj, stageController) 
+            % Adds a stageController to the collection of known
+            % stageControllers.
+            % params: 
+            % obj: ^
+            % stageController: StageController to be added. 
+            if(obj.allStageControllers.containsKey(stageController.title))
+               tmpList = obj.allStageControllers.get(stageController.title); 
+               tmpList.add(stageController);
+            else
+                tmpList = List;
+                tmpList.add(stageController);
+                obj.allStageControllers.put(stageController.title, tmpList); 
+            end
+        end
+        
+        function removeStageController(obj, stageController) 
+            % Removes a stageController from the collection of known
+            % stageControllers. 
+            % params:
+            % obj:
+            % stageController: StageController to be removed. 
+            if(obj.allStageControllers.containsKey(stageController.title))
+                obj.allStageControllers.get(stageController.title).remove(stageController); 
+                if(obj.allStageControllers.get(stageController.title).isEmpty())
+                    obj.allStageControllers.remove(stageController.title); 
+                end
+            end
+        end
+        
+        function stageController = getStageControllerByTitle(obj, title)
+            % Fetches all StageControllers with the given title. 
+            % params:
+            % obj: 
+            % title: Title of the required StageController. 
+            stageController = obj.allStageControllers.get(title); 
         end
     end
-    
 end
 

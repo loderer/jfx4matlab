@@ -7,6 +7,7 @@ classdef JFXStageController < handle
     
     properties
         jfxApplicationAdapter;
+        title;
         stage; % Appropriate javaFX stage object. 
         stageObservable_h;  % Observable broadcasting all stage events.
         sceneController;    % Respective scene controller. 
@@ -22,13 +23,13 @@ classdef JFXStageController < handle
             % jfxApplicationAdapter:    
             % (optional) parentStageController: The parent stage
             % controller. 
-            stageTitle = varargin{1};
+            obj.title = varargin{1};
             obj.jfxApplicationAdapter = varargin{2};
             if(nargin == 2)
-                stageHandle = obj.jfxApplicationAdapter.createStage(stageTitle);
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title);
             else
                 parentStageController = varargin{3};
-                stageHandle = obj.jfxApplicationAdapter.createStage(stageTitle, parentStageController);
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, parentStageController);
             end 
             obj.stage = stageHandle.getStage(); 
             obj.stageObservable_h = handle(stageHandle.getObservable(),'CallbackProperties');
@@ -49,7 +50,7 @@ classdef JFXStageController < handle
             else
                 msgID = 'EXCEPTION:NoSceneSet';
                 msg = ['Got action but no scene is set!'...
-                    ' stage: ' char(obj.stageTitle)...
+                    ' stage: ' char(obj.obj.title)...
                     ' fxId: ' char(e.fxId)...
                     ' action: ' char(e.action) ')'];
                 throw(MException(msgID,msg));
@@ -60,7 +61,7 @@ classdef JFXStageController < handle
             jfxApplicationAdapter = obj.jfxApplicationAdapter; 
         end
         
-        function showScene(obj, sceneController, width, height) 
+        function showScene(obj, sceneController) 
             % Propagate the specified scene on this stage. 
             % params: 
             % obj: 
@@ -71,14 +72,17 @@ classdef JFXStageController < handle
                 || obj.sceneController.isCloseable())
                 obj.sceneController = sceneController;
                 sceneHandle = obj.jfxApplicationAdapter.showScene(...
-                    obj.stage, sceneController.getPathToFxml(), width, height);
+                    obj.stage, sceneController.getPathToFxml());
                 sceneController.init(obj, sceneHandle);
+                obj.jfxApplicationAdapter.addStageController(obj); 
             end
         end
         
         function unregisterStage(obj) 
             % Unregister all callbacks from the stage.
             set(obj.stageObservable_h, 'UiEventCallback', '');
+            % Unregister stage from JFXApplicationAdapter
+            obj.jfxApplicationAdapter.removeStageController(obj);
         end
     end
 end
