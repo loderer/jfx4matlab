@@ -190,6 +190,14 @@ classdef JFXSceneController < handle
             end  
         end
         
+        function forceClose(obj) 
+            % The stage containing this scene is closed ditto all callbacks 
+            % are unregistered even if this stage is not closeable! 
+            obj.unregisterScene(); 
+            obj.stageController.unregisterStage(); 
+            obj.applyTask(obj.stageController.stage, 'close');
+        end
+        
         function ret = isCloseable(~)
             % Indicates if the scene is closeable. If this function returns
             % 1 the scene is closeable otherwise it is not closable. To

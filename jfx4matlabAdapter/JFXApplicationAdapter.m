@@ -80,7 +80,7 @@ classdef JFXApplicationAdapter < handle
             % Adds a stageController to the collection of known
             % stageControllers.
             % params: 
-            % obj: ^
+            % obj: 
             % stageController: StageController to be added. 
             if(obj.allStageControllers.containsKey(stageController.title))
                tmpList = obj.allStageControllers.get(stageController.title); 
@@ -112,6 +112,25 @@ classdef JFXApplicationAdapter < handle
             % obj: 
             % title: Title of the required StageController. 
             stageController = obj.allStageControllers.get(title); 
+            if(isequal(stageController, -1)) 
+                stageController = List();  
+            end
+        end
+        
+        function stageControllers = getAllStageControllers(obj)
+            % Fetches all StageControllers. 
+            % params:
+            % obj: 
+            stageControllers = List(); 
+            allStageControllersValues = obj.allStageControllers.getValues(); 
+            for i1 = 1 : allStageControllersValues.size()
+                for i2= 1 : allStageControllersValues.get(i1).size()
+                    value = allStageControllersValues.get(i1).get(i2); 
+                    if(value ~= -1)
+                        stageControllers.add(value); 
+                    end
+                end
+            end 
         end
     end
 end
