@@ -15,6 +15,11 @@ classdef JFXApplicationAdapter < handle
             % pathToJfxApplication: The path to the java class
             % JFXApplication. 
             % (optional) enableTestMode: Enable test mode?
+            
+            % Add required libs to path.
+            javaaddpathstatic(Config.jfxrtPath);
+            javaaddpathstatic(Config.jfx4matlabPath);
+            
             pathToJfxApplication = varargin{1}; 
             obj.jfxApplication = javaObject(pathToJfxApplication);
             if(nargin > 1) 

@@ -7,7 +7,12 @@ classdef List < handle
     
     methods
         function obj = List() 
-            obj.head = -1; 
+            obj.head = -1;
+        end
+        
+        function fill(obj, rawList) 
+            obj.head = ListItem(-1);
+            obj.head.fill(rawList.head); 
         end
         
         function exists = add(obj, value) 
@@ -73,6 +78,16 @@ classdef List < handle
                 tmpItem = ListItem(-1); 
                 tmpItem.next = obj.head;
                 value = tmpItem.get(index);
+            end
+        end
+        
+        function oldValue = set(obj, index, newValue) 
+            % Use the index one to replace the first item!
+            oldValue = -1;
+            if(index > 0) 
+                tmpItem = ListItem(-1); 
+                tmpItem.next = obj.head;
+                oldValue = tmpItem.set(index, newValue);
             end
         end
     end

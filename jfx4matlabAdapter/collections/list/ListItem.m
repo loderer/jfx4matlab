@@ -12,6 +12,16 @@ classdef ListItem < handle
             obj.next = -1; 
         end
         
+        function fill(obj, rawItem) 
+            obj.value = rawItem.value; 
+            if(~isequal(rawItem.next, -1))
+                obj.next = ListItem(-1); 
+                obj.next.fill(rawItem.next); 
+            else
+                obj.next = -1; 
+            end
+        end
+        
         function count = childCount(obj) 
             if(obj.next == -1)
                 count = 0; 
@@ -33,7 +43,21 @@ classdef ListItem < handle
                 end
             end
         end
+        
+        function oldValue = set(obj, index, newValue)
+            if(index == 0)
+                oldValue = obj.value; 
+                obj.value = newValue; 
+            else
+                if(obj.next == -1)
+                    msgID = 'EXCEPTION:IndexOutOfBounds';
+                    msg = 'Index out of bounds exception.';
+                    throw(MException(msgID,msg));
+                else
+                    oldValue = obj.next.set(index - 1, newValue); 
+                end
+            end
+        end
     end
-    
 end
 
