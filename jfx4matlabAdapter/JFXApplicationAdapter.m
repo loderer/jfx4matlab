@@ -48,7 +48,7 @@ classdef JFXApplicationAdapter < handle
             if(nargin == 2)
                 % create non-modal stage
                 if(~obj.wasPrimaryStageCreated) 
-                    stageHandle = obj.jfxApplication.startGuiThread(title);
+                    stageHandle = obj.jfxApplication.startGuiAsynchronous(title);
                     obj.wasPrimaryStageCreated = 1; 
                 else
                     stageHandle = obj.jfxApplication.newStage(title);
