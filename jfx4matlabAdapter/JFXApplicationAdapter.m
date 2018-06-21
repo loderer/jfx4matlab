@@ -5,7 +5,6 @@ classdef JFXApplicationAdapter < handle
     
     properties (Access=private)
         jfxApplication; % The JFXApplication object (java).
-        wasPrimaryStageCreated; % A flag indicating if the primary stage still has been created. 
         allStageControllers; % All existing stageController grouped by name. 
     end
     
@@ -25,7 +24,6 @@ classdef JFXApplicationAdapter < handle
                     obj.jfxApplication.enableTestMode(); 
                 end
             end
-            obj.wasPrimaryStageCreated = 0; 
             obj.allStageControllers = Map;
         end
         
@@ -44,22 +42,11 @@ classdef JFXApplicationAdapter < handle
             title = varargin{2};
             if(nargin == 2)
                 % create non-modal stage
-                if(~obj.wasPrimaryStageCreated) 
-                    stageHandle = obj.jfxApplication.startGuiAsynchronous(title);
-                    obj.wasPrimaryStageCreated = 1; 
-                else
-                    stageHandle = obj.jfxApplication.newStage(title);
-                end
+                stageHandle = obj.jfxApplication.newStage(title);
             elseif(nargin == 3)
                 % create modal stage
                 parentStageController = varargin{3};
-                if(~obj.wasPrimaryStageCreated) 
-                    msgID = 'EXCEPTION:IllegalState';
-                    msg = 'Primary stage can not be modal.';
-                    throw(MException(msgID,msg));
-                else
-                    stageHandle = obj.jfxApplication.newStage(title, parentStageController.stage);
-                end
+                stageHandle = obj.jfxApplication.newStage(title, parentStageController.stage);
             else
                 disp('Incorrect number of arguments!!!');
             end
