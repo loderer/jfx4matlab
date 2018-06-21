@@ -12,18 +12,15 @@ classdef JFXApplicationAdapter < handle
     methods
         function obj = JFXApplicationAdapter(varargin)
             % params:
-            % pathToJfxApplication: The path to the java class
-            % JFXApplication. 
             % (optional) enableTestMode: Enable test mode?
             
             % Add required libs to path.
             javaaddpathstatic(Config.jfxrtPath);
             javaaddpathstatic(Config.jfx4matlabPath);
             
-            pathToJfxApplication = varargin{1}; 
-            obj.jfxApplication = javaObject(pathToJfxApplication);
-            if(nargin > 1) 
-                enableTestMode = varargin{2};
+            obj.jfxApplication = javaObject('jfx_4_matlab.JFXApplication');
+            if(nargin > 0) 
+                enableTestMode = varargin{1};
                 if(enableTestMode) 
                     obj.jfxApplication.enableTestMode(); 
                 end
