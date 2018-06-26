@@ -24,14 +24,14 @@ classdef JFXStageController < handle
             obj.jfxApplicationAdapter = varargin{1};
             obj.title = varargin{2};
             if(nargin == 2)
-                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title);
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, javafx.stage.Modality.NONE, []);
             elseif(nargin == 3)
                 modality = varargin{3}; 
-                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, modality);
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, modality, []);
             elseif(nargin == 4)
                 modality = varargin{3}; 
                 ownerController = varargin{4};
-                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, modality, ownerController);
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, modality, ownerController.stage);
             else
                 msgID = 'EXCEPTION:IllegalArgument';
                 msg = 'Illegal number of arguments.';

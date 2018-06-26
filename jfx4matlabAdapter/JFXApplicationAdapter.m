@@ -28,19 +28,14 @@ classdef JFXApplicationAdapter < handle
             % params: 
             % obj 
             % title: The title of the stage.
-            % (optional) modality: The modality of the stage.
-            % (optionl) owner: The owner of the stage. 
-            obj = varargin{1};
-            title = varargin{2};
-            if(nargin == 2) 
-                stageHandle = obj.jfxApplication.createStage(title);
-            elseif(nargin == 3)
+            % modality: The modality of the stage.
+            % ownerStage: The owner-stage of the new stage. 
+           if(nargin == 4)
+               obj = varargin{1};
+                title = varargin{2};
                 modality = varargin{3};
-                stageHandle = obj.jfxApplication.createStage(title, modality); 
-            elseif(nargin == 4)
-                modality = varargin{3};
-                ownerController = varargin{4};
-                stageHandle = obj.jfxApplication.createStage(title, modality, ownerController.stage);
+                ownerStage = varargin{4};
+                stageHandle = obj.jfxApplication.createStage(title, modality, ownerStage);
             else
                 msgID = 'EXCEPTION:IllegalArgument';
                 msg = 'Illegal number of arguments.';
