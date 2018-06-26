@@ -15,21 +15,27 @@ classdef JFXStageController < handle
     
     methods
         function obj = JFXStageController(varargin)
-            % This constructor allows creating modal and non modal stages.
-            % If an ownerConroller is specified the new stage will 
-            % be modal.
-            % params: 
-            % stageTitle:   The title of the new stage. 
+            % This constructor allows creating modal and non-modal stages.
+            % params:
             % jfxApplicationAdapter:    
-            % (optional) ownerConroller: The controller of the owner
-            % window.
-            obj.title = varargin{1};
-            obj.jfxApplicationAdapter = varargin{2};
+            % title: The title of the stage.
+            % (optional) modality: The modality of the stage.
+            % (optionl) owner: The owner of the stage. 
+            obj.jfxApplicationAdapter = varargin{1};
+            obj.title = varargin{2};
             if(nargin == 2)
                 stageHandle = obj.jfxApplicationAdapter.createStage(obj.title);
+            elseif(nargin == 3)
+                modality = varargin{3}; 
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, modality);
+            elseif(nargin == 4)
+                modality = varargin{3}; 
+                ownerController = varargin{4};
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, modality, ownerController);
             else
-                ownerController = varargin{3};
-                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, ownerController);
+                msgID = 'EXCEPTION:IllegalArgument';
+                msg = 'Illegal number of arguments.';
+                throw(MException(msgID,msg));
             end 
             obj.stage = stageHandle.getStage(); 
             obj.stageObservable_h = handle(stageHandle.getObservable(),'CallbackProperties');
