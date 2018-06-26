@@ -28,7 +28,7 @@ classdef JFXApplicationAdapter < handle
             % params: 
             % obj 
             % title: The title of the stage. 
-            % (optional) parentStageController: This parameter is only 
+            % (optional) ownerController: This parameter is only 
             % necessary if the new stage should behave modal. 
             obj = varargin{1};
             title = varargin{2};
@@ -37,8 +37,8 @@ classdef JFXApplicationAdapter < handle
                 stageHandle = obj.jfxApplication.newStage(title);
             elseif(nargin == 3)
                 % create modal stage
-                parentStageController = varargin{3};
-                stageHandle = obj.jfxApplication.newStage(title, parentStageController.stage);
+                ownerController = varargin{3};
+                stageHandle = obj.jfxApplication.newStage(title, ownerController.stage);
             else
                 disp('Incorrect number of arguments!!!');
             end

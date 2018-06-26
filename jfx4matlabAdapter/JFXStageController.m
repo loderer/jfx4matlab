@@ -16,20 +16,20 @@ classdef JFXStageController < handle
     methods
         function obj = JFXStageController(varargin)
             % This constructor allows creating modal and non modal stages.
-            % If a parentStageController is specified the new stage will 
+            % If an ownerConroller is specified the new stage will 
             % be modal.
             % params: 
             % stageTitle:   The title of the new stage. 
             % jfxApplicationAdapter:    
-            % (optional) parentStageController: The parent stage
-            % controller. 
+            % (optional) ownerConroller: The controller of the owner
+            % window.
             obj.title = varargin{1};
             obj.jfxApplicationAdapter = varargin{2};
             if(nargin == 2)
                 stageHandle = obj.jfxApplicationAdapter.createStage(obj.title);
             else
-                parentStageController = varargin{3};
-                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, parentStageController);
+                ownerController = varargin{3};
+                stageHandle = obj.jfxApplicationAdapter.createStage(obj.title, ownerController);
             end 
             obj.stage = stageHandle.getStage(); 
             obj.stageObservable_h = handle(stageHandle.getObservable(),'CallbackProperties');
