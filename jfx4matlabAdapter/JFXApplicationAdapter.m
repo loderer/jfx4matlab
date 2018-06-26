@@ -9,21 +9,13 @@ classdef JFXApplicationAdapter < handle
     end
     
     methods
-        function obj = JFXApplicationAdapter(varargin)
-            % params:
-            % (optional) enableTestMode: Enable test mode?
+        function obj = JFXApplicationAdapter()
             
             % Add required libs to path.
             javaaddpathstatic(Config.jfxrtPath);
             javaaddpathstatic(Config.jfx4matlabPath);
             
             obj.jfxApplication = javaObject('jfx_4_matlab.JFXApplication');
-            if(nargin > 0) 
-                enableTestMode = varargin{1};
-                if(enableTestMode) 
-                    obj.jfxApplication.enableTestMode(); 
-                end
-            end
             obj.allStageControllers = Map;
         end
         
