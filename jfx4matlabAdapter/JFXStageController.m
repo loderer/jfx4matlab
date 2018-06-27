@@ -39,12 +39,12 @@ classdef JFXStageController < handle
             end 
             obj.stage = stageHandle.getStage(); 
             obj.stageObservable_h = handle(stageHandle.getObservable(),'CallbackProperties');
-            set(obj.stageObservable_h, 'UiEventCallback', @(h,e)obj.onStageAction(e)); 
+            set(obj.stageObservable_h, 'EventCallback', @(h,e)obj.handleStageAction(e)); 
             
             obj.sceneController = -1;
         end
         
-        function onStageAction(obj, e)
+        function handleStageAction(obj, e)
             % This function receives all stage actions. If a
             % sceneController is set all events are passed to it. If no
             % sceneController is set a error is thrown.
@@ -52,7 +52,7 @@ classdef JFXStageController < handle
             % obj: 
             % event: The stage event. 
             if(obj.sceneController ~= -1) 
-                obj.sceneController.onStageActionBase(e);
+                obj.sceneController.handleStageActionBase(e);
             else
                 msgID = 'EXCEPTION:NoSceneSet';
                 msg = ['Got action but no scene is set!'...
@@ -86,7 +86,7 @@ classdef JFXStageController < handle
         
         function unregisterStage(obj) 
             % Unregister all callbacks from the stage.
-            set(obj.stageObservable_h, 'UiEventCallback', '');
+            set(obj.stageObservable_h, 'EventCallback', '');
             % Unregister stage from JFXApplicationAdapter
             obj.jfxApplicationAdapter.removeStageController(obj);
         end
