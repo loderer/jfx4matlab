@@ -39,12 +39,12 @@ classdef JFXStageController < handle
             end 
             obj.stage = stageHandle.getStage(); 
             obj.stageObservable_h = handle(stageHandle.getObservable(),'CallbackProperties');
-            set(obj.stageObservable_h, 'EventCallback', @(h,e)obj.handleStageAction(e)); 
+            set(obj.stageObservable_h, 'EventCallback', @(h,e)obj.handleStageEvent(e)); 
             
             obj.sceneController = -1;
         end
         
-        function handleStageAction(obj, e)
+        function handleStageEvent(obj, e)
             % This function receives all stage actions. If a
             % sceneController is set all events are passed to it. If no
             % sceneController is set a error is thrown.
@@ -52,7 +52,7 @@ classdef JFXStageController < handle
             % obj: 
             % event: The stage event. 
             if(obj.sceneController ~= -1) 
-                obj.sceneController.handleStageActionBase(e);
+                obj.sceneController.handleStageEventBase(e);
             else
                 msgID = 'EXCEPTION:NoSceneSet';
                 msg = ['Got action but no scene is set!'...

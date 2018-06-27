@@ -8,7 +8,7 @@ classdef JFXSceneController < handle
     % to react to user input or you want to change the ui dynamically than
     % you have to extend this class. For initializing the scene you have to
     % overwrite the initScene function. To react on an users input you have
-    % to overwrite the handleSceneAction or handleStageAction functions. To change
+    % to overwrite the handleSceneEvent or handleStageEvent functions. To change
     % the ui you can fetch the ui elements by calling the getUiElement
     % function. 
     
@@ -24,10 +24,10 @@ classdef JFXSceneController < handle
     end
     
     methods (Access=private)
-        function handleSceneActionBase(obj, e) 
+        function handleSceneEventBase(obj, e) 
             % Handles all scene actions. (All callbacks specified in the
             % fxml file of the scene.) The close action is handled in here.
-            % All other actions are passed to the handleSceneAction function.
+            % All other actions are passed to the handleSceneEvent function.
             % This allows handling the events in a derived class. If the
             % derived class does not handle a event a info will be printed.
             % params:
@@ -36,7 +36,7 @@ classdef JFXSceneController < handle
             if(strcmp(e.fxId, 'root')...
                     && strcmp(e.action, 'CLOSE'))
                 obj.unregisterScene(); 
-            elseif(obj.handleSceneAction(e))
+            elseif(obj.handleSceneEvent(e))
                 % Do nothing. Event was handled by sub-class.
             else
                disp(['No callback registered.'...
@@ -66,7 +66,7 @@ classdef JFXSceneController < handle
             obj.stageController = stageController; 
             obj.jfxThread = sceneHandle.getJfxThread(); 
             obj.sceneObservable_h = handle(sceneHandle.getObservable(),'CallbackProperties');
-            set(obj.sceneObservable_h, 'EventCallback', @(h,e)obj.handleSceneActionBase(e));
+            set(obj.sceneObservable_h, 'EventCallback', @(h,e)obj.handleSceneEventBase(e));
             obj.initScene();
         end
          
@@ -75,7 +75,7 @@ classdef JFXSceneController < handle
             % elements first after that they can be initialized. 
         end
         
-        function eventConsumed = handleSceneAction(~, ~)
+        function eventConsumed = handleSceneEvent(~, ~)
             % To handle any scene action this function should be 
             % overwritten. If the event was consumed the function should
             % return 1 if not 0. 
@@ -85,9 +85,9 @@ classdef JFXSceneController < handle
             eventConsumed = 0; 
         end
         
-        function handleStageActionBase(obj, e) 
+        function handleStageEventBase(obj, e) 
             % Handles all stage actions. The close action is handled in 
-            % here. All other actions are passed to the handleStageAction 
+            % here. All other actions are passed to the handleStageEvent 
             % function. This allows handling the events in a derived class. 
             % If the derived class does not handle a event a info will be 
             % printed.
@@ -97,7 +97,7 @@ classdef JFXSceneController < handle
             if(strcmp(e.fxId, 'root')...
                     && strcmp(e.action, 'CLOSE'))
                 obj.close();
-            elseif(obj.handleStageAction(e))
+            elseif(obj.handleStageEvent(e))
                 % Do nothing. Event was handled by sub-class.
             else
                disp(['No callback registered.'...
@@ -108,7 +108,7 @@ classdef JFXSceneController < handle
             end
         end
         
-        function eventConsumed = handleStageAction(~, ~)
+        function eventConsumed = handleStageEvent(~, ~)
             % To handle any stage action this function should be 
             % overwritten. If the event was consumed the function should
             % return 1 if not 0. 
