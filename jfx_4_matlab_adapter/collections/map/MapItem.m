@@ -2,8 +2,11 @@ classdef MapItem < handle;
     %MAPITEM An item of a map.
     
     properties
+        % The key of this.
         key;
+        % The value of this.
         value; 
+        % The MapItem next to this.
         next; 
     end
     
@@ -14,6 +17,5 @@ classdef MapItem < handle;
             obj.next = -1; 
         end
     end
-    
 end
 

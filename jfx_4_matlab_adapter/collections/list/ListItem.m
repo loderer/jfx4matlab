@@ -2,7 +2,9 @@ classdef ListItem < handle
     %LISTITEM An item of a list. 
     
     properties
+        % The value of the ListItem.
         value; 
+        % The ListItem next to this.
         next; 
     end
     
@@ -13,6 +15,10 @@ classdef ListItem < handle
         end
         
         function fill(obj, rawItem) 
+            % Enables filling a list from a struct. 
+            % params:
+            % obj
+            % rawItem: Struct representing ListItem. 
             obj.value = rawItem.value; 
             if(~isequal(rawItem.next, -1))
                 obj.next = ListItem(-1); 
@@ -23,6 +29,9 @@ classdef ListItem < handle
         end
         
         function count = childCount(obj) 
+            % Fetches and increases the child-count from the ListItem next 
+            % to this by one. If there is no ListItem next to this zero is
+            % returned. 
             if(obj.next == -1)
                 count = 0; 
             else
@@ -31,6 +40,9 @@ classdef ListItem < handle
         end
         
         function value = get(obj, index) 
+            % If the index is zero the value of this item is returned.
+            % Otherwise the index is reduced by one and the function will
+            % be called recursively on the ListItem next to this. 
             if(index == 0)
                 value = obj.value; 
             else
@@ -45,6 +57,9 @@ classdef ListItem < handle
         end
         
         function oldValue = set(obj, index, newValue)
+            % If the index is zero the value of this is replaced by the new
+            % value. Otherwise the index is reduced by one and the function 
+            % will be called recursively on the ListItem next to this.
             if(index == 0)
                 oldValue = obj.value; 
                 obj.value = newValue; 

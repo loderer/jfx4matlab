@@ -23,24 +23,15 @@ classdef JFXApplicationAdapter < handle
             jfxApplication = obj.jfxApplication;
         end
         
-        function stageHandle = createStage(varargin)
+        function stageHandle = createStage(obj, title, modality, ownerStage)
             % Creates a new stage. 
             % params: 
             % obj 
             % title: The title of the stage.
             % modality: The modality of the stage.
             % ownerStage: The owner-stage of the new stage. 
-           if(nargin == 4)
-               obj = varargin{1};
-                title = varargin{2};
-                modality = varargin{3};
-                ownerStage = varargin{4};
-                stageHandle = obj.jfxApplication.createStage(title, modality, ownerStage);
-            else
-                msgID = 'EXCEPTION:IllegalArgument';
-                msg = 'Illegal number of arguments.';
-                throw(MException(msgID,msg));
-            end
+           stageHandle = obj.jfxApplication.createStage(title,...
+               modality, ownerStage);
         end
         
         function sceneHandle = showScene(...
@@ -62,13 +53,13 @@ classdef JFXApplicationAdapter < handle
             % params: 
             % obj: 
             % stageController: StageController to be added. 
-            if(obj.allStageControllers.containsKey(stageController.title))
-               tmpList = obj.allStageControllers.get(stageController.title); 
+            if(obj.allStageControllers.containsKey(stageController.getTitle()))
+               tmpList = obj.allStageControllers.get(stageController.getTitle()); 
                tmpList.add(stageController);
             else
                 tmpList = List;
                 tmpList.add(stageController);
-                obj.allStageControllers.put(stageController.title, tmpList); 
+                obj.allStageControllers.put(stageController.getTitle(), tmpList); 
             end
         end
         
@@ -78,22 +69,22 @@ classdef JFXApplicationAdapter < handle
             % params:
             % obj:
             % stageController: StageController to be removed. 
-            if(obj.allStageControllers.containsKey(stageController.title))
-                obj.allStageControllers.get(stageController.title).remove(stageController); 
-                if(obj.allStageControllers.get(stageController.title).isEmpty())
-                    obj.allStageControllers.remove(stageController.title); 
+            if(obj.allStageControllers.containsKey(stageController.getTitle()))
+                obj.allStageControllers.get(stageController.getTitle()).remove(stageController); 
+                if(obj.allStageControllers.get(stageController.getTitle()).isEmpty())
+                    obj.allStageControllers.remove(stageController.getTitle()); 
                 end
             end
         end
         
-        function stageController = getStageControllerByTitle(obj, title)
+        function stageControllers = getStageControllerByTitle(obj, title)
             % Fetches all StageControllers with the given title. 
             % params:
             % obj: 
             % title: Title of the required StageController. 
-            stageController = obj.allStageControllers.get(title); 
-            if(isequal(stageController, -1)) 
-                stageController = List();  
+            stageControllers = obj.allStageControllers.get(title); 
+            if(isequal(stageControllers, -1)) 
+                stageControllers = List();  
             end
         end
         

@@ -3,6 +3,7 @@ classdef Map < handle
     %   Detailed explanation goes here
     
     properties(Access = private)
+        % The first item in the map.
         head; 
     end
     

@@ -5,7 +5,7 @@ classdef JFXStageController < handle
     %   takes care of registering and unregistering callbacks on the stage.
     %   All events are passed to the respective scene controller. 
     
-    properties
+    properties(Access=private)
         jfxApplicationAdapter;
         title;
         stage; % Appropriate javaFX stage object. 
@@ -44,29 +44,6 @@ classdef JFXStageController < handle
             obj.sceneController = -1;
         end
         
-        function handleStageEvent(obj, e)
-            % This function receives all stage actions. If a
-            % sceneController is set all events are passed to it. If no
-            % sceneController is set a error is thrown.
-            % params: 
-            % obj: 
-            % event: The stage event. 
-            if(obj.sceneController ~= -1) 
-                obj.sceneController.handleStageEventBase(e);
-            else
-                msgID = 'EXCEPTION:NoSceneSet';
-                msg = ['Got action but no scene is set!'...
-                    ' stage: ' char(obj.obj.title)...
-                    ' fxId: ' char(e.fxId)...
-                    ' action: ' char(e.action) ')'];
-                throw(MException(msgID,msg));
-            end
-        end
-        
-        function jfxApplicationAdapter = getJfxApplicationAdpater(obj) 
-            jfxApplicationAdapter = obj.jfxApplicationAdapter; 
-        end
-        
         function showScene(obj, sceneController) 
             % Propagate the specified scene on this stage. 
             % params: 
@@ -89,6 +66,50 @@ classdef JFXStageController < handle
             set(obj.stageObservable_h, 'EventCallback', '');
             % Unregister stage from JFXApplicationAdapter
             obj.jfxApplicationAdapter.removeStageController(obj);
+        end
+        
+        function mockStageEvent(obj,e)
+            % This method is intended to be used only in tests. It
+            % calls the internal handleStageEvent function and allows
+            % thereby mocking ui-events. 
+            obj.handleStageEvent(e);
+        end
+        
+        function jfxApplicationAdapter = getJfxApplicationAdpater(obj) 
+            jfxApplicationAdapter = obj.jfxApplicationAdapter; 
+        end
+        
+        function title = getTitle(obj)
+            title = obj.title; 
+        end
+            
+        function stage = getStage(obj)
+            stage = obj.stage; 
+        end
+        
+        function sceneController = getSceneController(obj) 
+            sceneController = obj.sceneController; 
+        end
+    end
+    
+    methods(Access=private) 
+        function handleStageEvent(obj, e)
+            % This function receives all stage actions. If a
+            % sceneController is set all events are passed to it. If no
+            % sceneController is set a error is thrown.
+            % params: 
+            % obj: 
+            % event: The stage event. 
+            if(obj.sceneController ~= -1) 
+                obj.sceneController.handleStageEventBase(e);
+            else
+                msgID = 'EXCEPTION:NoSceneSet';
+                msg = ['Got action but no scene is set!'...
+                    ' stage: ' char(obj.obj.title)...
+                    ' fxId: ' char(e.fxId)...
+                    ' action: ' char(e.action) ')'];
+                throw(MException(msgID,msg));
+            end
         end
     end
 end

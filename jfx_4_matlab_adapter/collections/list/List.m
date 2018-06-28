@@ -2,6 +2,7 @@ classdef List < handle
     %SET Simple implementation of a set. 
     
     properties(Access = private)
+        % The first item of the list.
         head; 
     end
     
@@ -11,11 +12,19 @@ classdef List < handle
         end
         
         function fill(obj, rawList) 
+            % Enables filling the list from a struct. 
+            % params:
+            % obj
+            % rawList: Struct representing list. 
             obj.head = ListItem(-1);
             obj.head.fill(rawList.head); 
         end
         
         function exists = add(obj, value) 
+            % Adds a value to the end of the list. 
+            % params:
+            % obj
+            % value: The value to be added.
             exists = false;
             if(obj.head == -1)
                 obj.head = ListItem(value); 
@@ -36,6 +45,10 @@ classdef List < handle
         end
         
         function exists = remove(obj, value) 
+            % Removes a value from the list. 
+            % params:
+            % obj
+            % value: The value to be removed.
            exists = false; 
            if(~obj.isEmpty())
                if(isequal(obj.head.value, value))
@@ -56,6 +69,7 @@ classdef List < handle
         end
         
         function isEmpty = isEmpty(obj) 
+            % Checks if the list is empty.
             if(obj.head == -1)
                 isEmpty = true; 
             else
@@ -64,6 +78,7 @@ classdef List < handle
         end
         
         function size = size(obj) 
+            % Determines the number of contained items.
             if(isequal(obj.head, -1))
                 size = 0; 
             else
@@ -72,7 +87,11 @@ classdef List < handle
         end
         
         function value = get(obj, index) 
+            % Fetches an item by its index.
             % Use the index one to get the first item!
+            % params:
+            % obj
+            % index: The index of the item to be fetched. 
             value = -1;
             if(index > 0) 
                 tmpItem = ListItem(-1); 
@@ -82,7 +101,13 @@ classdef List < handle
         end
         
         function oldValue = set(obj, index, newValue) 
+            % Replaces an item with another. The item to be replaced is
+            % specified by its index.
             % Use the index one to replace the first item!
+            % params:
+            % obj
+            % index: The index of the item to be replaced. 
+            % newValue: The new item.
             oldValue = -1;
             if(index > 0) 
                 tmpItem = ListItem(-1); 
