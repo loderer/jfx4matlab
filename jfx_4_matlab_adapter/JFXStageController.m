@@ -68,11 +68,13 @@ classdef JFXStageController < handle
             obj.jfxApplicationAdapter.removeStageController(obj);
         end
         
-        function mockStageEvent(obj,e)
+        function mockStageEvent(obj, fxId, action)
             % This method is intended to be used only in tests. It
             % calls the internal handleStageEvent function and allows
             % thereby mocking ui-events. 
-            obj.handleStageEvent(e);
+            fxId = java.lang.String(fxId);
+            action = java.lang.String(action);
+            obj.handleStageEvent(struct('fxId', fxId, 'action', action));
         end
         
         function jfxApplicationAdapter = getJfxApplicationAdpater(obj) 

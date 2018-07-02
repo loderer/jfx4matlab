@@ -56,11 +56,13 @@ classdef JFXSceneController < handle
             eventConsumed = false; 
         end
         
-        function mockSceneEvent(obj,e)
+        function mockSceneEvent(obj, fxId, action)
             % This method is intended to be used only in tests. It
             % calls the internal handleStageEvent function and allows
             % thereby mocking ui-events. 
-            obj.handleSceneEventBase(e);
+            fxId = java.lang.String(fxId);
+            action = java.lang.String(action);
+            obj.handleSceneEventBase(struct('fxId', fxId, 'action', action));
         end
         
         function handleStageEventBase(obj, e) 
