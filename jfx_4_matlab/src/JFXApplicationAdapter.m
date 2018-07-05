@@ -18,7 +18,8 @@ classdef JFXApplicationAdapter < handle
             end
             if (~exist('jfx4matlabPath', 'var'))
                 [jfx4matlabPath, ~, ~] = fileparts(mfilename('fullpath'));
-                jfx4matlabPath = fullfile(jfx4matlabPath, 'jfx_4_matlab_java.jar');
+                jfx4matlabPath = fullfile(jfx4matlabPath, '..', 'extLib',...
+                    'jfx_4_matlab_java.jar');
             end
             
             % Add required libs to path.
