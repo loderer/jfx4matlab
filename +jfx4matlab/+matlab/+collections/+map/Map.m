@@ -90,7 +90,7 @@ classdef Map < handle
         
         function values = getValues(obj)
             % Fetches all values. 
-            values = List(); 
+            values = jfx4matlab.matlab.collections.list.List(); 
             actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
             actItem.next = obj.head;
             while(~isequal(actItem.next, -1))

@@ -1,7 +1,7 @@
 classdef ListItem < handle
     %LISTITEM An item of a list. 
     
-    properties
+    properties(Access=private)
         % The value of the ListItem.
         value; 
         % The ListItem next to this.
@@ -14,18 +14,20 @@ classdef ListItem < handle
             obj.next = -1; 
         end
         
-        function fill(obj, rawItem) 
-            % Enables filling a list from a struct. 
-            % params:
-            % obj
-            % rawItem: Struct representing ListItem. 
-            obj.value = rawItem.value; 
-            if(~isequal(rawItem.next, -1))
-                obj.next = ListItem(-1); 
-                obj.next.fill(rawItem.next); 
-            else
-                obj.next = -1; 
-            end
+        function value = getValue(obj) 
+            value = obj.value; 
+        end
+        
+        function setValue(obj, value) 
+            obj.value = value; 
+        end
+        
+        function next = getNext(obj) 
+            next = obj.next; 
+        end
+        
+        function setNext(obj, next) 
+            obj.next = next; 
         end
         
         function count = childCount(obj) 
