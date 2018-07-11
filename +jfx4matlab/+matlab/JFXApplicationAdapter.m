@@ -18,16 +18,16 @@ classdef JFXApplicationAdapter < handle
             end
             if (~exist('jfx4matlabPath', 'var'))
                 [jfx4matlabPath, ~, ~] = fileparts(mfilename('fullpath'));
-                jfx4matlabPath = fullfile(jfx4matlabPath, '..', 'extLib',...
+                jfx4matlabPath = fullfile(jfx4matlabPath, '..', '+javaLibs',...
                     'jfx_4_matlab_java.jar');
             end
             
             % Add required libs to path.
-            javaaddpathstatic(jfxrtPath);
-            javaaddpathstatic(jfx4matlabPath);
+            jfx4matlab.javaLibs.javaaddpathstatic(jfxrtPath);
+            jfx4matlab.javaLibs.javaaddpathstatic(jfx4matlabPath);
             
             obj.jfxApplication = javaObject('jfx_4_matlab_java.JFXApplication');
-            obj.allStageControllers = Map;
+            obj.allStageControllers = jfx4matlab.matlab.collections.map.Map;
         end
         
         function jfxApplication = getJfxApplication(obj) 
@@ -65,12 +65,15 @@ classdef JFXApplicationAdapter < handle
             % obj: 
             % stageController: StageController to be added. 
             if(obj.allStageControllers.containsKey(stageController.getTitle()))
-               tmpList = obj.allStageControllers.get(stageController.getTitle()); 
-               tmpList.add(stageController);
+               tmpjfx4matlab.matlab.collections.list.List = ...
+                   obj.allStageControllers.get(stageController.getTitle()); 
+               tmpjfx4matlab.matlab.collections.list.List.add(stageController);
             else
-                tmpList = List;
-                tmpList.add(stageController);
-                obj.allStageControllers.put(stageController.getTitle(), tmpList); 
+                tmpjfx4matlab.matlab.collections.list.List = ... 
+                    jfx4matlab.matlab.collections.list.List;
+                tmpjfx4matlab.matlab.collections.list.List.add(stageController);
+                obj.allStageControllers.put(stageController.getTitle(), ...
+                    tmpjfx4matlab.matlab.collections.list.List); 
             end
         end
         
@@ -81,8 +84,10 @@ classdef JFXApplicationAdapter < handle
             % obj:
             % stageController: StageController to be removed. 
             if(obj.allStageControllers.containsKey(stageController.getTitle()))
-                obj.allStageControllers.get(stageController.getTitle()).remove(stageController); 
-                if(obj.allStageControllers.get(stageController.getTitle()).isEmpty())
+                obj.allStageControllers.get(stageController.getTitle()). ...
+                    remove(stageController); 
+                if(obj.allStageControllers.get(...
+                        stageController.getTitle()).isEmpty())
                     obj.allStageControllers.remove(stageController.getTitle()); 
                 end
             end
@@ -95,7 +100,7 @@ classdef JFXApplicationAdapter < handle
             % title: Title of the required StageController. 
             stageControllers = obj.allStageControllers.get(title); 
             if(isequal(stageControllers, -1)) 
-                stageControllers = List();  
+                stageControllers = jfx4matlab.matlab.collections.list.List();  
             end
         end
         
@@ -103,7 +108,7 @@ classdef JFXApplicationAdapter < handle
             % Fetches all StageControllers. 
             % params:
             % obj: 
-            stageControllers = List(); 
+            stageControllers = jfx4matlab.matlab.collections.list.List(); 
             allStageControllersValues = obj.allStageControllers.getValues(); 
             for i1 = 1 : allStageControllersValues.size()
                 for i2= 1 : allStageControllersValues.get(i1).size()

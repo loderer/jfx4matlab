@@ -16,7 +16,7 @@ classdef List < handle
             % params:
             % obj
             % rawList: Struct representing list. 
-            obj.head = ListItem(-1);
+            obj.head = jfx4matlab.matlab.collections.list.ListItem(-1);
             obj.head.fill(rawList.head); 
         end
         
@@ -27,9 +27,9 @@ classdef List < handle
             % value: The value to be added.
             exists = false;
             if(obj.head == -1)
-                obj.head = ListItem(value); 
+                obj.head = jfx4matlab.matlab.collections.list.ListItem(value); 
             else 
-                actItem = ListItem(-1); 
+                actItem = jfx4matlab.matlab.collections.list.ListItem(-1); 
                 actItem.next = obj.head; 
                 while(actItem.next ~= -1)
                     actItem = actItem.next;
@@ -39,7 +39,7 @@ classdef List < handle
                     end 
                 end
                 if(~exists) 
-                    actItem.next = ListItem(value); 
+                    actItem.next = jfx4matlab.matlab.collections.list.ListItem(value); 
                 end
             end
         end
@@ -94,7 +94,7 @@ classdef List < handle
             % index: The index of the item to be fetched. 
             value = -1;
             if(index > 0) 
-                tmpItem = ListItem(-1); 
+                tmpItem = jfx4matlab.matlab.collections.list.ListItem(-1); 
                 tmpItem.next = obj.head;
                 value = tmpItem.get(index);
             end
@@ -110,7 +110,7 @@ classdef List < handle
             % newValue: The new item.
             oldValue = -1;
             if(index > 0) 
-                tmpItem = ListItem(-1); 
+                tmpItem = jfx4matlab.matlab.collections.list.ListItem(-1); 
                 tmpItem.next = obj.head;
                 oldValue = tmpItem.set(index, newValue);
             end

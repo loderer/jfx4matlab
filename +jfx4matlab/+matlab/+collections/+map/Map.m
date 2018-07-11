@@ -17,9 +17,9 @@ classdef Map < handle
             % true will be returned.
             overwrite = false; 
             if(isequal(obj.head, -1))
-               obj.head = MapItem(key, value); 
+               obj.head = jfx4matlab.matlab.collections.map.MapItem(key, value); 
             else
-                actItem = MapItem(-1, -1); 
+                actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
                 actItem.next = obj.head; 
                 while(~isequal(actItem.next, -1))
                     actItem = actItem.next;
@@ -30,7 +30,7 @@ classdef Map < handle
                     end
                 end
                 if(~overwrite)
-                    actItem.next = MapItem(key, value); 
+                    actItem.next = jfx4matlab.matlab.collections.map.MapItem(key, value); 
                 end
             end
         end
@@ -39,7 +39,7 @@ classdef Map < handle
             % Fetches the value associated to the specified key. 
             value = -1;
             if(~isequal(obj.head, -1))  
-                actItem = MapItem(-1, -1); 
+                actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
                 actItem.next = obj.head; 
                 while(~isequal(actItem.next, -1))
                     actItem = actItem.next;
@@ -60,7 +60,7 @@ classdef Map < handle
                     obj.head = obj.head.next;
                     existed = true; 
                 else
-                    actItem = MapItem(-1, -1); 
+                    actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
                     actItem.next = obj.head; 
                     while(~isequal(actItem.next, -1))
                         actItem = actItem.next;
@@ -77,7 +77,7 @@ classdef Map < handle
         function contains = containsKey(obj, key) 
             % Determines if the key is contained. 
             contains = false; 
-            actItem = MapItem(-1, -1); 
+            actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
             actItem.next = obj.head; 
             while(~isequal(actItem.next, -1))
                 actItem = actItem.next;
@@ -91,7 +91,7 @@ classdef Map < handle
         function values = getValues(obj)
             % Fetches all values. 
             values = List(); 
-            actItem = MapItem(-1, -1); 
+            actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
             actItem.next = obj.head;
             while(~isequal(actItem.next, -1))
                 actItem = actItem.next;

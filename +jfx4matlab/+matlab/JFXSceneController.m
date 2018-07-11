@@ -8,9 +8,9 @@ classdef JFXSceneController < handle
     % to react to user input or you want to change the ui dynamically than
     % you have to extend this class. For initializing the scene you have to
     % overwrite the initScene function. To react on an users input you have
-    % to overwrite the handleSceneEvent or handleStageEvent functions. To change
-    % the ui you can fetch the ui elements by calling the getUiElement
-    % function. 
+    % to overwrite the handleSceneEvent or handleStageEvent functions. To 
+    % change the ui you can fetch the ui elements by calling the 
+    % getUiElement function. 
     
     properties (Access=private)
         pathToFxml;         % The location of the fxml file to load the
@@ -36,8 +36,10 @@ classdef JFXSceneController < handle
             % sceneHandle:      The sceneHandle returned at scene creation.
             obj.stageController = stageController; 
             obj.jfxThread = sceneHandle.getJfxThread(); 
-            obj.sceneObservable_h = handle(sceneHandle.getObservable(),'CallbackProperties');
-            set(obj.sceneObservable_h, 'EventCallback', @(h,e)obj.handleSceneEventBase(e));
+            obj.sceneObservable_h = handle(sceneHandle.getObservable(), ...
+                'CallbackProperties');
+            set(obj.sceneObservable_h, 'EventCallback', ...
+                @(h,e)obj.handleSceneEventBase(e));
             obj.initScene();
         end
          
@@ -113,7 +115,8 @@ classdef JFXSceneController < handle
             if(nargin == 3) 
                 varargin{1}.jfxThread.pushBackTask(varargin{2}, varargin{3});  
             elseif(nargin > 3) 
-                varargin{1}.jfxThread.pushBackTask(varargin{2}, varargin{3}, varargin{4:nargin});
+                varargin{1}.jfxThread.pushBackTask(varargin{2}, ...
+                    varargin{3}, varargin{4:nargin});
             else
                 disp('pushBackTask should always have 3 or 4 input arguments.');
             end
@@ -135,9 +138,11 @@ classdef JFXSceneController < handle
             % method:    The method to be invoked on the object.
             % ...args:   Any number of arguments. 
             if(nargin == 3) 
-                returnValue = varargin{1}.jfxThread.applyTask(varargin{2}, varargin{3});
+                returnValue = varargin{1}.jfxThread.applyTask(...
+                    varargin{2}, varargin{3});
             elseif(nargin == 4)
-                returnValue = varargin{1}.jfxThread.applyTask(varargin{2}, varargin{3}, varargin{4:nargin});
+                returnValue = varargin{1}.jfxThread.applyTask(...
+                    varargin{2}, varargin{3}, varargin{4:nargin});
             else
                 disp('applyTask should always have 3 or 4 input arguments.');
             end
@@ -178,7 +183,8 @@ classdef JFXSceneController < handle
         end
         
         function jfxApplicationAdapter = getJfxApplicationAdapter(obj) 
-            jfxApplicationAdapter = obj.stageController.getJfxApplicationAdpater();
+            jfxApplicationAdapter = ...
+                obj.stageController.getJfxApplicationAdpater();
         end
         
         function r = getPathToFxml(obj) 
