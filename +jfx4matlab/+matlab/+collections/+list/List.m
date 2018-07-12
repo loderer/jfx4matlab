@@ -11,15 +11,6 @@ classdef List < handle
             obj.head = -1;
         end
         
-        function fill(obj, rawList) 
-            % Enables filling the list from a struct. 
-            % params:
-            % obj
-            % rawList: Struct representing list. 
-            obj.head = jfx4matlab.matlab.collections.list.ListItem(-1);
-            obj.head.fill(rawList.head); 
-        end
-        
         function exists = add(obj, value) 
             % Adds a value to the end of the list. 
             % params:
@@ -30,16 +21,17 @@ classdef List < handle
                 obj.head = jfx4matlab.matlab.collections.list.ListItem(value); 
             else 
                 actItem = jfx4matlab.matlab.collections.list.ListItem(-1); 
-                actItem.next = obj.head; 
-                while(actItem.next ~= -1)
-                    actItem = actItem.next;
-                    if(isequal(actItem.value, value))
+                actItem.setNext(obj.head); 
+                while(actItem.getNext() ~= -1)
+                    actItem = actItem.getNext();
+                    if(isequal(actItem.getValue(), value))
                         exists = true; 
                         break; 
                     end 
                 end
                 if(~exists) 
-                    actItem.next = jfx4matlab.matlab.collections.list.ListItem(value); 
+                    actItem.setNext(jfx4matlab.matlab.collections.list. ...
+                        ListItem(value)); 
                 end
             end
         end
@@ -51,21 +43,21 @@ classdef List < handle
             % value: The value to be removed.
            exists = false; 
            if(~obj.isEmpty())
-               if(isequal(obj.head.value, value))
-                    obj.head = obj.head.next;
+               if(isequal(obj.head.getValue(), value))
+                    obj.head = obj.head.getNext();
                     exists = true; 
                else
                    actItem = obj.head; 
-                   while(actItem.next ~= -1)
-                       if(isequal(actItem.next.value, value))
-                           actItem.next = actItem.next.next;
+                   while(actItem.getNext() ~= -1)
+                       if(isequal(actItem.getNext().getValue(), value))
+                           actItem.setNext(actItem.getNext().getNext());
                            exists = true; 
                            break; 
                        end
+                       actItem = actItem.getNext(); 
                    end
                end
            end
-            
         end
         
         function isEmpty = isEmpty(obj) 
@@ -92,11 +84,14 @@ classdef List < handle
             % params:
             % obj
             % index: The index of the item to be fetched. 
-            value = -1;
             if(index > 0) 
                 tmpItem = jfx4matlab.matlab.collections.list.ListItem(-1); 
-                tmpItem.next = obj.head;
+                tmpItem.setNext(obj.head);
                 value = tmpItem.get(index);
+            else
+                msgID = 'EXCEPTION:IndexOutOfBounds';
+                msg = 'The first possible index in a list is one.';
+                throw(MException(msgID,msg));
             end
         end
         
@@ -108,11 +103,14 @@ classdef List < handle
             % obj
             % index: The index of the item to be replaced. 
             % newValue: The new item.
-            oldValue = -1;
             if(index > 0) 
                 tmpItem = jfx4matlab.matlab.collections.list.ListItem(-1); 
-                tmpItem.next = obj.head;
+                tmpItem.setNext(obj.head);
                 oldValue = tmpItem.set(index, newValue);
+            else
+                msgID = 'EXCEPTION:IndexOutOfBounds';
+                msg = 'The first possible index in a list is one.';
+                throw(MException(msgID,msg));
             end
         end
     end

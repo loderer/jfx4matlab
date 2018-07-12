@@ -98,10 +98,12 @@ classdef JFXApplicationAdapter < handle
             % params:
             % obj: 
             % title: Title of the required StageController. 
-            stageControllers = obj.allStageControllers.get(title); 
-            if(isequal(stageControllers, -1)) 
-                stageControllers = jfx4matlab.matlab.collections.list.List();  
+            if(obj.allStageControllers.containsKey(title))
+                stageControllers = obj.allStageControllers.get(title);
+            else
+                stageControllers = jfx4matlab.matlab.collections.list.List(); 
             end
+             
         end
         
         function stageControllers = getAllStageControllers(obj)

@@ -1,7 +1,6 @@
 classdef JFXSceneController < handle
     %JFXSceneController Enables handling user input and changing the
-    %ui. 
-    %   This controller receives all ui events, takes care of the 
+    % ui. This controller receives all ui events, takes care of the 
     % initialization of the scene and allows changing the scene. If you
     % only want to propagate a ready to use fxml file you can use this
     % scene controller. If your scene needs to be initialized, you want
@@ -18,11 +17,16 @@ classdef JFXSceneController < handle
         sceneObservable_h;  % Observable broadcasting all scene events. 
         jfxThread;          % JavaFX application thread. 
         stageController;    % The controller of this scenes stage. 
+        initialized;        % Indicates whether this scene has been initialized. 
     end
     
     methods
         function obj = JFXSceneController(pathToFxml)
             obj.pathToFxml = pathToFxml;
+            obj.sceneObservable_h = [];
+            obj.jfxThread = [];
+            obj.stageController = []; 
+            obj.initialized = false; 
         end
         
         function init(obj, stageController, sceneHandle) 
@@ -34,6 +38,7 @@ classdef JFXSceneController < handle
             % stageController:  The controller of the stage containing the
             %                   scene. 
             % sceneHandle:      The sceneHandle returned at scene creation.
+            obj.initialized = true; 
             obj.stageController = stageController; 
             obj.jfxThread = sceneHandle.getJfxThread(); 
             obj.sceneObservable_h = handle(sceneHandle.getObservable(), ...
@@ -67,29 +72,6 @@ classdef JFXSceneController < handle
             obj.handleSceneEventBase(struct('fxId', fxId, 'action', action));
         end
         
-        function handleStageEventBase(obj, e) 
-            % Handles all stage actions. The close action is handled in 
-            % here. All other actions are passed to the handleStageEvent 
-            % function. This allows handling the events in a derived class. 
-            % If the derived class does not handle a event a info will be 
-            % printed.
-            % params:
-            % obj:
-            % event: The stage event. 
-            if(strcmp(e.fxId, 'root')...
-                    && strcmp(e.action, 'CLOSE'))
-                obj.close();
-            elseif(obj.handleStageEvent(e))
-                % Do nothing. Event was handled by sub-class.
-            else
-               disp(['No callback registered.'...
-                    ' scene: ' char(obj.pathToFxml)...
-                    ' type: StageAction'
-                    ' fxId: ' char(e.fxId)...
-                    ' action: ' char(e.action) ')']);
-            end
-        end
-        
         function eventConsumed = handleStageEvent(~, ~)
             % To handle any stage action this function should be 
             % overwritten. If the event was consumed the function should
@@ -99,11 +81,6 @@ classdef JFXSceneController < handle
             % event: The stage event. 
             eventConsumed = false; 
         end
-        
-        function unregisterScene(obj) 
-            % Unregisters the scene callbacks. 
-            set(obj.sceneObservable_h, 'EventCallback', '');
-        end        
         
         function pushBackTask(varargin)
             % Deposit a task for the javaFX application thread.
@@ -118,7 +95,9 @@ classdef JFXSceneController < handle
                 varargin{1}.jfxThread.pushBackTask(varargin{2}, ...
                     varargin{3}, varargin{4:nargin});
             else
-                disp('pushBackTask should always have 3 or 4 input arguments.');
+                msgID = 'EXCEPTION:IllegalArgument';
+                msg = 'pushBackTask should always have 3 or more input arguments.';
+                throw(MException(msgID,msg));
             end
         end
         
@@ -140,11 +119,13 @@ classdef JFXSceneController < handle
             if(nargin == 3) 
                 returnValue = varargin{1}.jfxThread.applyTask(...
                     varargin{2}, varargin{3});
-            elseif(nargin == 4)
+            elseif(nargin > 3)
                 returnValue = varargin{1}.jfxThread.applyTask(...
                     varargin{2}, varargin{3}, varargin{4:nargin});
             else
-                disp('applyTask should always have 3 or 4 input arguments.');
+                msgID = 'EXCEPTION:IllegalArgument';
+                msg = 'applyTask should always have 3 or more input arguments.';
+                throw(MException(msgID,msg));
             end
         end
         
@@ -155,16 +136,6 @@ classdef JFXSceneController < handle
             % obj: 
             % fxId: FxId of the required ui element. 
             uiElement = obj.jfxThread.getUiElement(fxId);
-        end
-        
-        function close(obj) 
-            % If isCloseable returns true the stage containing this scene 
-            % is closed ditto all callbacks are unregistered. 
-            if(obj.isCloseable())
-                obj.unregisterScene(); 
-                obj.stageController.unregisterStage(); 
-                obj.applyTask(obj.stageController.getStage(), 'close');
-            end  
         end
         
         function forceClose(obj) 
@@ -183,8 +154,13 @@ classdef JFXSceneController < handle
         end
         
         function jfxApplicationAdapter = getJfxApplicationAdapter(obj) 
-            jfxApplicationAdapter = ...
-                obj.stageController.getJfxApplicationAdpater();
+            if(isequal(obj.stageController, []))
+                jfxApplicationAdapter = [];
+            else
+                jfxApplicationAdapter = ...
+                    obj.stageController.getJfxApplicationAdpater();
+            end
+            
         end
         
         function r = getPathToFxml(obj) 
@@ -194,6 +170,34 @@ classdef JFXSceneController < handle
         function stageController = getStageController(obj)
             stageController = obj.stageController;
         end
+        
+        function initialized = isInitialized(obj)
+            initialized = obj.initialized; 
+        end
+        
+        function handleStageEventBase(obj, e) 
+            % Handles all stage actions. The close action is handled in 
+            % here. All other actions are passed to the handleStageEvent 
+            % function. This allows handling the events in a derived class. 
+            % If the derived class does not handle a event a info will be 
+            % printed.
+            % params:
+            % obj:
+            % event: The stage event. 
+            if(strcmp(e.fxId, 'root')...
+                    && strcmp(e.action, 'CLOSE'))
+                obj.close();
+            elseif(obj.handleStageEvent(e))
+                % Do nothing. Event was handled by sub-class.
+            else
+               disp(['No callback registered.'...
+                    ' scene: ' char(obj.pathToFxml)...
+                    ' type: StageAction'...
+                    ' fxId: ' char(e.fxId)...
+                    ' action: ' char(e.action) ')']);
+            end
+        end
+        
     end
     
     methods (Access=private)
@@ -206,10 +210,7 @@ classdef JFXSceneController < handle
             % params:
             % obj:
             % event: The scene event. 
-            if(strcmp(e.fxId, 'root')...
-                    && strcmp(e.action, 'CLOSE'))
-                obj.unregisterScene(); 
-            elseif(obj.handleSceneEvent(e))
+            if(obj.handleSceneEvent(e))
                 % Do nothing. Event was handled by sub-class.
             else
                disp(['No callback registered.'...
@@ -218,7 +219,21 @@ classdef JFXSceneController < handle
                     ' fxId: ' char(e.fxId)...
                     ' action: ' char(e.action) ')']);
             end
-            
+        end
+        
+        function unregisterScene(obj) 
+            % Unregisters the scene callbacks. 
+            set(obj.sceneObservable_h, 'EventCallback', '');
+        end
+        
+        function close(obj) 
+            % If isCloseable returns true the stage containing this scene 
+            % is closed ditto all callbacks are unregistered. 
+            if(obj.isCloseable())
+                obj.unregisterScene(); 
+                obj.stageController.unregisterStage(); 
+                obj.applyTask(obj.stageController.getStage(), 'close');
+            end  
         end
     end
 end

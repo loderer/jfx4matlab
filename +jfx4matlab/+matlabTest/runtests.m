@@ -8,7 +8,17 @@ addpath('C:\Users\rudi\Documents\GitHub\BaMatlab');
 import jfx4matlab.*;
 %--------------------------------------------------------------------------
 
-suite = TestSuite.fromPackage('jfx4matlab.matlabTest.collections.list');
+listTestSuite = TestSuite.fromPackage('jfx4matlab.matlabTest.collections.list');
+mapTestSuite = TestSuite.fromPackage('jfx4matlab.matlabTest.collections.map');
+defaultTestSuite = TestSuite.fromPackage('jfx4matlab.matlabTest');
+
+allSuites = [...
+    listTestSuite,...
+    mapTestSuite,...
+    defaultTestSuite...
+    ];
 runner = TestRunner.withTextOutput;
-runner.addPlugin(CodeCoveragePlugin.forFolder('C:\Users\rudi\Documents\GitHub\BaMatlab\+jfx4matlab\+matlab\+collections\+list\'))
-result = runner.run(suite);
+runner.addPlugin(CodeCoveragePlugin.forPackage('jfx4matlab.matlab.collections.list'))
+runner.addPlugin(CodeCoveragePlugin.forPackage('jfx4matlab.matlab.collections.map'))
+runner.addPlugin(CodeCoveragePlugin.forPackage('jfx4matlab.matlab'))
+result = runner.run(allSuites);

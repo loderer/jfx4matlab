@@ -1,13 +1,4 @@
 classdef ListItemTest < matlab.unittest.TestCase
-    properties
-    end
- 
-    methods(TestMethodSetup)
-    end
- 
-    methods(TestMethodTeardown)
-    end
- 
     methods(Test)
         function initTest(testCase) 
             listItem = jfx4matlab.matlab.collections.list.ListItem(42);
