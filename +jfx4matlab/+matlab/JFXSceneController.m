@@ -34,7 +34,10 @@ classdef JFXSceneController < handle
             % params:
             % obj:
             % event: The scene event. 
-            if(obj.handleSceneEvent(e))
+            if(strcmp(e.fxId, 'root')...
+                    && strcmp(e.action, 'CLOSE'))
+                obj.unregisterScene(); 
+            elseif(obj.handleSceneEvent(e))
                 % Do nothing. Event was handled by sub-class.
             else
                disp(['No callback registered.'...
@@ -90,7 +93,14 @@ classdef JFXSceneController < handle
                     ' fxId: ' char(e.fxId)...
                     ' action: ' char(e.action) ')']);
             end
-        end   
+        end
+        
+        function isCloseable = isCloseable(~)
+            % Indicates if the scene is closeable. If this function returns
+            % true the scene is closeable otherwise it is not closable. To
+            % prevent a scene from closing you can overwrite this function.
+            isCloseable = true;
+        end
     end
     
     % These methods should just be overwritten.
@@ -118,13 +128,6 @@ classdef JFXSceneController < handle
             % obj:
             % event: The stage event. 
             eventConsumed = false; 
-        end
-        
-        function isCloseable = isCloseable(~)
-            % Indicates if the scene is closeable. If this function returns
-            % true the scene is closeable otherwise it is not closable. To
-            % prevent a scene from closing you can overwrite this function.
-            isCloseable = true;
         end
     end
     
