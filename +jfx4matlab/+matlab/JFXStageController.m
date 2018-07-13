@@ -5,12 +5,44 @@ classdef JFXStageController < handle
     %   takes care of registering and unregistering callbacks on the stage.
     %   All events are passed to the respective scene controller. 
     
-    properties(Access=private)
+    properties (Access=private)
         jfxApplicationAdapter;
         title;
         stage; % Appropriate javaFX stage object. 
         stageObservable_h;  % Observable broadcasting all stage events.
         sceneController;    % Respective scene controller. 
+    end
+    
+    % These methods should not be available to the user of the jfx4matlab
+    % library.
+    methods (Access={?jfx4matlab.matlab.JFXStageController,...
+            ?jfx4matlab.matlab.JFXSceneController,...
+            ?jfx4matlab.matlabTest.JFXStageControllerTest})
+        function unregisterStage(obj) 
+            % Unregister all callbacks from the stage.
+            set(obj.stageObservable_h, 'EventCallback', '');
+            % Unregister stage from JFXApplicationAdapter
+            obj.jfxApplicationAdapter.removeStageController(obj);
+        end
+        
+        function handleStageEvent(obj, e)
+            % This function receives all stage actions. If a
+            % sceneController is set all events are passed to it. If no
+            % sceneController is set a error is thrown.
+            % params: 
+            % obj: 
+            % event: The stage event. 
+            if(obj.sceneController ~= -1) 
+                obj.sceneController.handleStageEventBase(e);
+            else
+                msgID = 'EXCEPTION:NoSceneSet';
+                msg = ['Got action but no scene is set!'...
+                    ' stage: ' char(obj.title)...
+                    ' fxId: ' char(e.fxId)...
+                    ' action: ' char(e.action) ')'];
+                throw(MException(msgID,msg));
+            end
+        end
     end
     
     methods
@@ -66,13 +98,6 @@ classdef JFXStageController < handle
             end
         end
         
-        function unregisterStage(obj) 
-            % Unregister all callbacks from the stage.
-            set(obj.stageObservable_h, 'EventCallback', '');
-            % Unregister stage from JFXApplicationAdapter
-            obj.jfxApplicationAdapter.removeStageController(obj);
-        end
-        
         function mockStageEvent(obj, fxId, action)
             % This method is intended to be used only in tests. It
             % calls the internal handleStageEvent function and allows
@@ -80,10 +105,6 @@ classdef JFXStageController < handle
             fxId = java.lang.String(fxId);
             action = java.lang.String(action);
             obj.handleStageEvent(struct('fxId', fxId, 'action', action));
-        end
-        
-        function jfxApplicationAdapter = getJfxApplicationAdpater(obj) 
-            jfxApplicationAdapter = obj.jfxApplicationAdapter; 
         end
         
         function title = getTitle(obj)
@@ -97,26 +118,9 @@ classdef JFXStageController < handle
         function sceneController = getSceneController(obj) 
             sceneController = obj.sceneController; 
         end
-    end
-    
-    methods(Access=private) 
-        function handleStageEvent(obj, e)
-            % This function receives all stage actions. If a
-            % sceneController is set all events are passed to it. If no
-            % sceneController is set a error is thrown.
-            % params: 
-            % obj: 
-            % event: The stage event. 
-            if(obj.sceneController ~= -1) 
-                obj.sceneController.handleStageEventBase(e);
-            else
-                msgID = 'EXCEPTION:NoSceneSet';
-                msg = ['Got action but no scene is set!'...
-                    ' stage: ' char(obj.title)...
-                    ' fxId: ' char(e.fxId)...
-                    ' action: ' char(e.action) ')'];
-                throw(MException(msgID,msg));
-            end
+        
+        function jfxApplicationAdapter = getJfxApplicationAdpater(obj) 
+            jfxApplicationAdapter = obj.jfxApplicationAdapter; 
         end
     end
 end

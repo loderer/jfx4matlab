@@ -13,8 +13,8 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
         function close(testCase)
             allStageControllers =...
                 testCase.jfxAppAdapter.getAllStageControllers();
-            for i = 1 : allStageControllers.size();
-                sceneController = allStageControllers.get(i)...
+            for i = 1 : size(allStageControllers, 1)
+                sceneController = allStageControllers{i, 1}...
                     .getSceneController(); 
                 if(sceneController ~= -1) 
                     sceneController.forceClose();
@@ -161,18 +161,8 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             sceneController.forceClose(); 
             
             assertEqual(testCase, ...
-                testCase.jfxAppAdapter.getStageControllerByTitle('stageController').size(),...
-                0); 
-        end
-        
-        function isCloseableTest(testCase)
-            [fxmlFilePath, ~, ~] = fileparts(mfilename('fullpath'));
-            fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
-                'sample.fxml');
-            sceneController = jfx4matlab.matlab.JFXSceneController(...
-                fxmlFilePath);
-            
-            assertTrue(testCase, sceneController.isCloseable()); 
+                size(testCase.jfxAppAdapter. ...
+                getStageControllerByTitle('stageController'), 1), 0); 
         end
         
         function handleStageEventBaseTest1(~)
@@ -204,8 +194,8 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
                 struct('fxId', fxId, 'action', action));
             
             assertEqual(testCase, ...
-                testCase.jfxAppAdapter.getStageControllerByTitle('stageController').size(),...
-                0);
+                size(testCase.jfxAppAdapter. ...
+                getStageControllerByTitle('stageController'), 1), 0);
         end
     end
 end

@@ -87,10 +87,10 @@ classdef MapTest < matlab.unittest.TestCase
         function getValuesTest(testCase) 
             map = jfx4matlab.matlab.collections.map.Map();
             map.put(21, 42);
-            map.put(22, 42);
-            map.put(23, 42);
+            map.put(22, 43);
+            map.put(23, 44);
             
-            assertFalse(testCase, map.getValues().isEmpty());
+            assertEqual(testCase, map.getValues().size(), 3);
         end
     end
 end

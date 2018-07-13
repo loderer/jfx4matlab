@@ -6,7 +6,10 @@ classdef List < handle
         head; 
     end
     
-    methods
+    methods (Access={?jfx4matlab.matlab.collections.map.Map,... 
+            ?jfx4matlab.matlab.JFXApplicationAdapter,...
+            ?jfx4matlab.matlabTest.collections.list.ListTest,...
+            ?jfx4matlab.matlabTest.collections.map.MapTest})
         function obj = List() 
             obj.head = -1;
         end
@@ -111,6 +114,14 @@ classdef List < handle
                 msgID = 'EXCEPTION:IndexOutOfBounds';
                 msg = 'The first possible index in a list is one.';
                 throw(MException(msgID,msg));
+            end
+        end
+        
+        function value = toCell(obj) 
+            % Creates an array-representation of this list.
+            value=cell(obj.size(), 1);
+            for i = 1 : obj.size()
+                value{i, 1} = obj.get(i);
             end
         end
     end

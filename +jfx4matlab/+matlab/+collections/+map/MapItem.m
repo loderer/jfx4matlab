@@ -10,7 +10,8 @@ classdef MapItem < handle;
         next; 
     end
     
-    methods
+    methods (Access={?jfx4matlab.matlab.collections.map.Map,...
+            ?jfx4matlab.matlabTest.collections.map.MapItemTest})
         function obj = MapItem(key, value)
             obj.key = key; 
             obj.value = value;

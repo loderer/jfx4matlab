@@ -7,7 +7,8 @@ classdef Map < handle
         head; 
     end
     
-    methods
+    methods (Access={?jfx4matlab.matlab.JFXApplicationAdapter,...
+            ?jfx4matlab.matlabTest.collections.map.MapTest})
         function obj = Map()
             obj.head = -1; 
         end

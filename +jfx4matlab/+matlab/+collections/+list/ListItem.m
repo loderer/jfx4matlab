@@ -8,7 +8,8 @@ classdef ListItem < handle
         next; 
     end
     
-    methods
+    methods (Access={?jfx4matlab.matlab.collections.list.List,...
+            ?jfx4matlab.matlabTest.collections.list.ListItemTest})
         function obj = ListItem(value)
             obj.value = value; 
             obj.next = -1; 

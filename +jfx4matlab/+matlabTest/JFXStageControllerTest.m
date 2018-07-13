@@ -13,8 +13,8 @@ classdef JFXStageControllerTest < matlab.unittest.TestCase
         function close(testCase)
             allStageControllers =...
                 testCase.jfxAppAdapter.getAllStageControllers();
-            for i = 1 : allStageControllers.size();
-                sceneController = allStageControllers.get(i)...
+            for i = 1 : size(allStageControllers, 1);
+                sceneController = allStageControllers{i, 1}...
                     .getSceneController(); 
                 if(sceneController ~= -1) 
                     sceneController.forceClose();
@@ -91,8 +91,8 @@ classdef JFXStageControllerTest < matlab.unittest.TestCase
             
             stageController.showScene(sceneController); 
             
-            assertEqual(testCase, testCase.jfxAppAdapter. ...
-                getAllStageControllers().size(), 1);
+            assertEqual(testCase, size(testCase.jfxAppAdapter. ...
+                getAllStageControllers(), 1), 1);
             assertTrue(testCase, sceneController.isInitialized());
             assertEqual(testCase, stageController.getSceneController(), ...
                 sceneController); 

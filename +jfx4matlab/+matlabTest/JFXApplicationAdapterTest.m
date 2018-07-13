@@ -13,8 +13,8 @@ classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
         function close(testCase)
             allStageControllers =...
                 testCase.jfxAppAdapter.getAllStageControllers();
-            for i = 1 : allStageControllers.size();
-                sceneController = allStageControllers.get(i)...
+            for i = 1 : size(allStageControllers, 1);
+                sceneController = allStageControllers{i, 1}...
                     .getSceneController(); 
                 if(sceneController ~= -1) 
                     sceneController.forceClose();
@@ -39,7 +39,7 @@ classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
             testCase.jfxAppAdapter.addStageController(stageController); 
             
             assertEqual(testCase, ...
-                testCase.jfxAppAdapter.getAllStageControllers().size(), 1); 
+                size(testCase.jfxAppAdapter.getAllStageControllers(), 1), 1); 
         end
         
         function addStageControllerTest2(testCase) 
@@ -52,8 +52,8 @@ classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
             testCase.jfxAppAdapter.addStageController(secondStageController);
             
             assertEqual(testCase, ...
-                testCase.jfxAppAdapter. ...
-                getStageControllerByTitle('stageController').size(), 2); 
+                size(testCase.jfxAppAdapter. ...
+                getStageControllerByTitle('stageController'), 1), 2); 
         end
         
         function removeStageControllerTest1(testCase)
@@ -67,8 +67,8 @@ classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
             testCase.jfxAppAdapter.removeStageController(firstStageController);
             
             assertEqual(testCase, ...
-                testCase.jfxAppAdapter. ...
-                getStageControllerByTitle('stageController').size(), 1); 
+                size(testCase.jfxAppAdapter. ...
+                getStageControllerByTitle('stageController'), 1), 1); 
         end
         
         function removeStageControllerTest2(testCase)
@@ -79,8 +79,8 @@ classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
             testCase.jfxAppAdapter.removeStageController(firstStageController);
             
             assertEqual(testCase, ...
-                testCase.jfxAppAdapter.getStageControllerByTitle('stageController').size(), ...
-                0);
+                size(testCase.jfxAppAdapter. ...
+                getStageControllerByTitle('stageController'), 1), 0);
         end
     end
 end
