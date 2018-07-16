@@ -26,7 +26,7 @@ classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
     methods(Test)
         function initTest(testCase) 
             assertEqual(testCase, ...
-                exist('jfx_4_matlab_java.JFXApplication'), 8); 
+                exist('generic_jfx_application.GenericJfxApplication'), 8); 
             
             assertEqual(testCase, ...
                 exist('javafx.application.Application'), 8);

@@ -4,7 +4,7 @@ import matlab.unittest.TestRunner
 import matlab.unittest.plugins.CodeCoveragePlugin
 
 % Add MATLAB-library to class path. 
-addpath('C:\Users\rudi\Documents\GitHub\BaMatlab');
+addpath('C:\Users\rudi\Documents\GitHub\jfx4matlab');
 import jfx4matlab.*;
 %--------------------------------------------------------------------------
 

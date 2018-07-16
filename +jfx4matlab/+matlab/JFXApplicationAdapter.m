@@ -9,7 +9,7 @@ classdef JFXApplicationAdapter < handle
     end
     
     methods
-        function obj = JFXApplicationAdapter(jfxrtPath, jfx4matlabPath)
+        function obj = JFXApplicationAdapter(jfxrtPath, genericJfxApplicationPath)
             % This ctor allows specifiing the paths to the javaFX-runtime
             % and to the java-libary jfx_4_matlab.
             if(~exist('jfxrtPath', 'var'))
@@ -17,16 +17,18 @@ classdef JFXApplicationAdapter < handle
                    'sys\java\jre\win64\jre\lib\jfxrt.jar');
             end
             if (~exist('jfx4matlabPath', 'var'))
-                [jfx4matlabPath, ~, ~] = fileparts(mfilename('fullpath'));
-                jfx4matlabPath = fullfile(jfx4matlabPath, '..', '+javaLibs',...
-                    'jfx_4_matlab_java.jar');
+                [genericJfxApplicationPath, ~, ~] = ...
+                    fileparts(mfilename('fullpath'));
+                genericJfxApplicationPath = ...
+                    fullfile(genericJfxApplicationPath, '..',...
+                    '+javaLibs', 'generic_jfx_application.jar');
             end
             
             % Add required libs to path.
             jfx4matlab.javaLibs.javaaddpathstatic(jfxrtPath);
-            jfx4matlab.javaLibs.javaaddpathstatic(jfx4matlabPath);
+            jfx4matlab.javaLibs.javaaddpathstatic(genericJfxApplicationPath);
             
-            obj.jfxApplication = javaObject('jfx_4_matlab_java.JFXApplication');
+            obj.jfxApplication = javaObject('generic_jfx_application.GenericJfxApplication');
             obj.allStageControllers = jfx4matlab.matlab.collections.map.Map;
         end
         
