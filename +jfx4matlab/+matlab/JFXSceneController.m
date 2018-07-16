@@ -188,12 +188,12 @@ classdef JFXSceneController < handle
             obj.applyTask(obj.stageController.getStage(), 'close');
         end
         
-        function jfxApplicationAdapter = getJfxApplicationAdapter(obj) 
+        function jfxApplication = getJfxApplication(obj) 
             if(isequal(obj.stageController, []))
-                jfxApplicationAdapter = [];
+                jfxApplication = [];
             else
-                jfxApplicationAdapter = ...
-                    obj.stageController.getJfxApplicationAdpater();
+                jfxApplication = ...
+                    obj.stageController.getJfxApplication();
             end
         end
         

@@ -6,7 +6,7 @@ classdef JFXStageController < handle
     %   All events are passed to the respective scene controller. 
     
     properties (Access=private)
-        jfxApplicationAdapter;
+        jfxApplication;
         title;
         stage; % Appropriate javaFX stage object. 
         stageObservable_h;  % Observable broadcasting all stage events.
@@ -22,7 +22,7 @@ classdef JFXStageController < handle
             % Unregister all callbacks from the stage.
             set(obj.stageObservable_h, 'EventCallback', '');
             % Unregister stage from JFXApplicationAdapter
-            obj.jfxApplicationAdapter.removeStageController(obj);
+            obj.jfxApplication.removeStageController(obj);
         end
         
         function handleStageEvent(obj, e)
@@ -49,23 +49,23 @@ classdef JFXStageController < handle
         function obj = JFXStageController(varargin)
             % This constructor allows creating modal and non-modal stages.
             % params:
-            % jfxApplicationAdapter:    
+            % jfxApplication:    
             % title: The title of the stage.
             % (optional) modality: The modality of the stage.
             % (optionl) owner: The owner of the stage. 
-            obj.jfxApplicationAdapter = varargin{1};
+            obj.jfxApplication = varargin{1};
             obj.title = varargin{2};
             if(nargin == 2)
-                stageHandle = obj.jfxApplicationAdapter.createStage(...
+                stageHandle = obj.jfxApplication.createStage(...
                     obj.title, javafx.stage.Modality.NONE, []);
             elseif(nargin == 3)
                 modality = varargin{3}; 
-                stageHandle = obj.jfxApplicationAdapter.createStage(...
+                stageHandle = obj.jfxApplication.createStage(...
                     obj.title, modality, []);
             elseif(nargin == 4)
                 modality = varargin{3}; 
                 ownerController = varargin{4};
-                stageHandle = obj.jfxApplicationAdapter.createStage(...
+                stageHandle = obj.jfxApplication.createStage(...
                     obj.title, modality, ownerController.stage);
             else
                 msgID = 'EXCEPTION:IllegalArgument';
@@ -91,10 +91,10 @@ classdef JFXStageController < handle
             if(obj.sceneController == -1 ...
                     || obj.sceneController.isCloseable())
                 obj.sceneController = sceneController;
-                sceneHandle = obj.jfxApplicationAdapter.showScene(...
+                sceneHandle = obj.jfxApplication.showScene(...
                     obj.stage, sceneController.getPathToFxml());
                 sceneController.init(obj, sceneHandle);
-                obj.jfxApplicationAdapter.addStageController(obj); 
+                obj.jfxApplication.addStageController(obj); 
             end
         end
         
@@ -119,8 +119,8 @@ classdef JFXStageController < handle
             sceneController = obj.sceneController; 
         end
         
-        function jfxApplicationAdapter = getJfxApplicationAdpater(obj) 
-            jfxApplicationAdapter = obj.jfxApplicationAdapter; 
+        function jfxApplication = getJfxApplication(obj) 
+            jfxApplication = obj.jfxApplication; 
         end
         
         function setIcon(obj, url)

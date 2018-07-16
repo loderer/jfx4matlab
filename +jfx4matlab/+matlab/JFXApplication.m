@@ -1,15 +1,15 @@
-classdef JFXApplicationAdapter < handle
-    %JFXApplicationAdapter Wraps the JFXApplication and its functionality. 
+classdef JFXApplication < handle
+    %JFXApplication Wraps the GenericJfxApplication and its functionality. 
     %   This class allows easy access to the functions of the java class 
-    %   JFXApplication. 
+    %   GenericJfxApplication. 
     
     properties (Access=private)
-        jfxApplication; % The JFXApplication object (java).
+        genericJfxApplication; % The JFXApplication object (java).
         allStageControllers; % All existing stageController grouped by name. 
     end
     
     methods
-        function obj = JFXApplicationAdapter(jfxrtPath, genericJfxApplicationPath)
+        function obj = JFXApplication(jfxrtPath, genericJfxApplicationPath)
             % This ctor allows specifiing the paths to the javaFX-runtime
             % and to the java-libary jfx_4_matlab.
             if(~exist('jfxrtPath', 'var'))
@@ -28,12 +28,12 @@ classdef JFXApplicationAdapter < handle
             jfx4matlab.javaLibs.javaaddpathstatic(jfxrtPath);
             jfx4matlab.javaLibs.javaaddpathstatic(genericJfxApplicationPath);
             
-            obj.jfxApplication = javaObject('generic_jfx_application.GenericJfxApplication');
+            obj.genericJfxApplication = javaObject('generic_jfx_application.GenericJfxApplication');
             obj.allStageControllers = jfx4matlab.matlab.collections.map.Map;
         end
         
-        function jfxApplication = getJfxApplication(obj) 
-            jfxApplication = obj.jfxApplication;
+        function genericJfxApplication = getGenericJfxApplication(obj) 
+            genericJfxApplication = obj.genericJfxApplication;
         end
         
         function stageHandle = createStage(obj, title, modality, ownerStage)
@@ -43,7 +43,7 @@ classdef JFXApplicationAdapter < handle
             % title: The title of the stage.
             % modality: The modality of the stage.
             % ownerStage: The owner-stage of the new stage. 
-           stageHandle = obj.jfxApplication.createStage(title,...
+           stageHandle = obj.genericJfxApplication.createStage(title,...
                modality, ownerStage);
         end
         
@@ -56,7 +56,7 @@ classdef JFXApplicationAdapter < handle
             % pathToFxml: The scenes fxml file. 
             % width: Width of the scene. 
             % height: Height of the scene. 
-            sceneHandle = obj.jfxApplication.showScene(...
+            sceneHandle = obj.genericJfxApplication.showScene(...
                 stage, pathToFxml);
         end
         

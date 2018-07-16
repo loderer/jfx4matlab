@@ -1,18 +1,18 @@
-classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
+classdef JFXApplicationTest < matlab.unittest.TestCase
     properties
-        jfxAppAdapter; 
+        jfxApplication; 
     end
  
     methods(TestMethodSetup)
         function startUp(testCase)
-            testCase.jfxAppAdapter = jfx4matlab.matlab.JFXApplicationAdapter();
+            testCase.jfxApplication = jfx4matlab.matlab.JFXApplication();
         end
     end
  
     methods(TestMethodTeardown)
         function close(testCase)
             allStageControllers =...
-                testCase.jfxAppAdapter.getAllStageControllers();
+                testCase.jfxApplication.getAllStageControllers();
             for i = 1 : size(allStageControllers, 1);
                 sceneController = allStageControllers{i, 1}...
                     .getSceneController(); 
@@ -34,52 +34,52 @@ classdef JFXApplicationAdapterTest < matlab.unittest.TestCase
         
         function addStageControllerTest1(testCase) 
             stageController = jfx4matlab.matlab. ...
-                JFXStageController(testCase.jfxAppAdapter,'firstStageController');
+                JFXStageController(testCase.jfxApplication,'firstStageController');
             
-            testCase.jfxAppAdapter.addStageController(stageController); 
+            testCase.jfxApplication.addStageController(stageController); 
             
             assertEqual(testCase, ...
-                size(testCase.jfxAppAdapter.getAllStageControllers(), 1), 1); 
+                size(testCase.jfxApplication.getAllStageControllers(), 1), 1); 
         end
         
         function addStageControllerTest2(testCase) 
             firstStageController = jfx4matlab.matlab. ...
-                JFXStageController(testCase.jfxAppAdapter,'stageController');
+                JFXStageController(testCase.jfxApplication,'stageController');
             secondStageController = jfx4matlab.matlab. ...
-                JFXStageController(testCase.jfxAppAdapter,'stageController');
+                JFXStageController(testCase.jfxApplication,'stageController');
             
-            testCase.jfxAppAdapter.addStageController(firstStageController);
-            testCase.jfxAppAdapter.addStageController(secondStageController);
+            testCase.jfxApplication.addStageController(firstStageController);
+            testCase.jfxApplication.addStageController(secondStageController);
             
             assertEqual(testCase, ...
-                size(testCase.jfxAppAdapter. ...
+                size(testCase.jfxApplication. ...
                 getStageControllerByTitle('stageController'), 1), 2); 
         end
         
         function removeStageControllerTest1(testCase)
             firstStageController = jfx4matlab.matlab. ...
-                JFXStageController(testCase.jfxAppAdapter,'stageController');
+                JFXStageController(testCase.jfxApplication,'stageController');
             secondStageController = jfx4matlab.matlab. ...
-                JFXStageController(testCase.jfxAppAdapter,'stageController');
-            testCase.jfxAppAdapter.addStageController(firstStageController);
-            testCase.jfxAppAdapter.addStageController(secondStageController);
+                JFXStageController(testCase.jfxApplication,'stageController');
+            testCase.jfxApplication.addStageController(firstStageController);
+            testCase.jfxApplication.addStageController(secondStageController);
             
-            testCase.jfxAppAdapter.removeStageController(firstStageController);
+            testCase.jfxApplication.removeStageController(firstStageController);
             
             assertEqual(testCase, ...
-                size(testCase.jfxAppAdapter. ...
+                size(testCase.jfxApplication. ...
                 getStageControllerByTitle('stageController'), 1), 1); 
         end
         
         function removeStageControllerTest2(testCase)
             firstStageController = jfx4matlab.matlab. ...
-                JFXStageController(testCase.jfxAppAdapter,'stageController');
-            testCase.jfxAppAdapter.addStageController(firstStageController);
+                JFXStageController(testCase.jfxApplication,'stageController');
+            testCase.jfxApplication.addStageController(firstStageController);
             
-            testCase.jfxAppAdapter.removeStageController(firstStageController);
+            testCase.jfxApplication.removeStageController(firstStageController);
             
             assertEqual(testCase, ...
-                size(testCase.jfxAppAdapter. ...
+                size(testCase.jfxApplication. ...
                 getStageControllerByTitle('stageController'), 1), 0);
         end
     end

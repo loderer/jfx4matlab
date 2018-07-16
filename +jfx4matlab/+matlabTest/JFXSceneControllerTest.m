@@ -1,18 +1,18 @@
 classdef JFXSceneControllerTest < matlab.unittest.TestCase
     properties
-        jfxAppAdapter; 
+        jfxApplication; 
     end
  
     methods(TestMethodSetup)
         function setUp(testCase)
-             testCase.jfxAppAdapter = jfx4matlab.matlab.JFXApplicationAdapter();
+             testCase.jfxApplication = jfx4matlab.matlab.JFXApplication();
         end
     end
  
     methods(TestMethodTeardown)
         function close(testCase)
             allStageControllers =...
-                testCase.jfxAppAdapter.getAllStageControllers();
+                testCase.jfxApplication.getAllStageControllers();
             for i = 1 : size(allStageControllers, 1)
                 sceneController = allStageControllers{i, 1}...
                     .getSceneController(); 
@@ -37,7 +37,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             assertEqual(testCase, sceneController.getStageController(), []);
             assertFalse(testCase, sceneController.isInitialized());
             assertEqual(testCase,...
-                sceneController.getJfxApplicationAdapter(),...
+                sceneController.getJfxApplication(),...
                 []);
         end
         
@@ -46,7 +46,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
             stageController = jfx4matlab.matlab.JFXStageController(...
-                testCase.jfxAppAdapter, 'stageController');
+                testCase.jfxApplication, 'stageController');
             sceneController = jfx4matlab.matlab.JFXSceneController(...
                 fxmlFilePath);
             
@@ -57,8 +57,8 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
                 sceneController.getStageController(),...
                 stageController);
             assertEqual(testCase,...
-                sceneController.getJfxApplicationAdapter(),...
-                testCase.jfxAppAdapter);
+                sceneController.getJfxApplication(),...
+                testCase.jfxApplication);
         end
         
         function mockSceneEventTest(~)
@@ -76,7 +76,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
             stageController = jfx4matlab.matlab.JFXStageController(...
-                testCase.jfxAppAdapter, 'stageController');
+                testCase.jfxApplication, 'stageController');
             sceneController = jfx4matlab.matlab.JFXSceneController(...
                 fxmlFilePath);
             stageController.showScene(sceneController);
@@ -98,7 +98,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
             stageController = jfx4matlab.matlab.JFXStageController(...
-                testCase.jfxAppAdapter, 'stageController');
+                testCase.jfxApplication, 'stageController');
             sceneController = jfx4matlab.matlab.JFXSceneController(...
                 fxmlFilePath);
             stageController.showScene(sceneController);
@@ -119,7 +119,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
             stageController = jfx4matlab.matlab.JFXStageController(...
-                testCase.jfxAppAdapter, 'stageController');
+                testCase.jfxApplication, 'stageController');
             sceneController = jfx4matlab.matlab.JFXSceneController(...
                 fxmlFilePath);
             stageController.showScene(sceneController);
@@ -136,7 +136,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
             stageController = jfx4matlab.matlab.JFXStageController(...
-                testCase.jfxAppAdapter, 'stageController');
+                testCase.jfxApplication, 'stageController');
             sceneController = jfx4matlab.matlab.JFXSceneController(...
                 fxmlFilePath);
             stageController.showScene(sceneController);
@@ -153,7 +153,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
             stageController = jfx4matlab.matlab.JFXStageController(...
-                testCase.jfxAppAdapter, 'stageController');
+                testCase.jfxApplication, 'stageController');
             sceneController = jfx4matlab.matlab.JFXSceneController(...
                 fxmlFilePath);
             stageController.showScene(sceneController);
@@ -161,7 +161,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             sceneController.forceClose(); 
             
             assertEqual(testCase, ...
-                size(testCase.jfxAppAdapter. ...
+                size(testCase.jfxApplication. ...
                 getStageControllerByTitle('stageController'), 1), 0); 
         end
         
@@ -183,7 +183,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
             stageController = jfx4matlab.matlab.JFXStageController(...
-                testCase.jfxAppAdapter, 'stageController');
+                testCase.jfxApplication, 'stageController');
             sceneController = jfx4matlab.matlab.JFXSceneController(...
                 fxmlFilePath);
             stageController.showScene(sceneController);
@@ -194,7 +194,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
                 struct('fxId', fxId, 'action', action));
             
             assertEqual(testCase, ...
-                size(testCase.jfxAppAdapter. ...
+                size(testCase.jfxApplication. ...
                 getStageControllerByTitle('stageController'), 1), 0);
         end
     end
