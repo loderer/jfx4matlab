@@ -122,6 +122,26 @@ classdef JFXStageController < handle
         function jfxApplicationAdapter = getJfxApplicationAdpater(obj) 
             jfxApplicationAdapter = obj.jfxApplicationAdapter; 
         end
+        
+        function setIcon(obj, url)
+            % This function allows setting an icon next to the title of the
+            % stage. This is possible till the first scene is shown on a 
+            % stage.
+            % params: 
+            % obj:
+            % url: The full path to the icon.
+            if(obj.sceneController == -1)
+                file = java.io.File(url);
+                uri = file.toURI();
+                url = uri.toURL();
+                urlString = url.toString();
+                obj.stage.getIcons().add(javafx.scene.image.Image(urlString)); 
+            else
+                msgID = 'EXCEPTION:IllegalState';
+                msg = 'The icon has to be set before any stage is shown.';
+                throw(MException(msgID,msg));
+            end
+        end
     end
 end
 
