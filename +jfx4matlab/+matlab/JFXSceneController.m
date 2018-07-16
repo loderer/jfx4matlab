@@ -94,13 +94,6 @@ classdef JFXSceneController < handle
                     ' action: ' char(e.action) ')']);
             end
         end
-        
-        function isCloseable = isCloseable(~)
-            % Indicates if the scene is closeable. If this function returns
-            % true the scene is closeable otherwise it is not closable. To
-            % prevent a scene from closing you can overwrite this function.
-            isCloseable = true;
-        end
     end
         
     methods 
@@ -239,6 +232,13 @@ classdef JFXSceneController < handle
             % obj:
             % event: The stage event. 
             eventConsumed = false; 
+        end
+        
+        function isCloseable = isCloseable(~)
+            % Indicates if the scene is closeable. If this function returns
+            % true the scene is closeable otherwise it is not closable. To
+            % prevent a scene from closing you can overwrite this function.
+            isCloseable = true;
         end
     end  
 end
