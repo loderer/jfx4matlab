@@ -102,35 +102,7 @@ classdef JFXSceneController < handle
             isCloseable = true;
         end
     end
-    
-    % These methods should just be overwritten.
-    methods (Access = {?jfx4matlab.matlab.JFXSceneController})
-        function initScene(~) 
-            % Initializes the scene. It is recommended to fetch the ui
-            % elements first after that they can be initialized. 
-        end
         
-        function eventConsumed = handleSceneEvent(~, ~)
-            % To handle any scene action this function should be 
-            % overwritten. If the event was consumed the function should
-            % return true if not false. 
-            % params:
-            % obj:
-            % event: The scene event. 
-            eventConsumed = false; 
-        end
-        
-        function eventConsumed = handleStageEvent(~, ~)
-            % To handle any stage action this function should be 
-            % overwritten. If the event was consumed the function should
-            % return true if not false. 
-            % params:
-            % obj:
-            % event: The stage event. 
-            eventConsumed = false; 
-        end
-    end
-    
     methods 
         function obj = JFXSceneController(pathToFxml)
             obj.pathToFxml = pathToFxml;
@@ -242,6 +214,31 @@ classdef JFXSceneController < handle
         
         function initialized = isInitialized(obj)
             initialized = obj.initialized; 
+        end
+        
+        function initScene(~) 
+            % Initializes the scene. It is recommended to fetch the ui
+            % elements first after that they can be initialized. 
+        end
+        
+        function eventConsumed = handleSceneEvent(~, ~)
+            % To handle any scene action this function should be 
+            % overwritten. If the event was consumed the function should
+            % return true if not false. 
+            % params:
+            % obj:
+            % event: The scene event. 
+            eventConsumed = false; 
+        end
+        
+        function eventConsumed = handleStageEvent(~, ~)
+            % To handle any stage action this function should be 
+            % overwritten. If the event was consumed the function should
+            % return true if not false. 
+            % params:
+            % obj:
+            % event: The stage event. 
+            eventConsumed = false; 
         end
     end  
 end

@@ -6,10 +6,7 @@ classdef List < handle
         head; 
     end
     
-    methods (Access={?jfx4matlab.matlab.collections.map.Map,... 
-            ?jfx4matlab.matlab.JFXApplicationAdapter,...
-            ?jfx4matlab.matlabTest.collections.list.ListTest,...
-            ?jfx4matlab.matlabTest.collections.map.MapTest})
+    methods
         function obj = List() 
             obj.head = -1;
         end
