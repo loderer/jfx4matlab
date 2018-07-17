@@ -31,6 +31,10 @@ Zusätzlich zur fxml-Datei wird für den Prototypen folgendes MATLAB-Skript ben�
 ```MATLAB
 % Add required directories to classpath.-----------------------------------
 
+% Get the path to the folder containing this file.
+[pathToThisDir, ~, ~] = fileparts(mfilename('fullpath'));
+% Add all MATLAB-sources to the class path.
+addpath(genpath(pathToThisDir));
 % Add MATLAB-library to class path.
 addpath(<PATH_TO_THE_JFX4MATLAB_PACKAGE>);
 import jfx4matlab.matlab.*;
