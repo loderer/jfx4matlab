@@ -35,7 +35,7 @@ Zum Implementieren eines ersten Prototyps müssen lediglich zwei Dateien impleme
 Ihr Inhalt definiert den Content und das Layout der Scene. In unserer Fall wird eine  Vertical-Box mit einem Label und einem Button hinzugefügt. Das Label nimmt dabei immer den gesamten verfügbaren Platz, sowohl in vertikale, als auch in horizontale Richtung ein. Der Text des Labels lautet "Hello World!!!". Der Button ist am unteren Rand des Fensters fixiert und nimmt den gesamten verfügbaren Platz in horizontale Richtung ein. Sein Text lautet "click me".   
 
 Zusätzlich zur fxml-Datei wird für den Prototypen folgendes MATLAB-Skript benötigt.  
-```Matlab
+```MATLAB
 % Add required directories to classpath.-----------------------------------
 
 % Add MATLAB-library to class path.
