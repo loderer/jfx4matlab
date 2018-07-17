@@ -3,7 +3,7 @@ jfx4matlab ermöglicht das Umsetzen einer MATLAB-Anwendung mit JavaFX-Benutzerob
 ## Hello World
 Wie das jfx4matlab-Package zu verwenden ist wird im Folgenden am Beispiel einer einfachen Anwendung erläutert.
 
-Im initialen Zustand gleicht die Anwendung dem Folgenden Screenshot.  
+Im initialen Zustand gleicht die Anwendung dem folgenden Screenshot.  
 
 ![Screenshot einer einfachen Anwendung vor klicken des Buttons.](/docResources/SampleApplication_before.png)
 
@@ -145,6 +145,6 @@ Es ändert die Hintergrundfarbe eines Buttons zu orange und die Textfarbe zu gra
 ```
 Dazu muss die stylesheets-Eigenschaft des root-Elements der Bedienelemente angepasst werden. Hier muss Pfad zum css vermerkt werden. Damit das URL-Tag genutzt werden kann muss zusätlich URL aus dem java.net-Package importiert werden.
 
-Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik sollten jetzt der Beschreibung, unserer Hello World Anwendung, entsprechen. 
+Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik sollten jetzt der Beschreibung, unserer Hello World Anwendung, entsprechen.
 
 Unter [samples/HelloWorld](samples/HelloWorld) ist der Sourcecode zum Beispiel abgelegt. Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
