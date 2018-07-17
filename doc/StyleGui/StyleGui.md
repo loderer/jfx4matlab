@@ -1,4 +1,4 @@
-# Anwenden eines Stylesheets
+# Gestalten der Benutzeroberfläche
 Dem jfx4matlab-Package liegt JavaFX zugrunde. JavaFX erlaubt das individuelle Gestalten von Scenes mithilfe von css-Dateien. Dieser Abschnitt versucht anhand eines kleinen Beispiels die grundlegenden Schritte zum stylen einer Scene zu veranschaulichen. Weiterführende Informationen bezüglich dem Anwenden von css-Dateien sind der [JavaFX-Referenz](https://docs.oracle.com/javafx/2/get_started/css.htm ) zu entnehmen. Beim sichten dieser Dokumente gilt es jedoch darauf zu achten, dass die css-Dateien nicht durch Java-Code mit der Scene verknüft werden können. Stattdessen müssen die css-Dateien entsprechend des Abschnitts "css-Datei in fxml-Datei referenzieren" in den jeweiligen fxml-Dateien referenziert werden.
 
 Dieses Beispiel basiert auf der  [Hello World Anwendung](../../samples/HelloWorld). Wird sie gestartet, öffnet sich dieses Fenster.

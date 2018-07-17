@@ -1,4 +1,4 @@
-# Hello World
+# Hello World Anwendung
 Der Umgang mit dem jfx4matlab-Package wird im Folgenden am Beispiel einer einfachen Anwendung erläutert.
 
 Im initialen Zustand gleicht die Anwendung dem folgenden Screenshot.  
