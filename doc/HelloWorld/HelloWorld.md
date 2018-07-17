@@ -3,11 +3,11 @@ Wie das jfx4matlab-Package zu verwenden ist wird im Folgenden am Beispiel einer 
 
 Im initialen Zustand gleicht die Anwendung dem folgenden Screenshot.  
 
-![Screenshot einer einfachen Anwendung vor klicken des Buttons.](SampleApplication_before.png)
+![Screenshot einer einfachen Anwendung vor klicken des Buttons.](SampleApplication_I.png)
 
 Nach einem Klick auf den Button mit dem Text "click me" wird "Hello World!!!" durch "heureka" ersetzt. Folgender Screenshot visualisiert das Aussehen nach einem Klick.
 
-![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_after.png)
+![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_II.png)
 
 ## Begriffserklärung
 Jedes Fenster einer Anwendung ist in zwei Teile aufgeteilt. Der Inhalt des Fensters wird Scene genannt. Ein weiterer Teil ist der Rahmen um den Inhalt. Das ist die Stage. Sie beinhaltet ein Icon, den Titel und die Buttons zum minnimieren, maximieren und schließen des Fensters.
@@ -58,9 +58,9 @@ Ein ausführen des MATLAB-Skripts erzeugt dieses Fenster.
 
 ![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_I.png)
 
-Auf den ersten Blick sieht dieser Prototyp fast aus, wie das angestrebte Produkt. Einzig die Farbe des Buttons stimmt nicht. Klickt man auf den Button passiert nichts. Diese Funktionalität gilt es im nächsten Abschnitt zu ergänzen.
+Das Aussehen der GUI gilt somit als komplett umgesetzt. Nun fehlt nur noch die Logik. Klickt man in dem Prototypen auf den Button, so passiert nichts. Diese Funktionalität gilt es im nächsten Abschnitt zu ergänzen.
 
-### Implementierung der Logik
+### Implementieren der Logik
 Die Logik unserer Anwendung beschränkt sich auf eine Scene. Nach einem Klick auf den Button soll soll sich das Label derselben Scene verändern. Um diese Logik zu implementieren muss zunächst das fxml angepasst werden.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -110,39 +110,10 @@ end
 ```   
 Beim Überschreiben der initScene-Methode können wir an Referenzen auf die Bedienelemente kommen. Durch Überschreiben der handleSceneEvent-Methode erlangen wir Zugriff auf die Events. Wann immer ein Event in JavaFX ausgelöst wird, wird diese handleSceneEvent-Methode aufgerufen. Sie bekommt als Eingangs-Parameter ein Event-Objekt, welches sowohl den Namen des Quell-Bedienelements, als auch den Namen des Events enthält. Über beliebige Bedingungen kann auf diese Events reagiert werden. Wurde das Event verarbeitet, so soll handleSceneEvent true zurückgeben, ansonsten false. Wird ein Event nicht verarbeitet, so wird eine Warnung auf der Kommandozeile ausgegeben. In der Beispielanwendung wird auf das ACTION-Event, vom Quell-GUI-Element "btn", mit dem Ändern des Textes reagiert.
 
-Wird das MATLAB-Skript nun ausgeführt, so öffnet sich unser Prototyp in gewohnter Manier. Auf einen Klick auf den Button, wird mit dem Verändern des Textes reagiert.   
+Wird das MATLAB-Skript nun ausgeführt, so öffnet sich die Applikation. Auf einen Klick auf den Button, wird mit dem Verändern des Textes reagiert.   
 
 ![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_II.png)
 
-### Anwenden eines Stylesheets
-Der letzte Schritt bei der Implementierung dieser einfachen Beispielanwendung ist das Ändern der Button-Farbe. Das lässt sich über folgendes Cascading Style Sheet bewerkstelligen.
-```css
-.button {
-	-fx-background-color: #ed8b00;
-  -fx-text-fill: #63666a;
-}
-```
-Es ändert die Hintergrundfarbe eines Buttons zu orange und die Textfarbe zu grau. Damit das css beim generieren der Scene berücksichtigt wird muss es im fxml verknüpft werden.
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.net.URL?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="generic_jfx_application.event_transfer.Controller">
-   <stylesheets>
-      <URL value="<PATH_TO_THE_CSS_FILE>" />
-   </stylesheets>
-   <children>
-      <Label fx:id="lbl" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Hello world!!!" VBox.vgrow="ALWAYS" />
-      <Button fx:id="btn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEvent" text="click me" />
-   </children>
-</VBox>
-```
-Dazu muss die stylesheets-Eigenschaft des root-Elements der Bedienelemente angepasst werden. Hier muss Pfad zum css vermerkt werden. Damit das URL-Tag genutzt werden kann muss zusätlich URL aus dem java.net-Package importiert werden.
-
-Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik sollten jetzt der Beschreibung, unserer Hello World Anwendung, entsprechen.
+Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik, sollten der Beschreibung unserer Hello World Anwendung entsprechen.
 
 Unter [samples/HelloWorld](samples/HelloWorld) ist der Sourcecode zum Beispiel abgelegt. Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
