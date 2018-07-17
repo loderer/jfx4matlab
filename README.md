@@ -147,4 +147,4 @@ Dazu muss die stylesheets-Eigenschaft des root-Elements der Bedienelemente angep
 
 Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik sollten jetzt der Beschreibung, unserer Hello World Anwendung, entsprechen. 
 
-Unter [samples/HelloWorld](samples/HelloWorld) ist der Sourcecode zum Beispiel abgelegt. Zum ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
+Unter [samples/HelloWorld](samples/HelloWorld) ist der Sourcecode zum Beispiel abgelegt. Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
