@@ -109,4 +109,4 @@ Wird das MATLAB-Skript nun ausgeführt, so öffnet sich die Applikation. Auf ein
 
 Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik, sollten der Beschreibung unserer Hello World Anwendung entsprechen.
 
-Unter [samples/HelloWorld](samples/HelloWorld) ist der Sourcecode zum Beispiel abgelegt. Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
+[Hier](../../samples/HelloWorld) ist der Sourcecode zum Beispiel abgelegt. Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
