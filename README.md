@@ -145,4 +145,6 @@ Es ändert die Hintergrundfarbe eines Buttons zu orange und die Textfarbe zu gra
 ```
 Dazu muss die stylesheets-Eigenschaft des root-Elements der Bedienelemente angepasst werden. Hier muss Pfad zum css vermerkt werden. Damit das URL-Tag genutzt werden kann muss zusätlich URL aus dem java.net-Package importiert werden.
 
-Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik sollten jetzt der Beschreibung, unserer Hello World Anwendung, entsprechen.
+Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik sollten jetzt der Beschreibung, unserer Hello World Anwendung, entsprechen. 
+
+Unter [samples/HelloWorld](samples/HelloWorld) ist der Sourcecode zum Beispiel abgelegt. Zum ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
