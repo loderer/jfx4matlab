@@ -1,12 +1,25 @@
 # Anwenden eines Stylesheets
-Der letzte Schritt bei der Implementierung dieser einfachen Beispielanwendung ist das Ändern der Button-Farbe. Das lässt sich über folgendes Cascading Style Sheet bewerkstelligen.
+Dem jfx4matlab-Package liegt JavaFX zugrunde. JavaFX erlaubt das individuelle Gestalten von Scenes mithilfe von css-Dateien. Dieser Abschnitt versucht anhand eines kleinen Beispiels die grundlegenden Schritte zum stylen einer Scene zu veranschaulichen. Weiterführende Informationen bezüglich dem Anwenden von css-Dateien sind der [JavaFX-Referenz](https://docs.oracle.com/javafx/2/get_started/css.htm ) zu entnehmen. Beim sichten dieser Dokumente gilt es jedoch darauf zu achten, dass die css-Dateien nicht durch Java-Code mit der Scene verknüft werden können. Stattdessen müssen die css-Dateien entsprechend des Abschnitts "css-Datei in fxml-Datei referenzieren" in den jeweiligen fxml-Dateien referenziert werden.
+
+Dieses Beispiel basiert auf der  [Hello World Anwendung](../../samples/HelloWorld). Wird sie gestartet, öffnet sich dieses Fenster.
+![Screenshot der Hello World Anwendung](SampleApplication_I.png)
+
+Ziel ist es nun die Form und Farbe des Buttons zu verändern.
+
+## css-Datei erzeugen
+Zuerst muss eine ensprechende css-Datei geschrieben werden.
 ```css
 .button {
 	-fx-background-color: #ed8b00;
-  -fx-text-fill: #63666a;
+    -fx-text-fill: #63666a;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
 }
 ```
-Es ändert die Hintergrundfarbe eines Buttons zu orange und die Textfarbe zu grau. Damit das css beim generieren der Scene berücksichtigt wird muss es im fxml verknüpft werden.
+Sie ändert die Hintergrundfarbe eines Buttons zu orange und die Textfarbe zu grau. Ebenso rundet sie den Button ab.
+
+## css-Datei in fxml-Datei referenzieren
+Damit die css-Datei beim generieren der Scene berücksichtigt wird muss es im fxml verknüpft werden.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -25,8 +38,10 @@ Es ändert die Hintergrundfarbe eines Buttons zu orange und die Textfarbe zu gra
    </children>
 </VBox>
 ```
-Dazu muss die stylesheets-Eigenschaft des root-Elements der Bedienelemente angepasst werden. Hier muss Pfad zum css vermerkt werden. Damit das URL-Tag genutzt werden kann muss zusätlich URL aus dem java.net-Package importiert werden.
+Dazu muss die stylesheets-Eigenschaft des root-Elements der Bedienelemente angepasst werden. Hier muss der Pfad zum css vermerkt werden. Damit das URL-Tag genutzt werden kann muss zusätlich URL aus dem java.net-Package importiert werden.
 
-Nun ist die Beispielanwendung fertig. Sowohl das Aussehen, als auch die Logik, sollten der Beschreibung unserer Hello World Anwendung entsprechen.
+Wird die Beispielanwendung gestartet, so erwartet uns dieses Fenster.
 
-[Hier](../../samples/StyleGui) ist der Sourcecode zum Beispiel abgelegt. Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
+![Screenshot der gestalteten Hello World Anwendung](SampleApplication_II.png)
+
+Der Sourcecode dieses Beispiels befindet sich in [diesem Ordner](../../samples/StyleGui). Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
