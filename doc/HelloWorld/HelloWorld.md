@@ -9,14 +9,7 @@ Nach einem Klick auf den Button mit dem Text "click me" wird "Hello World!!!" du
 
 ![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_II.png)
 
-## Begriffserklärung
-Jedes Fenster einer Anwendung ist in zwei Teile aufgeteilt. Der Inhalt des Fensters wird Scene genannt. Ein weiterer Teil ist der Rahmen um den Inhalt. Das ist die Stage. Sie beinhaltet ein Icon, den Titel und die Buttons zum minnimieren, maximieren und schließen des Fensters.
-
-![Screenshot zum visualisieren der Unterteilung eines Fensters in Stage und Scene.](SceneAndStage.png)
-
-
-## Schritt für Schritt Anleitung
-### Ein erster Prototyp
+## Ein erster Prototyp
 Zum Implementieren eines ersten Prototyps müssen lediglich zwei Dateien implementiert werden. Die erste ist folgende fxml-Datei.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -60,7 +53,7 @@ Ein ausführen des MATLAB-Skripts erzeugt dieses Fenster.
 
 Das Aussehen der GUI gilt somit als komplett umgesetzt. Nun fehlt nur noch die Logik. Klickt man in dem Prototypen auf den Button, so passiert nichts. Diese Funktionalität gilt es im nächsten Abschnitt zu ergänzen.
 
-### Implementieren der Logik
+## Implementieren der Logik
 Die Logik unserer Anwendung beschränkt sich auf eine Scene. Nach einem Klick auf den Button soll soll sich das Label derselben Scene verändern. Um diese Logik zu implementieren muss zunächst das fxml angepasst werden.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
