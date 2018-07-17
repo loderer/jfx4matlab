@@ -1,5 +1,5 @@
 # Hello World
-Wie das jfx4matlab-Package zu verwenden ist wird im Folgenden am Beispiel einer einfachen Anwendung erläutert.
+Der Umgang mit dem jfx4matlab-Package wird im Folgenden am Beispiel einer einfachen Anwendung erläutert.
 
 Im initialen Zustand gleicht die Anwendung dem folgenden Screenshot.  
 
