@@ -3,16 +3,16 @@ Wie das jfx4matlab-Package zu verwenden ist wird im Folgenden am Beispiel einer 
 
 Im initialen Zustand gleicht die Anwendung dem folgenden Screenshot.  
 
-![Screenshot einer einfachen Anwendung vor klicken des Buttons.](/docResources/SampleApplication_before.png)
+![Screenshot einer einfachen Anwendung vor klicken des Buttons.](SampleApplication_before.png)
 
 Nach einem Klick auf den Button mit dem Text "click me" wird "Hello World!!!" durch "heureka" ersetzt. Folgender Screenshot visualisiert das Aussehen nach einem Klick.
 
-![Screenshot einer einfachen Anwendung nach klicken des Buttons.](/docResources/SampleApplication_after.png)
+![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_after.png)
 
 ## Begriffserklärung
 Jedes Fenster einer Anwendung ist in zwei Teile aufgeteilt. Der Inhalt des Fensters wird Scene genannt. Ein weiterer Teil ist der Rahmen um den Inhalt. Das ist die Stage. Sie beinhaltet ein Icon, den Titel und die Buttons zum minnimieren, maximieren und schließen des Fensters.
 
-![Screenshot zum visualisieren der Unterteilung eines Fensters in Stage und Scene.](/docResources/SceneAndStage.png)
+![Screenshot zum visualisieren der Unterteilung eines Fensters in Stage und Scene.](SceneAndStage.png)
 
 
 ## Schritt für Schritt Anleitung
@@ -56,7 +56,7 @@ Es fügt das jfx4matlab-Package zum Pfad hinzu. Dann instanziiert es die JFXAppl
 
 Ein ausführen des MATLAB-Skripts erzeugt dieses Fenster.
 
-![Screenshot einer einfachen Anwendung nach klicken des Buttons.](/docResources/SampleApplication_I.png)
+![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_I.png)
 
 Auf den ersten Blick sieht dieser Prototyp fast aus, wie das angestrebte Produkt. Einzig die Farbe des Buttons stimmt nicht. Klickt man auf den Button passiert nichts. Diese Funktionalität gilt es im nächsten Abschnitt zu ergänzen.
 
@@ -112,7 +112,7 @@ Beim Überschreiben der initScene-Methode können wir an Referenzen auf die Bedi
 
 Wird das MATLAB-Skript nun ausgeführt, so öffnet sich unser Prototyp in gewohnter Manier. Auf einen Klick auf den Button, wird mit dem Verändern des Textes reagiert.   
 
-![Screenshot einer einfachen Anwendung nach klicken des Buttons.](/docResources/SampleApplication_II.png)
+![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_II.png)
 
 ### Anwenden eines Stylesheets
 Der letzte Schritt bei der Implementierung dieser einfachen Beispielanwendung ist das Ändern der Button-Farbe. Das lässt sich über folgendes Cascading Style Sheet bewerkstelligen.
