@@ -3,7 +3,6 @@ classdef SampleController < jfx4matlab.matlab.JFXSceneController
     
     properties
         lbl; % The label with the name lbl.
-        list; % The listView with the name list. 
     end
     
     methods
@@ -13,7 +12,6 @@ classdef SampleController < jfx4matlab.matlab.JFXSceneController
         
         function initScene(obj)
             obj.lbl = obj.getUiElement('lbl');
-            obj.list = obj.getUiElement('list'); 
         end
         
         function eventConsumed = handleSceneEvent(obj, e) 
