@@ -107,7 +107,33 @@ end
 ```   
 Beim Überschreiben der initScene-Methode können wir an Referenzen auf die Bedienelemente kommen. Durch Überschreiben der handleSceneEvent-Methode erlangen wir Zugriff auf die Events. Wann immer ein Event in JavaFX ausgelöst wird, wird diese handleSceneEvent-Methode aufgerufen. Sie bekommt als Eingangs-Parameter ein Event-Objekt, welches sowohl den Namen des Quell-Bedienelements, als auch den Namen des Events enthält. Über beliebige Bedingungen kann auf diese Events reagiert werden. Wurde das Event verarbeitet, so soll handleSceneEvent true zurückgeben, ansonsten false. Wird ein Event nicht verarbeitet, so wird eine Warnung auf der Kommandozeile ausgegeben. In der Beispielanwendung wird auf das ACTION-Event, vom Quell-GUI-Element "btn", mit dem Ändern des Textes reagiert.
 
-Wird das MATLAB-Skript nun ausgeführt, so öffnet sich die Applikation. Auf einen Klick auf den Button, wird mit dem Verändern des Textes reagiert.   
+Bevor die Anwendung mit dem MATLAB-Skript gestartet wird muss eine Zeile Code im Sktript geändert werden.
+```MATLAB
+% Add required directories to classpath.-----------------------------------
+
+% Get the path to the folder containing this file.
+[pathToThisDir, ~, ~] = fileparts(mfilename('fullpath'));
+% Add all MATLAB-sources to the class path.
+addpath(genpath(pathToThisDir));
+% Add MATLAB-library to class path.
+addpath(<PATH_TO_THE_JFX4MATLAB_PACKAGE>);
+import jfx4matlab.matlab.*;
+%--------------------------------------------------------------------------
+
+% Create javaFX-application.
+jfxApplication = JFXApplication();
+
+% Create stage.
+stageController = JFXStageController(jfxApplication, 'Hello World');
+% Create scene
+% Replace the following line of code.
+% sceneController = JFXSceneController(<PATH_TO_THE_FXML_FILE>);
+sceneController = SampleController(<PATH_TO_THE_FXML_FILE>);
+stageController.showScene(sceneController);
+```
+Anstatt die JFXSceneController-Klasse direkt zu nutzen wird die soeben implementierte Kind-Klasse SampleController instanziiert.
+
+Wird das MATLAB-Skript nun ausgeführt, so öffnet sich die Applikation. Ein Klick auf den Button wird mit dem Verändern des Textes quittiert.   
 
 ![Screenshot einer einfachen Anwendung nach klicken des Buttons.](SampleApplication_II.png)
 
