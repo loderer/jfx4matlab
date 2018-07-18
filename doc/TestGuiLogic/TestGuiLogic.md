@@ -71,7 +71,13 @@ Vor allen Tests initialisiert dieser Testfall den Klassenpfad und ermittelt den 
 
 Im ersten Test (doNotClickBtn) wird überprüft, ob die Scene korrekt initialisiert wurde.
 
-Im zweiten Test (clickBtn) wird geprüft, ob das Event (Klick auf den Button) korrekt verarbeitet wrid. Dazu wird das Event gemockt und daraufhin der IST-Zustand der Benutzeroberfläche mit dem SOLL-Zustand abgeglichen.
+Im zweiten Test (clickBtn) wird geprüft, ob das Event (Klick auf den Button) korrekt verarbeitet wird. Dazu wird das Event gemockt und daraufhin der IST-Zustand der Benutzeroberfläche mit dem SOLL-Zustand abgeglichen.
+
+(Ähnlich dem mocken eines Events auf Scene-Ebene, kann mithilfe eines Aufrufs von mockStageEvent, auf einem JFXStageController, ein Event auf Stage-Ebene gemockt werden. Führt man beispielsweise
+```Matlab
+<JFXStageController>.mockStageEvent('root', 'CLOSE');
+``` 
+aus, so wird ein Klick auf den Schließen-Button des Fensters simuliert.)
 
 Gestartet wird der Testfall durch instanziieren und ausführen der SampleTestCase-Klasse.
 
