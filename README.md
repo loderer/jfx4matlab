@@ -7,5 +7,6 @@ Nachdem man erste Erfahrungen mit dem Package gesammelt hat kann man sich mit fo
 - [Datentransfer in Scenen](doc/Datatransfer/Datatransfer.md)
 - [Nutzen mehrerer Scenen](doc/MultipleScenes/MultipleScenes.md)
 - [Erzeugen modaler Fenster](doc/ModalStages/ModalStages.md)
+- [Bedingungen zum Schließen](doc/PreCloseCheck/PreCloseCheck.md)
 - [Gestalten der Benutzeroberfläche](doc/StyleGui/StyleGui.md)
 - [Testen der GUI-Logik](doc/TestGuiLogic/TestGuiLogic.md)
