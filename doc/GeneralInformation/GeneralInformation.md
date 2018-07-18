@@ -4,6 +4,9 @@ Jedes Fenster einer Anwendung ist in zwei Teile aufgeteilt. Der Inhalt des Fenst
 
 ![Screenshot zum visualisieren der Unterteilung eines Fensters in Stage und Scene.](SceneAndStage.png)
 
+## Scenes definieren
+Der Inhalt einer Scene wird über die jeweilige fxml-Datei definiert. Zum erzeugen einer fxml-Datei empfielt sich das Nutzen des Tools [SceneBuilder](https://gluonhq.com/products/scene-builder/). Es erlaubt das Platzieren von GUI-Elementen via drag-and-drop und ermöglicht die intuitive Konfiguration der Bedienelemente.  
+
 ## Zugriff auf GUI-Elemente
 Die Referenz zu einem GUI-Element kann mithilfe der getUiElement-Funktion der JFXSceneController-Klasse aufgelöst werden. Zu jeder Scene existiert genau ein JFXSceneController. Lediglich dieser JFXSceneController erlaubt den Zugriff auf die Bedienelemente der spezifischen Scene. Damit ein Bedienelement referenziert werden kann, muss ihm in der fxml-Datei ein eindeutiger Identifier zugewiesen sein.
 
