@@ -138,7 +138,7 @@ classdef JFXStageController < handle
                 obj.stage.getIcons().add(javafx.scene.image.Image(urlString)); 
             else
                 msgID = 'EXCEPTION:IllegalState';
-                msg = 'The icon has to be set before any stage is shown.';
+                msg = 'The icon has to be set before any scene is shown.';
                 throw(MException(msgID,msg));
             end
         end

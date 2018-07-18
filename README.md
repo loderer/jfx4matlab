@@ -8,5 +8,6 @@ Nachdem man erste Erfahrungen mit dem Package gesammelt hat kann man sich mit fo
 - [Nutzen mehrerer Scenen](doc/MultipleScenes/MultipleScenes.md)
 - [Erzeugen modaler Fenster](doc/ModalStages/ModalStages.md)
 - [Bedingungen zum Schließen](doc/PreCloseCheck/PreCloseCheck.md)
+- [Hinzufügen eines Icons](doc/AddIcon/AddIcon.md)
 - [Gestalten der Benutzeroberfläche](doc/StyleGui/StyleGui.md)
 - [Testen der GUI-Logik](doc/TestGuiLogic/TestGuiLogic.md)

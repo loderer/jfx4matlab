@@ -15,7 +15,10 @@ Veränderungen an GUI-Elementen (alle Objekte, deren Referenz mithilfe der getUi
 
 der JFXSceneController-Klasse zu nutzen.
 
+## Initialisieren von Scenen
+Das Initialisieren einer Scene und das auflösen von Referenzen zu GUI-Elementen sollte grundsätzlich im Controller der Scene (Klasse, die von JFXSceneController erbt) geschehen. Es empfielt sich die initScene-Funktion zu überschreiben und beides in ihrem Body zu implementieren.  
+
 ## Fenster schließen
-Fenster können standardmäßig über das Kreuz in der linken oberen Ecke geschlossen werden. Des Weiteren können Fenster mithilfe der Funktionen close und forceClose, der JFXSceneController-Klasse, geschlossen werden.
+Fenster können standardmäßig über das Kreuz in der rechten oberen Ecke geschlossen werden. Des Weiteren können Fenster mithilfe der Funktionen close und forceClose, der JFXSceneController-Klasse, geschlossen werden.
 
 Vorsicht! - Wird forceClose genutzt, so werden die [Bedingungen zum Schließen eines Fensters](../PreCloseCheck/PreCloseCheck.md) <b>nicht</b> ausgewertet.  
