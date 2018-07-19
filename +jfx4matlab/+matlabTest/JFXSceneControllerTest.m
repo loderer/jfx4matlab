@@ -61,7 +61,7 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
                 testCase.jfxApplication);
         end
         
-        function mockSceneEventTest(~)
+        function mockSceneEventTest1(~)
             [fxmlFilePath, ~, ~] = fileparts(mfilename('fullpath'));
             fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
                 'sample.fxml');
@@ -69,6 +69,19 @@ classdef JFXSceneControllerTest < matlab.unittest.TestCase
                 fxmlFilePath);
             
             sceneController.mockSceneEvent('fxId', 'action'); 
+        end
+        
+        function mockSceneEventTest2(testCase)
+            [fxmlFilePath, ~, ~] = fileparts(mfilename('fullpath'));
+            fxmlFilePath = fullfile(fxmlFilePath, '+resources',...
+                'sample.fxml');
+            stageController = jfx4matlab.matlab.JFXStageController(...
+                testCase.jfxApplication, 'stageController');
+            sceneController = jfx4matlab.matlab.JFXSceneController(...
+                fxmlFilePath);
+            stageController.showScene(sceneController);
+            
+            sceneController.mockSceneEvent('root', 'CLOSE'); 
         end
         
         function pushBackTaskTest1(testCase)
