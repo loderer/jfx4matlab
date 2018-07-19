@@ -1,7 +1,7 @@
 classdef JFXApplication < handle
-    %JFXApplication Wraps the GenericJfxApplication and its functionality. 
-    %   This class allows easy access to the functions of the java class 
-    %   GenericJfxApplication. 
+    % JFXAPPLICATION Wraps the GenericJfxApplication and its functionality. 
+    % This class allows easy access to the functions of the java class 
+    % GenericJfxApplication. 
     
     properties (Access=private)
         genericJfxApplication; % The JFXApplication object (java).
@@ -10,8 +10,13 @@ classdef JFXApplication < handle
     
     methods
         function obj = JFXApplication(jfxrtPath, genericJfxApplicationPath)
-            % This ctor allows specifiing the paths to the javaFX-runtime
-            % and to the java-libary jfx_4_matlab.
+            % JFXAPPLICATION
+            %
+            % params: 
+            % jfxrtPath: The path to the javaFX runtime.
+            % genericJfxApplicationPath: The path to the java library 
+            % generic_jfx_application.
+            
             if(~exist('jfxrtPath', 'var'))
                jfxrtPath = fullfile(matlabroot,...
                    'sys\java\jre\win64\jre\lib\jfxrt.jar');
@@ -37,34 +42,48 @@ classdef JFXApplication < handle
         end
         
         function stageHandle = createStage(obj, title, modality, ownerStage)
-            % Creates a new stage. 
+            % CREATESTAGE Creates a new stage. 
+            %
             % params: 
-            % obj 
             % title: The title of the stage.
             % modality: The modality of the stage.
-            % ownerStage: The owner-stage of the new stage. 
+            % ownerStage: The owner stage of the new stage. 
+            % 
+            % return value: StageHandle containing all data concerning the
+            % new stage.
+            
            stageHandle = obj.genericJfxApplication.createStage(title,...
                modality, ownerStage);
         end
         
         function sceneHandle = showScene(...
                 obj, stage, pathToFxml) 
-            % Propagates the specified scene on the stage. 
+            % SHOWSCENE Propagates the specified scene on a stage. 
+            %
             % params: 
-            % obj
             % stage: The stage the scene should be propergated on. 
             % pathToFxml: The scenes fxml file. 
             % width: Width of the scene. 
             % height: Height of the scene. 
+            %
+            % return value: SceneHandle containing all data concerning the
+            % new scene.
+            
             sceneHandle = obj.genericJfxApplication.showScene(...
                 stage, pathToFxml);
         end
         
         function stageControllers = getStageControllerByTitle(obj, title)
-            % Fetches all StageControllers with the given title. 
+            % GETSTAGECONTROLLERBYTITLE Fetches all JFXStageControllers with the given title. 
+            %
             % params:
-            % obj: 
-            % title: Title of the required StageController. 
+            % title: Title of the wanted StageControllers.
+            %
+            % return value: All visible JFXStageControllers with the 
+            % specified title.
+            %
+            % See also GETALLSTAGECONTROLLERS.
+            
             if(obj.allStageControllers.containsKey(title))
                 stageControllers = obj.allStageControllers.get(title);
             else
@@ -75,9 +94,13 @@ classdef JFXApplication < handle
         end
         
         function stageControllers = getAllStageControllers(obj)
-            % Fetches all StageControllers. 
-            % params:
-            % obj: 
+            % GETALLSTAGECONTROLLERS Fetches all JFXStageControllers. 
+            % 
+            % return value: All visible JFXStageControllers of this
+            % application.
+            %
+            % See also GETSTAGECONTROLLERBYTITLE.
+            
             stageControllers = jfx4matlab.matlab.collections.list.List(); 
             
             for listIndex = 1 : obj.allStageControllers.getValues().size()
@@ -91,11 +114,14 @@ classdef JFXApplication < handle
         end
         
         function addStageController(obj, stageController) 
-            % Adds a stageController to the collection of known
-            % stageControllers.
+            % ADDSTAGECONTROLLER Adds a JFXStageController to the collection of known stageControllers.
+            %
             % params: 
-            % obj: 
-            % stageController: StageController to be added. 
+            % stageController: StageController to be added.
+            %
+            % See also REMOVESTAGECONTROLLER.
+            
+            
             if(obj.allStageControllers.containsKey(stageController.getTitle()))
                tmpjfx4matlab.matlab.collections.list.List = ...
                    obj.allStageControllers.get(stageController.getTitle()); 
@@ -110,11 +136,13 @@ classdef JFXApplication < handle
         end
         
         function removeStageController(obj, stageController) 
-            % Removes a stageController from the collection of known
-            % stageControllers. 
+            % REMOVESTAGECONTROLLER Removes a JFXStageController from the collection of known stageControllers. 
+            % 
             % params:
-            % obj:
             % stageController: StageController to be removed. 
+            %
+            % See also ADDSTAGECONTROLLER.
+            
             if(obj.allStageControllers.containsKey(stageController.getTitle()))
                 obj.allStageControllers.get(stageController.getTitle()). ...
                     remove(stageController); 

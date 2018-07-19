@@ -1,14 +1,13 @@
 classdef JFXStageController < handle
-    %JFXStageController This class represents a stage of the javaFX
-    % application. 
-    %   It allows creating a stage and propagating a scene on it. Also it
-    %   takes care of registering and unregistering callbacks on the stage.
-    %   All events are passed to the respective scene controller. 
+    % JFXSTAGECONTROLLER This class represents a stage of the javaFX application. 
+    % It allows creating a stage and propagating a scene on it. Also it
+    % takes care of registering and unregistering callbacks on the stage.
+    % All events are passed to the respective JFXSceneController. 
     
     properties (Access=private)
-        jfxApplication;
-        title;
-        stage; % Appropriate javaFX stage object. 
+        jfxApplication;     % The application this controller belongs to.
+        title;              % The title of the stage. 
+        stage;              % Appropriate javaFX stage object. 
         stageObservable_h;  % Observable broadcasting all stage events.
         sceneController;    % Respective scene controller. 
     end
@@ -19,6 +18,10 @@ classdef JFXStageController < handle
             ?jfx4matlab.matlab.JFXSceneController,...
             ?jfx4matlab.matlabTest.JFXStageControllerTest})
         function unregisterStage(obj) 
+            % UNREGISTERSTAGE Unregisters this stage. 
+            % Unregisters all stage callbacks as well as this stage from 
+            % the application. 
+            
             % Unregister all callbacks from the stage.
             set(obj.stageObservable_h, 'EventCallback', '');
             % Unregister stage from JFXApplicationAdapter
@@ -26,12 +29,13 @@ classdef JFXStageController < handle
         end
         
         function handleStageEvent(obj, e)
-            % This function receives all stage actions. If a
-            % sceneController is set all events are passed to it. If no
-            % sceneController is set a error is thrown.
+            % HANDLESTAGEEVENT This function receives all stage actions. 
+            % If a sceneController is set, all events are passed to it. 
+            % If no sceneController is set a error is thrown.
+            % 
             % params: 
-            % obj: 
             % event: The stage event. 
+            
             if(obj.sceneController ~= -1) 
                 obj.sceneController.handleStageEventBase(e);
             else
@@ -47,12 +51,14 @@ classdef JFXStageController < handle
     
     methods
         function obj = JFXStageController(varargin)
-            % This constructor allows creating modal and non-modal stages.
+            % JFXSTAGECONTROLLER This constructor allows creating modal and non-modal stages.
+            % 
             % params:
-            % jfxApplication:    
-            % title: The title of the stage.
-            % (optional) modality: The modality of the stage.
-            % (optionl) owner: The owner of the stage. 
+            % jfxApplication:       The application this controller belongs to.
+            % title:                The title of the stage.
+            % (optional) modality:  The modality of the stage.
+            % (optionl) owner:      The owner of the stage. 
+            
             obj.jfxApplication = varargin{1};
             obj.title = varargin{2};
             if(nargin == 2)
@@ -82,12 +88,11 @@ classdef JFXStageController < handle
         end
         
         function showScene(obj, sceneController) 
-            % Propagate the specified scene on this stage. 
+            % SHOWSCENE Propagate the specified scene on this stage.
+            % 
             % params: 
-            % obj: 
-            % sceneController: Controller of the scene to be shown. 
-            % width: Width of the scene. 
-            % height: Height of the scene. 
+            % sceneController: JFXSceneController of the scene to be shown.
+            
             if(obj.sceneController == -1 ...
                     || obj.sceneController.isCloseable())
                 obj.sceneController = sceneController;
@@ -99,9 +104,15 @@ classdef JFXStageController < handle
         end
         
         function mockStageEvent(obj, fxId, action)
+            % MOCKSTAGEEVENT This function enables mocking events on stage level.
             % This method is intended to be used only in tests. It
             % calls the internal handleStageEvent function and allows
             % thereby mocking ui-events. 
+            % 
+            % params:
+            % fxId: The fxId the mocked event should contain.
+            % action: The action the mocked event should contain.
+            
             fxId = java.lang.String(fxId);
             action = java.lang.String(action);
             obj.handleStageEvent(struct('fxId', fxId, 'action', action));
@@ -124,12 +135,13 @@ classdef JFXStageController < handle
         end
         
         function setIcon(obj, url)
-            % This function allows setting an icon next to the title of the
-            % stage. This is possible till the first scene is shown on a 
+            % SETICON This function allows setting an icon next to the title of the stage. 
+            % This is only possible till the first scene is shown on a 
             % stage.
+            %
             % params: 
-            % obj:
             % url: The full path to the icon.
+            
             if(obj.sceneController == -1)
                 file = java.io.File(url);
                 uri = file.toURI();

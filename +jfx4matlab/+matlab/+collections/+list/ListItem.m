@@ -1,5 +1,5 @@
 classdef ListItem < handle
-    %LISTITEM An item of a list. 
+    %LISTITEM An item of a LIST. 
     
     properties(Access=private)
         % The value of the ListItem.
@@ -10,6 +10,8 @@ classdef ListItem < handle
     
     methods
         function obj = ListItem(value)
+            % LISTITEM Creates an item with the specified value.
+            
             obj.value = value; 
             obj.next = -1; 
         end
@@ -31,9 +33,12 @@ classdef ListItem < handle
         end
         
         function count = childCount(obj) 
-            % Fetches and increases the child-count from the ListItem next 
-            % to this by one. If there is no ListItem next to this zero is
-            % returned. 
+            % CHILDCOUNT Returns the number of childs. 
+            % Fetches and increases the child-count from the ListItem next to this by one. 
+            % If there is no ListItem next to this zero is returned. 
+            %
+            % return value: The number of child elements.
+            
             if(obj.next == -1)
                 count = 0; 
             else
@@ -42,9 +47,16 @@ classdef ListItem < handle
         end
         
         function value = get(obj, index) 
+            % GET Get the value of an item.
             % If the index is zero the value of this item is returned.
             % Otherwise the index is reduced by one and the function will
             % be called recursively on the ListItem next to this. 
+            % 
+            % params:
+            % index: The index of the value to be returned.
+            %
+            % return value: The value of the item with the specified index.
+            
             if(index == 0)
                 value = obj.value; 
             else
@@ -59,9 +71,17 @@ classdef ListItem < handle
         end
         
         function oldValue = set(obj, index, newValue)
+            % SET Replace the value of an item.
             % If the index is zero the value of this is replaced by the new
             % value. Otherwise the index is reduced by one and the function 
             % will be called recursively on the ListItem next to this.
+            % 
+            % params:
+            % index:    The index of the value to be replaced.
+            % newValue: The new value to be associated.
+            %
+            % return value: The value which is replaced.
+            
             if(index == 0)
                 oldValue = obj.value; 
                 obj.value = newValue; 

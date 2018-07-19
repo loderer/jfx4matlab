@@ -1,17 +1,16 @@
 classdef MapItem < handle; 
-    %MAPITEM An item of a map.
+    %MAPITEM An item of a MAP.
     
     properties(Access=private)
-        % The key of this.
-        key;
-        % The value of this.
-        value; 
-        % The MapItem next to this.
-        next; 
+        key; % The key of this.
+        value; % The value of this.
+        next; % The MapItem next to this.
     end
     
     methods
         function obj = MapItem(key, value)
+            % MAPITEM Creates an item with the specified key and value.
+            
             obj.key = key; 
             obj.value = value;
             obj.next = -1; 

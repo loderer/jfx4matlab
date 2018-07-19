@@ -1,20 +1,28 @@
 classdef Map < handle
-    %UNTITLED Summary of this class goes here
-    %   Detailed explanation goes here
+    % MAP Simple implementation of a map. Each key is contained once.
     
     properties(Access = private)
-        % The first item in the map.
-        head; 
+        head;   % The first item in the map.
     end
     
     methods
         function obj = Map()
+            % MAP Creates an empty map.
             obj.head = -1; 
         end
         
         function overwrite = put(obj, key, value) 
-            % Add a pair of key and value. If the key is still contained
-            % true will be returned.
+            % PUT Add a pair of key and value. 
+            % If the key is still contained true will be returned and the
+            % associated value will be overwritten.
+            %
+            % params:
+            % key: The key of the item to be added.
+            % value: The value of the item to be added.
+            %
+            % return value: True, if the key is still contained, otherwise
+            % false.
+            
             overwrite = false; 
             if(isequal(obj.head, -1))
                obj.head = jfx4matlab.matlab.collections.map.MapItem(key, value); 
@@ -36,7 +44,11 @@ classdef Map < handle
         end
         
         function value = get(obj, key)
-            % Fetches the value associated to the specified key. 
+            % GET Fetches the value associated to the specified key.
+            %
+            % return value: The value which is associated with the
+            % specified key. 
+            
             keyContained = false; 
             value = -1;
             if(~isequal(obj.head, -1))  
@@ -60,8 +72,13 @@ classdef Map < handle
         end
         
         function existed = remove(obj, key)
-            % Removes the pair associated to the specified key from the
-            % map.
+            % REMOVE Removes the pair associated to the specified key.
+            %
+            % params:
+            % key: The key of the pair to be removed.
+            %
+            % return value: True, if an entry was removed, otherwise false.
+            
             existed = false; 
             if(~isequal(obj.head, -1))  
                 if(isequal(obj.head.getKey(), key))
@@ -82,7 +99,13 @@ classdef Map < handle
         end
         
         function contains = containsKey(obj, key) 
-            % Determines if the key is contained. 
+            % CONTAINSKEY Determines if the key is contained. 
+            %
+            % params:
+            % key: The key whose existence should be checked. 
+            %
+            % return value: True, if the key is contained, otherwise false.
+            
             contains = false; 
             actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
             actItem.setNext(obj.head); 
@@ -96,7 +119,10 @@ classdef Map < handle
         end
         
         function values = getValues(obj)
-            % Fetches all values. 
+            % GETVALUES Fetches all values. 
+            %
+            % return value: All contained values.
+            
             values = jfx4matlab.matlab.collections.list.List(); 
             actItem = jfx4matlab.matlab.collections.map.MapItem(-1, -1); 
             actItem.setNext(obj.head);
