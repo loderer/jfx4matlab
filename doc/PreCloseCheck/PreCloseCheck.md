@@ -1,5 +1,4 @@
-# Bedingungen zum Schließen
-- Muss zum Schließen eines Fensters eine Bedingung erfüllt werden?
-- Soll vor dem Schließen eines Fensters ein Vorgang angestoßen werden?
+# Pre close checks
+Do you like to check some conditions or trigger a task before closing a window?
 
-Durch überschreiben der Methode "isCloseable", der JFXSceneController-Klasse, kann beides bewerkstelligt werden. Die Methode wird vor dem Schließen des Fensters ausgeführt und erlaubt, in ihrem Body, das Prüfen einer Bedingung oder das Anstpßen eines Vorgangs. Liefert "isCloseable" true an den Aufrufer zurück, so wird das Fenster geschlossen, andernfalls bleibt das Fenster offen.
+You can achieve this by redefining the "isCloseable"-function of the JFXSceneController-class. This function is called just before the window is closed. It allows to call any function in its body. If "isCloseable" returns true, the window is closed. If it returns false the window stays open.

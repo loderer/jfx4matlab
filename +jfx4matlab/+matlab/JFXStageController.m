@@ -110,8 +110,8 @@ classdef JFXStageController < handle
             % thereby mocking ui-events. 
             % 
             % params:
-            % fxId: The fxId the mocked event should contain.
-            % action: The action the mocked event should contain.
+            % fxId: The fxId of the source of this event. 
+            % action: The name of the event.
             
             fxId = java.lang.String(fxId);
             action = java.lang.String(action);

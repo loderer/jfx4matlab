@@ -1,30 +1,31 @@
-# Erzeugen modaler Fenster
-Per default ist jede Stage (jedes Fenster) nicht-Modal. Das bedeutet alle Fenster einer Applikation können gleichermaßen bedient und in den Vordergrund geholt werden. Will man den Nutzer zu einer Eingabe zwingen, so ist es notwendig ein Fenster im Vordergrund zu fixieren. Zu diesem Zweck kann die Modalitäts-Eigenschaft jedes Fensters einen der drei Werte
-- NONE,
-- APPLICATION_MODAL oder
-- WINDOW_MODAL
+# Create modal stages
+By default, each window is non-modal. If an application consists of several non-modal windows, you can bring each of them into the foreground. If you want to force a user to do something, you can achieve this, by changeing the modality of a window. This enables fixing a window in front of another window or even in front of all windows of an application. Each windows modality-attribute must have one of these three values:
+- NONE
+- APPLICATION_MODAL
+- WINDOW_MODAL  
 
-annehmen. Ihre Verwendung wird im Folgenden näher erläutert.
+Their use is described below.
 
 ## NONE
-Wie bereits in der Einführung beschrieben ist jede Stage standardmäßig NONE-Modal. Nicht-Modale Fenster haben keine Auswirkung auf die Sichtbarkeit aller anderen Fenster der Applikation.
+As already mentioned each window is non-modal by default. Non-modal windows do not have any effect on the visibility of other windows.
 
-Eine Nicht-Modale Stage kann durch folgenden Aufruf, des Konstruktors, der JFXSTageController-Klasse, erzeugt werden.
+You can create a non-modal window by creating the Stage like this:
 ```
 JFXStageController(<JFXApplication>, <TITLE>);
 ```
 
 ## APPLICATION_MODAL
-Wird eine Stage mit dem Attribut APPLICATION_MODAL versehen, so verdeckt es alle anderen Fenster der Applikation. Solange die Stage sichtbar ist kann der Benutzer kein anderes Fenster der Anwendung in den Vordergrund holen.
+An application-modal window blocks the users access to each other window of the application until it is closed.
 
-Eine Application-Modale Stage kann durch folgenden Aufruf, des Konstruktors, der JFXSTageController-Klasse, erzeugt werden.
+You can create an application-modal window by creating the Stage like this:
 ```
 JFXStageController(<JFXApplication>, <TITLE>, javafx.stage.Modality.APPLICATION_MODAL);
 ```
 ## WINDOW_MODAL
-Einem jeden Window-Modalen Fenster ist sein Besitzer-Fenster bekannt. Solange es sichtbar ist, verdeckt es sein Besitzer-Fenster und rekursiv dessen Besitzer-Fenster.
+An window-modal window blocks the users access to each owner-window recursively until it is closed.
 
-Eine Window-Modale Stage kann durch folgenden Aufruf, des Konstruktors, der JFXSTageController-Klasse, erzeugt werden. OWNER_JFXSTAGECONTROLLER ist dabei der JFXStageController des Besitzer-Fensters.
+You can create an window-modal window by creating the Stage like this:
 ```
 JFXStageController(<JFXApplication>, <TITLE>, javafx.stage.Modality.WINDOW_MODAL, <OWNER_JFXSTAGECONTROLLER>);
 ```
+The OWNER_STAGECONTROLLER is the JFXStageController of the window to be hidden, when the new window is shown.

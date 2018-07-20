@@ -1,7 +1,8 @@
-# Testen der GUI-Logik
-Ein Alleinstellungsmerkmal des jfx4matlab-Packages is die Möglichkeit die Logik der GUI zu testen. So kann sichergestellt werden, dass die GUI korrekt initialisiert und Events korrekt verarbeitet werden.
+# Test the logic of the gui
+One unique function of the jfx4matlab-package is the possibility of testing the logic of the gui. This ensures that the gui initializes correctly and events were processed as requested.
 
-Das Thema "Testen der GUI-Logik" wird im Folgenden auf Basis der [Hello World Anwendung](../../samples/HelloWorld) erklärt. Wir möchten prüfen, ob die Anwendung korrekt initialisiert und das Event (Klick auf den Button) korrekt verarbeitet wird. Dazu implementieren wir folgenden Testfall:
+To explain the the testing-functions clear, we describe them while writing some tests for the [Hello World application](../../samples/HelloWorld). Therefore we use MATLAB-internal "matlab.unittest.TestCase" base-class.
+
 ```matlab
 classdef SampleTestCase < matlab.unittest.TestCase
 
@@ -67,18 +68,18 @@ classdef SampleTestCase < matlab.unittest.TestCase
     end
 end
 ```
-Vor allen Tests initialisiert dieser Testfall den Klassenpfad und ermittelt den Pfad zur fxml-Datei der Hello World Anwendung. Vor jedem Test initialisiert er die Applikation neu. Nach jedem Test werden die im Test geöffneten Fenster geschlossen.
+Before running a test the above testcase initializes the classpath and determines the path of the fxml-file. Before each test the application is reinitialized. After each test all windows, opened by the test, are closed.
 
-Im ersten Test (doNotClickBtn) wird überprüft, ob die Scene korrekt initialisiert wurde.
+The first test ("doNotClickBtn") checks if the scene is initialized correctly.
 
-Im zweiten Test (clickBtn) wird geprüft, ob das Event (Klick auf den Button) korrekt verarbeitet wird. Dazu wird das Event gemockt und daraufhin der IST-Zustand der Benutzeroberfläche mit dem SOLL-Zustand abgeglichen.
+The second test ("clickBtn") checks if the event (click the button) is processed correctly. Therefore the event is mocked. After that the actual state of the application is compared with the target state of the application.
 
-(Ähnlich dem mocken eines Events auf Scene-Ebene, kann mithilfe eines Aufrufs von mockStageEvent, auf einem JFXStageController, ein Event auf Stage-Ebene gemockt werden. Führt man beispielsweise
+(Similar to mocking a event on scene-level, you can mock events on stage-level. Therefore you have to call the "mockStageEvent"-function of the appropriate JFXStageController. If you write
 ```Matlab
 <JFXStageController>.mockStageEvent('root', 'CLOSE');
-``` 
-aus, so wird ein Klick auf den Schließen-Button des Fensters simuliert.)
+```
+you simulate a click on the close-button of the window.)
 
-Gestartet wird der Testfall durch instanziieren und ausführen der SampleTestCase-Klasse.
+You can run the testcase by instantiating and running it.  
 
-Der Sourcecode dieses Beispiels befindet sich in [diesem Ordner](../../samples/TestGuiLogic). Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
+The sources of this example are available [here](../../samples/TestGuiLogic). To run the example you have to check out the whole repository! The structure of the folders must not be changed!

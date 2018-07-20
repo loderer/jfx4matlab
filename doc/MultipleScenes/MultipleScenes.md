@@ -1,9 +1,9 @@
-# Nutzen mehrerer Scenen
-Die meisten Applikationen bestehen aus mehr als einer Scene. Oftmals wird von von einer Startseite auf verschiedene Scenen mit spezifischen Aufgaben umgeleitet. Dabei werden die Scenen entweder in einem neuen Fenster geöffent, oder ersetzen die Startseite. Beide Fälle, sowohl das öffnen eines weiteren Fensters, als auch das ersetzen einer Scene, sollen im Folgenden anhand eines Beispiels abgearbeitet werden.
+# Use multiple scenes
+The most applications consist of more than one scene. Often one start page refers to multiple sub-scenes. Therefore a new scene replaces the start page or is displayed in an additional window. Both cases are included in the example below.    
 
-Das Beispiel basiert auf der [Hello World Anwendung](../../samples/HelloWorld) und erweitert diese um eine Startseite. (Die Scene der [Hello World Anwendung](../../samples/HelloWorld) wird im Folgenden mit Sample-Scene bezeichnet.) Die Startseite erlaubt dem Benutzer die Wahl, ob er die Startseite durch die Sample-Scene ersetzen will oder ob er die Sample-Scene in einem neuen Fenster öffnen will.
+This example is based on the [Hello World application](../../samples/HelloWorld). It extends that application by adding a start page. The start page allows to choose, if the scene from the [Hello World application](../../samples/HelloWorld) should be shown in a additional or the existing window.
 
-Zuerst erschaffen wir die fxml-Datei der Startseite.
+At first we have to create the fxml-file of the start page.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -17,7 +17,7 @@ Zuerst erschaffen wir die fxml-Datei der Startseite.
    </children>
 </VBox>
 ```
-Diese enthält zwei Buttons. Beiden wurde ein Identifier und ein sprechender Text zugewiesen. Das Action-Event beider Buttons wird an das jfx4matlab-Package weitergeleitet. Folgender Controller erbt von der JFXSceneController-Klasse und verarbeitet die Action-Events.
+The file defines two buttons. Each of them got an identifier and a text. The "onAction"-event of both buttons are transmitted to the jfx4matlab-package. The following JFXSceneController processes the events.
 ```MATLAB
 classdef StarterController < jfx4matlab.matlab.JFXSceneController
     %STARTERCONTROLLER Controller class for the starter scene.
@@ -62,9 +62,9 @@ classdef StarterController < jfx4matlab.matlab.JFXSceneController
     end
 end
 ```
-Die Funktion "openSampleInOtherWindow" erzeugt ein neues Fenster (eine neue Stage). Die Sample-Scene wird in diesem neuen Fenster geöffnet. Die Funktion "openSampleInThisWindow" hingegen, öffnet die Sample-Scene auf der Stage der Startseite. Die Stage wird dabei über eine Methode der Basisklasse JFXSceneController ermittelt.
+The function "openSampleInOtherWindow" creates a new window and displays the scene from the [Hello World application](../../samples/HelloWorld) there. The function "openSampleInThisWindow" displays the scene in the window of the start page. Therefore it shows the scene on the stage of the start page.
 
-Im Start-Skript der Anwendung muss nun noch die Scene der Startseite anstatt der Sample-Scene instanziiert werden.
+Finally we have to modify the MATLAB-script.
 ```Matlab
 % Add required directories to classpath.-----------------------------------
 
@@ -91,17 +91,18 @@ stageController = JFXStageController(jfxApplication, 'Hello World Starter');
 sceneController = StarterController(pathToFxml);
 stageController.showScene(sceneController);
 ```
+Instead of showing the scene from the [Hello World application](../../samples/HelloWorld) the start page should be shown.
 
-Nach dem Start der Applikation öffnet sich dieses Fenster.
+Running the MATLAB-script opens this window.
 
-![Screenshot der gestarteten Anwendung.](SampleApplication_I.png)
+![The initial application.](SampleApplication_I.png)
 
-Klickt man auf den Button "open scenen in another window", so öffnet sich ein weiteres Fenster.
+Clicking the buton "open scene in another window" opens one more window with the scene of the [Hello World application](../../samples/HelloWorld).
 
-![Screenshot der gestarteten Anwendung.](SampleApplication_II.png)
+![The application after clicking on the button "open scene in another window".](SampleApplication_II.png)
 
-Ein Klick auf den Button "open scene in this window" hat ein Verdrängen der Startseite zur Folge.
+A click on the button "open scene in this window" replaces the scene with the start page, with the scene of the [Hello World application](../../samples/HelloWorld).
 
-![Screenshot der gestarteten Anwendung.](SampleApplication_III.png)
+![The application after clicking on the button "open scene in this window".](SampleApplication_III.png)
 
-Der Sourcecode dieses Beispiels befindet sich in [diesem Ordner](../../samples/MultipleScenes). Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
+The sources of this example are available [here](../../samples/MultipleScenes). To run the example you have to check out the whole repository! The structure of the folders must not be changed!

@@ -1,8 +1,8 @@
-# Datentransfer in Scenen
-Es gibt verschiedene Wege Daten in eine Scene zu transferieren. Grundsätzlich gilt, dass zum verarbeiten von Daten, die Klasse JFXSceneController erweitert werden muss. Zwei Methoden zum Datentransfer in Scenen werden im Folgenden Abschnitt näher erläutert.
+# Transfer data into a scene
+There are several options to transfer data into a scene. Basically the JFXSceneController has to be extended, for processing data. Once the data is within the JFXSceneController you can change the gui accordingly. Two options of transferring data into a JFXScenController are explained below.   
 
-## Transfer als Konstruktor-Parameter
-Daten können als Parameter des Konstruktors übermittelt werden. Bedingung für diese Vorgehensweise ist, dass die zu transferierenden Daten, oder zumindest eine Refernz darauf, bereits zum Instanziierungszeitpunkt der Scene feststehen. Ist das der Fall, so kann man beim Erweitern der JFXSceneController-Klasse den Konstruktor um einen Parameter ergänzen und die übermittelten Daten, zum Beispiel in einem Klassenattribut, zur späteren Verwendung sichern.
+## Transfer data as a constructor parameter
+Data can be transferred as a constructor parameter. Therefore the data, at least a reference to it, has to be known before a JFXSceneController is instantiated. In this case, you can extend the constructor of the JFXSceneController-class, to pass data into it.
 
-## Transfer durch expliziten Methodenaufruf
-Flexibler als der Transfer als Konstruktor-Parameter, ist das Übermitteln von Daten mithilfe eines expliziten Methodenaufrufs. Diese Vorgehensweise erlaubt auch das Übertragen von Daten, die bei der Erzeugung der Scene noch nicht bekannt waren. Entscheidet man sich für den Transfer durch einen expliziten Methodenaufruf, so wird beim Erweitern der JFXSceneController-Klasse eine set-Methode ergänzt. Sie überträgt die Daten als Parameter. Wie die Daten innerhalb der Scene weiterverarbeitet werden bleibt dem Entwickler überlassen. 
+## Transfer data by calling a function
+More flexible than passing data as a constructor parameter, is transferring data by calling a function. Transferring data by calling a function allows to pass data, which was not known at the instatiation at the JFXSceneController, into it. Therefore you have to add a function to the class derived from JFXSceneController. This function transfers the data as its parameter.

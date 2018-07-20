@@ -1,25 +1,22 @@
-# Gestalten der Benutzeroberfläche
-Dem jfx4matlab-Package liegt JavaFX zugrunde. JavaFX erlaubt das individuelle Gestalten von Scenes mithilfe von css-Dateien. Dieser Abschnitt versucht anhand eines kleinen Beispiels die grundlegenden Schritte zum stylen einer Scene zu veranschaulichen. Weiterführende Informationen bezüglich dem Anwenden von css-Dateien sind der [JavaFX-Referenz](https://docs.oracle.com/javafx/2/get_started/css.htm ) zu entnehmen. Beim sichten dieser Dokumente gilt es jedoch darauf zu achten, dass die css-Dateien nicht durch Java-Code mit der Scene verknüft werden können. Stattdessen müssen die css-Dateien entsprechend des Abschnitts "css-Datei in fxml-Datei referenzieren" in den jeweiligen fxml-Dateien referenziert werden.
+# Change the style of the gui
+The jfx4matlab-package is based on javaFX. JavaFX allows customizing scenes by applying css-files. This section tries to give an insight in how you can do this.  
 
-Dieses Beispiel basiert auf der  [Hello World Anwendung](../../samples/HelloWorld). Wird sie gestartet, öffnet sich dieses Fenster.
-![Screenshot der Hello World Anwendung](SampleApplication_I.png)
+The example below is based on the [Hello World application](../../samples/HelloWorld). In the following we change the shape and color of the button.  
 
-Ziel ist es nun die Form und Farbe des Buttons zu verändern.
-
-## css-Datei erzeugen
-Zuerst muss eine ensprechende css-Datei geschrieben werden.
+## Create a css-file
+At first we have to create an appropriate css-file.
 ```css
 .button {
-	-fx-background-color: #ed8b00;
+		-fx-background-color: #ed8b00;
     -fx-text-fill: #63666a;
     -fx-background-radius: 30;
     -fx-background-insets: 0;
 }
 ```
-Sie ändert die Hintergrundfarbe eines Buttons zu orange und die Textfarbe zu grau. Ebenso rundet sie den Button ab.
+This file selects all buttons and changes the color of their text to grey and the background to orange. Likewise the buttons are rounded off. A more detailed description on how to costumize ui-elements can be found at the [javaFX reference page](https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm). (Watch out if you follow the instructions on the [javaFX reference page](https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm). You should not link the css and the scene by java-code. Instead you have to specify the css- in the fxml-file of the scene. For further information on how to specify the css- in the fxml-file, see section "Tie css-file to scene".)
 
-## css-Datei in fxml-Datei referenzieren
-Damit die css-Datei beim generieren der Scene berücksichtigt wird muss es im fxml verknüpft werden.
+## Tie css-file to scene
+To ensure that the css-file is considered while parsing the scene, you have to tie it to the fxml-file.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -38,10 +35,10 @@ Damit die css-Datei beim generieren der Scene berücksichtigt wird muss es im fx
    </children>
 </VBox>
 ```
-Dazu muss die stylesheets-Eigenschaft des root-Elements der Bedienelemente angepasst werden. Hier muss der Pfad zum css vermerkt werden. Damit das URL-Tag genutzt werden kann muss zusätlich URL aus dem java.net-Package importiert werden.
+Therefore the css-file has to be mentioned in the definition of the root-element of the gui-elements. To use the URL-tag you also have to import the "java.net.URL-package".
 
-Wird die Beispielanwendung gestartet, so erwartet uns dieses Fenster.
+Starting the applicaton displays this application.
 
-![Screenshot der gestalteten Hello World Anwendung](SampleApplication_II.png)
+![The styled Hello World application.](SampleApplication_II.png)
 
-Der Sourcecode dieses Beispiels befindet sich in [diesem Ordner](../../samples/StyleGui). Zum Ausführen des Beispiels muss das gesamte Repository ausgecheckt werden! Die Ordnerstruktur darf nicht verändert werden!
+The sources of this example are available [here](../../samples/StyleGui). To run the example you have to check out the whole repository! The structure of the folders must not be changed!
