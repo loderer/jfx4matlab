@@ -97,11 +97,11 @@ Running the MATLAB-script opens this window.
 
 ![The initial application.](SampleApplication_I.png)
 
-Clicking the buton "open scene in another window" opens one more window with the scene of the [Hello World application](../../samples/HelloWorld).
+Clicking the buton "open scene in another window" opens one more window containing the scene of the [Hello World application](../../samples/HelloWorld).
 
 ![The application after clicking on the button "open scene in another window".](SampleApplication_II.png)
 
-A click on the button "open scene in this window" replaces the scene with the start page, with the scene of the [Hello World application](../../samples/HelloWorld).
+A click on the button "open scene in this window" replaces the start page scene, with the scene of the [Hello World application](../../samples/HelloWorld).
 
 ![The application after clicking on the button "open scene in this window".](SampleApplication_III.png)
 

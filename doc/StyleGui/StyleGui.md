@@ -1,10 +1,10 @@
 # Change the style of the gui
-The jfx4matlab-package is based on javaFX. JavaFX allows customizing scenes by applying css-files. This section tries to give an insight in how you can do this.  
+The jfx4matlab-package is based on javaFX. JavaFX allows customizing scenes by applying css-files. This section tries to give an insight on how you can do this.  
 
 The example below is based on the [Hello World application](../../samples/HelloWorld). In the following we change the shape and color of the button.  
 
 ## Create a css-file
-At first we have to create an appropriate css-file.
+At first, we have to create an appropriate css-file.
 ```css
 .button {
 		-fx-background-color: #ed8b00;
@@ -13,7 +13,7 @@ At first we have to create an appropriate css-file.
     -fx-background-insets: 0;
 }
 ```
-This file selects all buttons and changes the color of their text to grey and the background to orange. Likewise the buttons are rounded off. A more detailed description on how to costumize ui-elements can be found at the [javaFX reference page](https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm). (Watch out if you follow the instructions on the [javaFX reference page](https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm). You should not link the css and the scene by java-code. Instead you have to specify the css- in the fxml-file of the scene. For further information on how to specify the css- in the fxml-file, see section "Tie css-file to scene".)
+This file selects all buttons and changes the color of their text to grey and the background to orange. Likewise the buttons are rounded off. A more detailed description, on how to costumize ui-elements, can be found at the [javaFX reference page](https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm). (Watch out, if you follow the instructions on the [javaFX reference page](https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm). You should not link the css-file and the scene by java-code. Instead you have to specify the css- in the fxml-file of the scene. For further information on how to specify the css- in the fxml-file, see the section "Tie css-file to scene".)
 
 ## Tie css-file to scene
 To ensure that the css-file is considered while parsing the scene, you have to tie it to the fxml-file.
@@ -37,7 +37,7 @@ To ensure that the css-file is considered while parsing the scene, you have to t
 ```
 Therefore the css-file has to be mentioned in the definition of the root-element of the gui-elements. To use the URL-tag you also have to import the "java.net.URL-package".
 
-Starting the applicaton displays this application.
+Starting the applicaton displays this window.
 
 ![The styled Hello World application.](SampleApplication_II.png)
 

@@ -19,15 +19,16 @@ Each object, resolved by the "getUiElement"-function, should only be modified us
 functions of the JFXSceneController-class.
 
 ## Event naming
-In the fxml-file each events name has the prefix "on". This prefix is indicating that the registered callback is called when the event is triggered. If you want to handle an event within the "handleSceneEvent"- or "handleStageEvent"-functions, the events name does not contain this prefix anymore!  
+In the fxml-file, each events name has the prefix "on". This prefix is indicating, that the registered callback is called, when the event is triggered. If you want to handle an event within the "handleSceneEvent"- or "handleStageEvent"-functions, the events name does not contain this prefix anymore!  
 
 ## Initialize scenes
-Basically the initialization of a scene and the dissolving of gui-elements should take place in the "initScene"-function of the JFXSceneController. This ensures that both actions happen at the right time.
+Basically the initialization of a scene and the resolution of gui-elements should take place in the "initScene"-function of the JFXSceneController. This ensures that both actions happen at the right time.
 
 ## Close windows
 By default windows can be closed by clicking on the cross in the upper right corner. To close windows programmatically, you can call the functions
 - "close" and
 - "forceClose"
+
 of the JFXSceneController-class.
 
 <b>Watch out!</b> -If you call "forceClose", the [pre close conditions](../PreCloseCheck/PreCloseCheck.md) are <b>not</b> evaluated.

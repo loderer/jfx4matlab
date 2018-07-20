@@ -7,24 +7,24 @@ By default, each window is non-modal. If an application consists of several non-
 Their use is described below.
 
 ## NONE
-As already mentioned each window is non-modal by default. Non-modal windows do not have any effect on the visibility of other windows.
+As already mentioned, each window is non-modal by default. Non-modal windows do not have any effect on the visibility of other windows.
 
-You can create a non-modal window by creating the Stage like this:
+You can create a non-modal window by creating a stage like this:
 ```
 JFXStageController(<JFXApplication>, <TITLE>);
 ```
 
 ## APPLICATION_MODAL
-An application-modal window blocks the users access to each other window of the application until it is closed.
+An application-modal window blocks the users access to each other window of the application until the application-modal window is closed.
 
-You can create an application-modal window by creating the Stage like this:
+You can create an application-modal window by creating a stage like this:
 ```
 JFXStageController(<JFXApplication>, <TITLE>, javafx.stage.Modality.APPLICATION_MODAL);
 ```
 ## WINDOW_MODAL
-An window-modal window blocks the users access to each owner-window recursively until it is closed.
+An window-modal window blocks the users access to each owner-window recursively until the window-modal window is closed.
 
-You can create an window-modal window by creating the Stage like this:
+You can create an window-modal window by creating a stage like this:
 ```
 JFXStageController(<JFXApplication>, <TITLE>, javafx.stage.Modality.WINDOW_MODAL, <OWNER_JFXSTAGECONTROLLER>);
 ```
