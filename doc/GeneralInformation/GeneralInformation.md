@@ -11,7 +11,9 @@ The content of a scene is defined by its fxml-file. You can create a fxml-file, 
 You can resolve the reference to any gui-element of a scene by calling the "getUiElement"-function of the corresponding JFXSceneController. To resolve a gui-element you have to specify an identifier in the fxml-file.
 
 ## Change gui-elements
-Each object, resolved by the "getUiElement"-function, should only be modified using the javaFX application thread. To delegate tasks to the javaFX application thread you can use the
+Each object, resolved by the "getUiElement"-function, should only be modified using the javaFX application thread. To delegate tasks to the javaFX
+application thread you can use the
+
 - "pushBackTask",
 - "applyTasks" and
 - "applyTask"
@@ -25,7 +27,9 @@ In the fxml-file, each events name has the prefix "on". This prefix is indicatin
 Basically the initialization of a scene and the resolution of gui-elements should take place in the "initScene"-function of the JFXSceneController. This ensures that both actions happen at the right time.
 
 ## Close windows
+
 By default windows can be closed by clicking on the cross in the upper right corner. To close windows programmatically, you can call the functions
+
 - "close" and
 - "forceClose"
 
