@@ -1,5 +1,5 @@
 # Create modal stages
-By default, each window is non-modal. If an application consists of several non-modal windows, you can bring each of them into the foreground. If you want to force a user to do something, you can achieve this, by changeing the modality of a window. This enables fixing a window in front of another window or even in front of all windows of an application. Each windows modality-attribute must have one of these three values:
+By default, each window is non-modal. If an application consists of several non-modal windows, you can bring each of them into the foreground. If you want to force a user to do something, you can achieve this, by changing the modality of a window. This enables fixing a window in front of another window or even in front of all windows of an application. Each windows modality-attribute must have one of these three values:
 - NONE
 - APPLICATION_MODAL
 - WINDOW_MODAL  
@@ -24,7 +24,7 @@ JFXStageController(<JFXApplication>, <TITLE>, javafx.stage.Modality.APPLICATION_
 ## WINDOW_MODAL
 An window-modal window blocks the users access to each owner-window recursively until the window-modal window is closed.
 
-You can create an window-modal window by creating a stage like this:
+You can create a window-modal window by creating a stage like this:
 ```
 JFXStageController(<JFXApplication>, <TITLE>, javafx.stage.Modality.WINDOW_MODAL, <OWNER_JFXSTAGECONTROLLER>);
 ```

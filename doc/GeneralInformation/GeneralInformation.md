@@ -12,7 +12,7 @@ You can resolve the reference to any gui-element of a scene by calling the "getU
 
 ## Change gui-elements
 Each object, resolved by the "getUiElement"-function, should only be modified using the javaFX application thread. To delegate tasks to the javaFX
-application thread you can use the
+application thread, you can use the
 
 - "pushBackTask",
 - "applyTasks" and

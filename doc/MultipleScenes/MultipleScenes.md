@@ -1,9 +1,9 @@
 # Use multiple scenes
 The most applications consist of more than one scene. Often one start page refers to multiple sub-scenes. Therefore a new scene replaces the start page or is displayed in an additional window. Both cases are included in the example below.    
 
-This example is based on the [Hello World application](../../samples/HelloWorld). It extends that application by adding a start page. The start page allows to choose, if the scene from the [Hello World application](../../samples/HelloWorld) should be shown in a additional or the existing window.
+This example is based on the [Hello World application](../../samples/HelloWorld). It extends this application by adding a start page. The start page allows to choose, if the scene from the [Hello World application](../../samples/HelloWorld) should be shown in a additional or the existing window.
 
-At first we have to create the fxml-file of the start page.
+At first, we have to create the fxml-file of the start page.
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -97,7 +97,7 @@ Running the MATLAB-script opens this window.
 
 ![The initial application.](SampleApplication_I.png)
 
-Clicking the buton "open scene in another window" opens one more window containing the scene of the [Hello World application](../../samples/HelloWorld).
+Clicking the button "open scene in another window" opens one more window containing the scene of the [Hello World application](../../samples/HelloWorld).
 
 ![The application after clicking on the button "open scene in another window".](SampleApplication_II.png)
 
@@ -105,4 +105,4 @@ A click on the button "open scene in this window" replaces the start page scene,
 
 ![The application after clicking on the button "open scene in this window".](SampleApplication_III.png)
 
-The sources of this example are available [here](../../samples/MultipleScenes). To run the example you have to check out the whole repository! The structure of the folders must not be changed!
+The sources of this example are available [here](../../samples/MultipleScenes). To run the example, you have to check out the whole repository! The structure of the folders must not be changed!

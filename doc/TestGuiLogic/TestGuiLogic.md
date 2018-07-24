@@ -1,5 +1,5 @@
 # Test the logic of the gui
-One unique function of the jfx4matlab-package is the possibility of testing the logic of the gui. This ensures that the gui initializes correctly and events were processed as requested.
+One unique function of the jfx4matlab-package is the possibility of testing the logic of the gui. This ensures, that the gui initializes correctly and events were processed as requested.
 
 To explain the testing-functions clear, we describe them while writing some tests for the [Hello World application](../../samples/HelloWorld). Therefore we use the MATLAB-internal "matlab.unittest.TestCase" base-class.
 
@@ -68,11 +68,11 @@ classdef SampleTestCase < matlab.unittest.TestCase
     end
 end
 ```
-Before running a test, the above testcase initializes the classpath and determines the path of the fxml-file. Before each test the application is reinitialized. After each test all windows, opened by the test, are closed.
+Before running a test, the above testcase initializes the classpath and determines the path of the fxml-file. Before each test the application is reinitialized. After each test, all windows, opened by the test, are closed.
 
-The first test ("doNotClickBtn") checks if the scene is initialized correctly.
+The first test ("doNotClickBtn") checks, if the scene is initialized correctly.
 
-The second test ("clickBtn") checks if the event (click the button) is processed correctly. Therefore the event is mocked. After that the actual state of the application is compared with its target state.
+The second test ("clickBtn") checks, if the event (click the button) is processed correctly. Therefore the event is mocked. After that, the actual state of the application is compared with its target state.
 
 (Similar to mocking an event on scene-level, you can mock events on stage-level. Therefore you have to call the "mockStageEvent"-function of the appropriate JFXStageController. If you write
 ```Matlab
@@ -82,4 +82,4 @@ you simulate a click on the close-button of the window.)
 
 You can run the testcase by instantiating and running it.  
 
-The sources of this example are available [here](../../samples/TestGuiLogic). To run the example you have to check out the whole repository! The structure of the folders must not be changed!
+The sources of this example are available [here](../../samples/TestGuiLogic). To run the example, you have to check out the whole repository! The structure of the folders must not be changed!
