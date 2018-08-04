@@ -258,7 +258,7 @@ classdef JFXSceneController < handle
             % HANDLESCENEEVENT To handle any scene action this function should be overwritten. 
             % If the event was consumed the function should return true 
             % if not false.
-            
+            %
             % params:
             % event: The scene event. 
             %
