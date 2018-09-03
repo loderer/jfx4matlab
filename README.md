@@ -6,6 +6,7 @@ Before you use the package, it is recommended to read the [general information](
 Once you have finished the tutorial, you can deal with this further reading.
 
 - [Transfer data into a scene](doc/Datatransfer/Datatransfer.md)
+- [Fill tables and lists](doc/TableAndList/TableAndList.md)
 - [Use multiple scenes](doc/MultipleScenes/MultipleScenes.md)
 - [Create modal stages](doc/ModalStages/ModalStages.md)
 - [Pre close checks](doc/PreCloseCheck/PreCloseCheck.md)
